@@ -10,5 +10,6 @@ export const environment = {
     baseURL: 'http://localhost:3000/',
     apiEndpoint: 'api/',
     authEndpoint: 'auth/',
-    regEndPoint: 'registration/'
+    regEndPoint: 'registration/',
+    localStorageKey: 'pcprepkitUser'
 };

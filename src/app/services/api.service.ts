@@ -9,7 +9,7 @@ import 'rxjs/Rx';
 export class APIService {
 
     private _headers: Headers;
-    private _localStorageKey = 'pcprepkitUser';
+    private _localStorageKey = environment.localStorageKey;
 
     constructor(private _http: Http) {}
 
@@ -20,10 +20,7 @@ export class APIService {
         this._headers = new Headers();
         this._headers.append('Content-Type', 'application/json');
         this._headers.append('Accept', 'application/json');
-        const token = localStorage.getItem(this._localStorageKey);
-        if (token) {
-            this._headers.append('x-access-token', token);
-        }
+        this.setTokenHeader();
     }
 
     /**
@@ -50,6 +47,20 @@ export class APIService {
     }
 
     /**
+     * Perform POST with a File request
+     * @param  {string}          url  URL of the API
+     * @param  {Object}          body Request body
+     * @return {Observable<any>}      Return response
+     */
+    public postFile(url: string, body: Object): Observable<any> {
+        // Need new header object for this API call
+        this._headers = new Headers();
+        this.setTokenHeader();
+        return this._http.post(url, body, { headers: this._headers })
+                    .catch(this._handleError);
+    }    
+
+    /**
      * Perform PUT request
      * @param  {string}          url  URL of the API
      * @param  {Object}          body Request body
@@ -68,6 +79,16 @@ export class APIService {
     private _handleError(error: Response) {
         const details = error.json();
         return Observable.throw(details);
+    }
+
+    /**
+     * Set Token header
+     */
+    private setTokenHeader() {
+        const token = localStorage.getItem(this._localStorageKey);
+        if (token) {
+            this._headers.append('x-access-token', token);
+        }         
     }
 }
 

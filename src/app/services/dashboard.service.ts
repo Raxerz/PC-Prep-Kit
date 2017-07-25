@@ -8,10 +8,14 @@ import 'rxjs/Rx';
 @Injectable()
 export class DashboardService {
 
+    private _localStorageKey = environment.localStorageKey;
+
     private _getUserInfo = environment.baseURL + environment.apiEndpoint + 'getUserInfo';
     private _mailPcPolicyInfo = environment.baseURL + environment.apiEndpoint + 'mailpcpolicy';
     private _getProgressStatus = environment.baseURL + environment.apiEndpoint + 'getProgressStatus';
     private _updateProgressStatus = environment.baseURL + environment.apiEndpoint + 'updateProgressStatus';
+    private _uploadCamPic = environment.baseURL + environment.apiEndpoint + 'uploadCam';
+    private _uploadPic = environment.baseURL + environment.apiEndpoint + 'upload';
 
     constructor(private _http: Http, private _apiservice: APIService) { }
 
@@ -51,4 +55,27 @@ export class DashboardService {
         return this._apiservice.put(this._updateProgressStatus, body)
                     .map(res => res.json());
     }
+
+    /**
+     * Upload and camera pic to server and save as profile picture
+     * @param  {Object}          body Request body
+     * @return {Observable<any>}      Return response
+     */
+    uploadCamPic(camData: Object): Observable<any> {
+        return this._apiservice.post(this._uploadCamPic, camData)
+                    .map(files => camData);
+    }    
+    /**
+     * Upload and camera pic to server and save as profile picture
+     * @param  {Object}          body Request body
+     * @return {Observable<any>}      Return response
+     */
+    uploadPic(formData: Object): Observable<any> {
+        return this._apiservice.postFile(this._uploadPic, formData)
+                    .map(res => res.json());
+    }
+
+    getToken() {
+        return localStorage.getItem(this._localStorageKey);
+    }    
 }
