@@ -42,7 +42,7 @@ export class PicturePuzzleComponent implements OnInit {
     private _activity: number;
 
     public webcamStates = webcamEnum;
-    public webcamState: number = this.webcamStates.PAGE_LOAD;
+    public webcamState: number;
     public loaded = false;
     public imageLoaded = false;
     public imageSrc = '';
@@ -61,9 +61,13 @@ export class PicturePuzzleComponent implements OnInit {
         );
     }
 
+    changeWebcamState(state, btnText) {
+        this.webcamState = state;
+        this.webcamButtonText = btnText;
+    }
+
     openWebcam() {
-        this.webcamState = this.webcamStates.OPENED;
-        this.webcamButtonText = 'Capture';
+        this.changeWebcamState(this.webcamStates.OPENED, 'Capture');
         this.imageLoaded = false;
         this._video = this.video.nativeElement;
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -76,18 +80,17 @@ export class PicturePuzzleComponent implements OnInit {
     }
 
     snapshot() {
-        this.webcamState = this.webcamStates.CAPTURED;
         if (this.webcamStream.stop) {
             this.webcamStream.stop();
         } else {
             this.webcamStream.getTracks().forEach(function(track) { track.stop() })
         }
-        this.webcamButtonText = 'Take another photo';
-        this.onImage();        
+        this.changeWebcamState(this.webcamStates.CAPTURED, 'Take another photo');
+        this.onImage();
     }
 
     ngOnInit() {
-        this.webcamButtonText = 'Take Photo';
+        this.changeWebcamState(this.webcamStates.PAGE_LOAD, 'Take Photo');
         this.checkProgress();
     }
 
@@ -95,14 +98,14 @@ export class PicturePuzzleComponent implements OnInit {
         if (this.webcamState === this.webcamStates.CAPTURED) {
             const camData = {base64: this._canvas.toDataURL('image/jpeg')}
             this._dashboardService.uploadCamPic(camData).subscribe(response => {
-                this.successAlert();
+                this.customAlert('Success!', 'Profile picture updated successfully!', 'success');
             });
         } else {
             const formData: any = new FormData();
-            const files: Array<File> = this.filesToUpload;            
+            const files: Array<File> = this.filesToUpload;
             formData.append('uploads[]', files, 'profile_picture');
             this._dashboardService.uploadPic(formData).subscribe(response => {
-                this.successAlert();
+                this.customAlert('Success!', 'Profile picture updated successfully!', 'success');
             });
         }
     }
@@ -115,8 +118,7 @@ export class PicturePuzzleComponent implements OnInit {
                 this.webcamStream.getTracks().forEach(function(track) {track.stop()})
             }
         }
-        this.webcamState = this.webcamStates.PAGE_LOAD;
-        this.webcamButtonText = 'Take Photo';
+        this.changeWebcamState(this.webcamStates.PAGE_LOAD, 'Take Photo');
         document.getElementById('file').click();
     }
 
@@ -126,7 +128,7 @@ export class PicturePuzzleComponent implements OnInit {
         const reader = new FileReader();
 
         if (!file.type.match(pattern)) {
-            this.errorAlert();
+            this.customAlert('Oops...', 'Invalid format!', 'error');
             return;
         }
 
@@ -152,12 +154,12 @@ export class PicturePuzzleComponent implements OnInit {
         this._puzzleWidth = this._pieceWidth * this.PUZZLE_DIFFICULTY;
         this._puzzleHeight = this._pieceHeight * this.PUZZLE_DIFFICULTY;
         this.setCanvas();
-        if(this.webcamState === this.webcamStates.CAPTURED) {
+        if (this.webcamState === this.webcamStates.CAPTURED) {
             this._stage.drawImage(this._video, 0, 0, this._width, this._height);
             this.activityComplete = true;
         } else {
             this.initPuzzle();
-        }        
+        }
     }
 
     setCanvas() {
@@ -176,15 +178,15 @@ export class PicturePuzzleComponent implements OnInit {
         this._stage.drawImage(this._img, 0, 0, this._width, this._height);
         this._newImg = new Image();
         this._newImg.src = this._canvas.toDataURL('image/png');
-        this._renderer.listen(this._newImg, 'load', (event) => this.buildPieces(event));
+        this._renderer.listen(this._newImg, 'load', (event) => this.buildPieces());
     }
 
-    buildPieces(e) {
+    buildPieces() {
         let i;
         let piece;
         let xPos = 0;
         let yPos = 0;
-        for (i=0; i<this.PUZZLE_DIFFICULTY*this.PUZZLE_DIFFICULTY; i++) {
+        for (i = 0; i < this.PUZZLE_DIFFICULTY * this.PUZZLE_DIFFICULTY; i++) {
             piece = {};
             piece.sx = xPos;
             piece.sy = yPos;
@@ -205,7 +207,7 @@ export class PicturePuzzleComponent implements OnInit {
         this.puzzleState = 'Shuffle';
         this._pieces = this.shuffleArray(this._pieces);
         this._stage.clearRect(0, 0, this._puzzleWidth, this._puzzleHeight);
-        for (i=0;  i<this._pieces.length; i++) {
+        for (i = 0;  i < this._pieces.length; i++) {
             piece = this._pieces[i];
             piece.xPos = xPos;
             piece.yPos = yPos;
@@ -236,7 +238,7 @@ export class PicturePuzzleComponent implements OnInit {
         return array;
     }
 
-    onPuzzleClick(e) {
+    eventHandler(e) {
         if (e.layerX || e.layerX === 0) {
             this._mouse.x = e.layerX - this._canvas.offsetLeft;
             this._mouse.y = e.layerY - this._canvas.offsetTop;
@@ -244,6 +246,10 @@ export class PicturePuzzleComponent implements OnInit {
             this._mouse.x = e.offsetX - this._canvas.offsetLeft;
             this._mouse.y = e.offsetY - this._canvas.offsetTop;
         }
+    }
+
+    onPuzzleClick(e) {
+        this.eventHandler(e);
         this._currentPiece = this.checkPieceClicked();
         if (this._currentPiece != null) {
             this._stage.clearRect(this._currentPiece.xPos, this._currentPiece.yPos, this._pieceWidth, this._pieceHeight);
@@ -258,7 +264,7 @@ export class PicturePuzzleComponent implements OnInit {
 
     checkPieceClicked() {
         let i, piece;
-        for (i=0; i<this._pieces.length; i++) {
+        for (i = 0; i < this._pieces.length; i++) {
             piece = this._pieces[i];
             if (this._mouse.x < piece.xPos || this._mouse.x > (piece.xPos + this._pieceWidth) || this._mouse.y < piece.yPos || this._mouse.y > (piece.yPos + this._pieceHeight)) {
                 // Piece not at the right place
@@ -271,16 +277,10 @@ export class PicturePuzzleComponent implements OnInit {
 
     updatePuzzle(e) {
         this._currentDropPiece = null;
-        if (e.layerX || e.layerX === 0) {
-            this._mouse.x = e.layerX - this._canvas.offsetLeft;
-            this._mouse.y = e.layerY - this._canvas.offsetTop;
-        } else if (e.offsetX || e.offsetX === 0) {
-            this._mouse.x = e.offsetX - this._canvas.offsetLeft;
-            this._mouse.y = e.offsetY - this._canvas.offsetTop;
-        }
+        this.eventHandler(e);
         this._stage.clearRect(0, 0, this._puzzleWidth, this._puzzleHeight);
         let i, piece;
-        for (i=0; i<this._pieces.length; i++) {
+        for (i = 0; i < this._pieces.length; i++) {
             piece = this._pieces[i];
             if (piece === this._currentPiece) {
                 continue;
@@ -324,7 +324,7 @@ export class PicturePuzzleComponent implements OnInit {
         this._stage.clearRect(0, 0, this._puzzleWidth, this._puzzleHeight);
         let gameWin = true;
         let i, piece;
-        for (i=0; i<this._pieces.length; i++) {
+        for (i = 0; i < this._pieces.length; i++) {
             piece = this._pieces[i];
             this._stage.drawImage(this._newImg, piece.sx, piece.sy, this._pieceWidth, this._pieceHeight, piece.xPos, piece.yPos, this._pieceWidth, this._pieceHeight);
             this._stage.strokeRect(piece.xPos, piece.yPos, this._pieceWidth, this._pieceHeight);
@@ -339,7 +339,7 @@ export class PicturePuzzleComponent implements OnInit {
 
     gameOver() {
         this._dashboardService.updateProgressStatus(this._status).subscribe(response => {});
-        this.successAlert();
+        this.customAlert('Good job!', 'You completed this activity!', 'success');
         this._mousedownListener();
         this._mousemoveListener();
         this._mouseupListener();
@@ -360,18 +360,11 @@ export class PicturePuzzleComponent implements OnInit {
         });
     }
 
-    successAlert() {
+    customAlert(title, msg, type) {
         swal(
-            'Success!',
-            'Profile picture updated successfully!',
-            'success'
-        );        
+            title,
+            msg,
+            type
+        );
     }
-    errorAlert() {
-        swal(
-            'Oops...',
-            'Invalid format!',
-            'error'
-        );        
-    }    
 }
