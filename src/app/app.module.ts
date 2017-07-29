@@ -28,9 +28,12 @@ import { APIService } from './services/api.service';
 import { RegService } from './services/reg.service';
 import { NavbarService } from './services/navbar.service';
 import { SharedDataService } from './services/shared.data.service';
-import { IntroductionComponent } from './introduction/introduction.component'
-import { HighlightActivityComponent } from './introduction/highlight-activity.component'
-import { PicturePuzzleComponent } from './introduction/picture-puzzle.component'
+import { IntroductionComponent } from './introduction/introduction.component';
+import { HighlightActivityComponent } from './introduction/highlight-activity.component';
+import { PicturePuzzleComponent } from './introduction/picture-puzzle.component';
+import { MedsNLabelsComponent } from './meds-n-labels/meds-n-labels.component';
+import { MemoryGameComponent } from './meds-n-labels/activity-2/activity-2.component';
+
 
 @NgModule({
     declarations: [
@@ -48,7 +51,9 @@ import { PicturePuzzleComponent } from './introduction/picture-puzzle.component'
         MenuComponent,
         IntroductionComponent,
         HighlightActivityComponent,
-        PicturePuzzleComponent
+        PicturePuzzleComponent,
+        MedsNLabelsComponent,
+        MemoryGameComponent
     ],
     imports: [
         AppRoutingModule,

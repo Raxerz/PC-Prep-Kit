@@ -16,6 +16,8 @@ import { MenuComponent } from './menu/menu.component';
 import { IntroductionComponent } from './introduction/introduction.component'
 import { HighlightActivityComponent } from './introduction/highlight-activity.component'
 import { PicturePuzzleComponent } from './introduction/picture-puzzle.component'
+import { MedsNLabelsComponent } from './meds-n-labels/meds-n-labels.component';
+import { MemoryGameComponent } from './meds-n-labels/activity-2/activity-2.component';
 
 export const routes: Routes = [
     {
@@ -87,7 +89,18 @@ export const routes: Routes = [
                 component: PicturePuzzleComponent
             }
         ]
-    }
+    },
+    {
+        path: 'meds-n-labels',
+        component: MedsNLabelsComponent,
+        canActivate: [LoggedInGuard],
+        children: [
+            {
+                path: 'activity-2',
+                component: MemoryGameComponent
+            }
+        ]
+    }    
 ];
 
 @NgModule({
