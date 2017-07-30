@@ -19,8 +19,8 @@ import { PicturePuzzleComponent } from './introduction/picture-puzzle.component'
 import { MedsNLabelsComponent } from './meds-n-labels/meds-n-labels.component';
 import { MemoryGameComponent } from './meds-n-labels/activity-2/activity-2.component';
 import { Malaria101Component } from './malaria-101/malaria-101.component';
-import { AnimatedVideo } from './malaria-101/activity-1/activity-1-1.component';
-import { MalariaLifeCycle } from './malaria-101/activity-1/activity-1-2.component';
+import { AnimatedVideoComponent } from './malaria-101/activity-1/activity-1-1.component';
+import { MalariaLifeCycleComponent } from './malaria-101/activity-1/activity-1-2.component';
 
 export const routes: Routes = [
     {
@@ -105,11 +105,11 @@ export const routes: Routes = [
             },
             {
                 path: 'activity-1-1',
-                component: AnimatedVideo
+                component: AnimatedVideoComponent
             },
             {
                 path: 'activity-1-2',
-                component: MalariaLifeCycle
+                component: MalariaLifeCycleComponent
             }
         ]
     },    
