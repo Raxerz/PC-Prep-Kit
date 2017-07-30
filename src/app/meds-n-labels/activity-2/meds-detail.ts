@@ -1,45 +1,43 @@
 import { Med } from './meds-structure';
 
 export const MEDS: Med[] = [
-    {
-        name: 'chloroquine',
-        desc: 'Blurred vision, nausea, vomiting, abdominal cramps, headache, and diarrhea may occur.\
-               If any of these effects persist or worsen, tell your doctor or pharmacist promptly.'
+    { 
+        name: 'area-1',
+        desc: '<img src="../../../assets/img/Memory-game/area-2.png" width=80% height=auto><br>Information about any recent or remote travel to an endemic area can help in the diagnosis of malaria.'
     },
-    {
-        name: 'coartem',
-        desc: 'Headache, dizziness, loss of appetite, weakness, fever, chills, tiredness, muscle/joint pain, nausea, vomiting, abdominal pain, cough, and trouble sleeping may occur.\
-               If any of these effects persist after stopping the medication or if these effects worsen while taking this medication, tell your doctor or pharmacist promptly.'
+    { 
+        name: 'blood-test',
+        desc: 'The definite diagnosis is made by looking at the blood of an infected patient under the microscope (blood smear) and identifying the presence of the parasite. \
+               The patients\' blood is prepared under a slide with a specific stain to help identify the parasite. This is the most widely performed and accepted test.'
     },
-    {
-        name: 'quinidine',
-        desc: 'Diarrhea, nausea, vomiting, loss of appetite, stomach pain/cramps, or a burning feeling in throat or chest (e.g., heartburn) may occur.\
-               If any of these effects persist or worsen, tell your doctor or pharmacist promptly.'
+    { 
+        name: 'enlarged-liver-1', 
+        desc: '<img src="../../../assets/img/Memory-game/enlarged-liver-2.png" width=80% height=auto><br>Malaria can cause enlarged liver. A doctor will be able to determine this.'
     },
-    {
-        name: 'quinine',
-        desc: 'Mild headache, flushing, unusual sweating, nausea, ringing in the ears, decreased hearing, dizziness, blurred vision, and temporary changes in color vision may occur. \
-               If any of these effects persist after your treatment is finished, or if these effects worsen while taking the medication, tell your doctor or pharmacist promptly.'
+    { 
+        name: 'enlarged-spleen-1',
+        desc: '<img src="../../../assets/img/Memory-game/enlarged-spleen-2.png" width=80% height=auto><br>Malaria can cause enlarged spleen. A doctor will be able to determine this.'
     },
-    {
-        name: 'malarone',
-        desc: `Side effects may include nausea, vomiting, abdominal pain, headache, diarrhea, weakness, loss of appetite, and dizziness.\
-               If any of these effects persist or worsen, tell your doctor or pharmacist promptly.`
+    { 
+        name: 'other-tests',
+        desc: `Other useful tests that may be done include:<br>\
+               1. Quantitative Buffy Coat<br>\
+               2. Molecular methods`
     },
-    {
-        name: 'doxycycline',
-        desc: 'Stomach upset, diarrhea, nausea, or vomiting may occur.\
-               If any of these effects persist or worsen, tell your doctor or pharmacist promptly.'
+    { 
+        name: 'rapid-diagnostic-test-1',
+        desc: '<img src="../../../assets/img/Memory-game/rapid-diagnostic-test-2.png" width=80% height=auto><br>One drop of blood is taken from a finger and immediately placed on a test strip.\
+               A few drops of a solution are added, and a few minutes later, a red line appears on the strip.\
+               If two red lines appear, the test is positive for falciparum malaria.'
     },
-    {
-        name: 'melfoquine',
-        desc: 'Stomach upset/pain, loss of appetite, nausea/vomiting, headache, muscle pain, or diarrhea may occur.\
-               If any of these effects persist or worsen, tell your doctor promptly.'
+    { 
+        name: 'symptoms-1',
+        desc: '<img src="../../../assets/img/Memory-game/symptoms-2.png" width=80% height=auto><br>Talk to your doctor if you experience a high fever while living in or after traveling to a high-risk malaria region.\
+               The parasites that cause malaria can lie dormant in your body for up to a year. If you have severe symptoms, seek emergency medical attention.'
     },
-    {
-        name: 'primaquine',
-        desc: 'Nausea, vomiting, dizziness, stomach upset, and abdominal cramps may occur.\
-               If any of these effects persist or worsen, tell your doctor or pharmacist promptly.'
+    { 
+        name: 'virus-1',
+        desc: '<img src="../../../assets/img/Memory-game/virus-2.png" width=80% height=auto><br>P. falciparum tends to be the species causing the most complications and has a high mortality if untreated.'
     }
 ];
 

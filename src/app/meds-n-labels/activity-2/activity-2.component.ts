@@ -29,22 +29,22 @@ export class MemoryGameComponent implements OnInit {
     public activityComplete = false;
 
     private _faces = [
-                'chloroquine.png',
-                'coartem.png',
-                'quinidine.png',
-                'coartem.png',
-                'quinine.png',
-                'malarone.png',
-                'quinidine.png',
-                'doxycycline.png',
-                'malarone.png',
-                'melfoquine.png',
-                'melfoquine.png',
-                'quinine.png',
-                'chloroquine.png',
-                'primaquine.png',
-                'doxycycline.png',
-                'primaquine.png',
+                'area-1.png',
+                'blood-test.png',
+                'enlarged-liver-1.png',
+                'blood-test.png',
+                'enlarged-spleen-1.png',
+                'other-tests.png',
+                'enlarged-liver-1.png',
+                'rapid-diagnostic-test-1.png',
+                'other-tests.png',
+                'symptoms-1.png',
+                'symptoms-1.png',
+                'enlarged-spleen-1.png',
+                'area-1.png',
+                'virus-1.png',
+                'rapid-diagnostic-test-1.png',
+                'virus-1.png',
             ];
 
     constructor(private _dashboardService: DashboardService, private _sharedData: SharedDataService) {
@@ -141,7 +141,7 @@ export class MemoryGameComponent implements OnInit {
             const med = medName.substr(0, medName.lastIndexOf('.'));
             for (let i = 0; i < MEDS.length; i++) {
                 if (MEDS[i].name === med) {
-                    this.successMatchAlert(MEDS[i].name, MEDS[i].desc);
+                    this.successMatchAlert(MEDS[i].desc);
                     this.isMatchArr[this._secondchoice] = false;
                     this.isMatchArr[this._firstchoice] = false;
                     break;
@@ -166,9 +166,9 @@ export class MemoryGameComponent implements OnInit {
      * @param {String} medName The name of the medication
      * @param {String} msg     The side effect message to be displayed
      */
-    successMatchAlert(medName, msg) {
+    successMatchAlert(msg) {
         swal(
-            'Congratulations!<br>You matched a pair of ' + medName,
+            'Congratulations!<br>You matched a pair',
             msg,
             'success'
         );

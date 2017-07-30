@@ -33,6 +33,9 @@ import { HighlightActivityComponent } from './introduction/highlight-activity.co
 import { PicturePuzzleComponent } from './introduction/picture-puzzle.component';
 import { MedsNLabelsComponent } from './meds-n-labels/meds-n-labels.component';
 import { MemoryGameComponent } from './meds-n-labels/activity-2/activity-2.component';
+import { Malaria101Component } from './malaria-101/malaria-101.component';
+import { AnimatedVideo } from './malaria-101/activity-1/activity-1-1.component';
+import { MalariaLifeCycle } from './malaria-101/activity-1/activity-1-2.component';
 
 
 @NgModule({
@@ -53,7 +56,10 @@ import { MemoryGameComponent } from './meds-n-labels/activity-2/activity-2.compo
         HighlightActivityComponent,
         PicturePuzzleComponent,
         MedsNLabelsComponent,
-        MemoryGameComponent
+        MemoryGameComponent,
+        Malaria101Component,
+        AnimatedVideo,
+        MalariaLifeCycle
     ],
     imports: [
         AppRoutingModule,
