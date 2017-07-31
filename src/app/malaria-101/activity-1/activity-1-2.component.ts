@@ -63,10 +63,11 @@ export class MalariaLifeCycleComponent implements OnInit {
         const data = document.getElementById(ev.dataTransfer.getData('text'));
         const srcParent = data.parentNode;
         const tgt = ev.currentTarget.firstElementChild;
-        let firstSrc = ev.currentTarget.firstElementChild.src;
+        
         if (tgt) {
             ev.currentTarget.replaceChild (data, tgt);
             srcParent.appendChild (tgt);
+            let firstSrc = ev.currentTarget.firstElementChild.src;
             let secondSrc = tgt.src;
             firstSrc = firstSrc.substr(firstSrc.lastIndexOf('/') + 1);
             secondSrc = secondSrc.substr(secondSrc.lastIndexOf('/') + 1);
@@ -77,6 +78,7 @@ export class MalariaLifeCycleComponent implements OnInit {
 
         } else {
             ev.currentTarget.appendChild(data);
+            let firstSrc = ev.currentTarget.firstElementChild.src;
             firstSrc = firstSrc.substr(firstSrc.lastIndexOf('/') + 1);
             if (ev.currentTarget.id > 0 && ev.currentTarget.id <= 6) {
                 this.currArrState[Number(ev.currentTarget.id)] = firstSrc;
