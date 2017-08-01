@@ -1,10 +1,10 @@
 @import "../styles/components/_variables";
 
 ::selection {
-    background: $selection-yellow-background; /* WebKit/Blink Browsers */
+    background: $yellow; /* WebKit/Blink Browsers */
 }
 ::-moz-selection {
-    background: $selection-yellow-background; /* Gecko Browsers */
+    background: $yellow; /* Gecko Browsers */
 }
 h3 {
     text-align: center;
@@ -16,8 +16,8 @@ h2 {
 }
 
 .mosquito {
-  width: 80px;
-  height: auto;
+    width: 80px;
+    height: auto;
 }
 
 .lead-title {
@@ -32,71 +32,61 @@ h2 {
     font-size: 1.5em;
 }
 
+@mixin border-bottom-right-radius($radius...) {
+    -webkit-border-bottom-right-radius: $radius;
+    -moz-border-radius-bottomright: $radius;
+    border-bottom-right-radius: $radius;
+}
+
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius; 
+    border-radius: $radius; 
+}
+
 .rectangle-speech-border {
     position: relative;
     padding: 50px;
     width: 100%;
     margin: 1em 0 3em;
-    border: 2px solid $black;
+    border: 2px solid black;
     color: #333;
     background: $white;
-    /* css3 */
     -webkit-border-radius: 50px;
     -moz-border-radius: 50px;
     border-radius: 50px;
-}
-
-/* creates larger curve */
-.rectangle-speech-border:before {
-    content: "";
-    position: absolute;
-    z-index: 10;
-    bottom: -30px;
-    left: 50px;
-    width: 50px;
-    height: 30px;
-    border-style: solid;
-    border-width: 0 2px 2px 0;
-    border-color: $black;
-    background: transparent;
-    /* css3 */
-    -webkit-border-bottom-right-radius: 80px 50px;
-    -moz-border-radius-bottomright: 80px 50px;
-    border-bottom-right-radius: 80px 50px;
-    /* reduce the damage in FF3.0 */
-    display: block;
-}
-
-/* creates smaller curve */
-.rectangle-speech-border:after {
-    content: "";
-    position: absolute;
-    z-index: 10;
-    bottom: -30px;
-    left: 55px;
-    width: 20px;
-    height: 30px;
-    border-style: solid;
-    border-width: 0 2px 2px 0;
-    border-color: $black;
-    background: transparent;
-    /* css3 */
-    -webkit-border-bottom-right-radius: 40px 50px;
-    -moz-border-radius-bottomright: 40px 50px;
-    border-bottom-right-radius: 40px 50px;
-    /* reduce the damage in FF3.0 */
-    display: block;
-}
-
-/* creates a white rectangle to cover part of the oval border*/
-.rectangle-speech-border > :first-child:after {
-    content: "";
-    position: absolute;
-    bottom: -10px;
-    left: 76px;
-    width: 24px;
-    height: 15px;
-    background: $white;
+    &:before,
+    &:after {
+        content: "";
+        position: absolute;
+        z-index: 10;
+        bottom: -30px;
+        height: 30px;
+        border-style: solid;
+        border-width: 0 2px 2px 0;
+        border-color: $black;
+        background: transparent;
+        display: block;
+    }
+    &:before {
+        left: 50px;
+        width: 50px;
+        @include border-bottom-right-radius(80px 50px);
+    }
+    &:after {
+        left: 55px;
+        width: 20px;
+        @include border-bottom-right-radius(40px 50px);
+    }
+    > :first-child:after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 76px;
+        width: 24px;
+        height: 15px;
+        background: $white;
+    }
 }
 
 .arrow {
@@ -106,12 +96,12 @@ h2 {
     opacity: 1;
     border: none;
     color: $white;
-    border-radius: 50%;
+    @include border-radius(50%);
 }
 
 .arrow-red {
     @extend .arrow;
-    background: #d9534f;
+    background: $red;
 }
 
 .arrow-green {
@@ -155,8 +145,3 @@ h2 {
         transform: translateY(-15px);
     }
 }
-
-#file {
-    display: none;
-}
-

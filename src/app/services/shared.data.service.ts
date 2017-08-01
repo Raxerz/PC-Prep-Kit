@@ -33,9 +33,8 @@ export class SharedDataService {
             const stage = response.stage;
             if (stage >= currStage && activity >= currActivity) {
                 return true;
-            } else {
-                return false;
             }
+            return false;
         });
     }
 
