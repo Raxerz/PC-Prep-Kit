@@ -14,6 +14,7 @@ export class SharedDataService {
 
     public position: Subject<string> = new BehaviorSubject<string>('col-md-10 col-md-offset-2');
     private _togglePosition = 'col-md-10 col-md-offset-2';
+    public activityCompleted;
     constructor(private _dashboardService: DashboardService) {
     }
     /**
@@ -28,14 +29,16 @@ export class SharedDataService {
      * Check progress of user (If the user has already completed the activity or not)
      */
     checkProgress(currStage, currActivity): any {
+        this.activityCompleted = false;
         this._dashboardService.getProgressStatus().subscribe(response => {
             const activity = response.activity;
             const stage = response.stage;
             if (stage >= currStage && activity >= currActivity) {
-                return true;
+                this.activityCompleted = true;
             }
-            return false;
         });
+        console.log(this.activityCompleted);
+        return this.activityCompleted;
     }
 
     customAlert(title, msg, type) {
