@@ -11,10 +11,6 @@ video{
     background-color: black !important;
 }
 
-#skip {
-    width:20%;
-}
-
 .pieces {
     height: 125px;
     width: 115px;
@@ -84,7 +80,7 @@ img {
 }
 
 .text-4 {
-    @include text(18%, 34%); 
+    @include text(22%, 34%); 
     text-align: right;    
 }
 
@@ -117,7 +113,7 @@ img {
 }
 
 .drop-1 {
-    @include drag-drop(15%, 50%);
+    @include drag-drop(20%, 50%);
 }
 
 .drop-2 {
@@ -172,6 +168,8 @@ img {
     border: none;
     color: $white;
     border-radius: 50%;
+    position: absolute;
+    bottom: -50%;
 }
 
 .arrow-red {
@@ -184,3 +182,39 @@ img {
     background: green;    
 }
 
+@mixin animation($animate) {
+    -moz-animation: $animate;
+    -webkit-animation: $animate;
+    animation: $animate;
+}
+
+@mixin keyframes($animationName) {
+    @-webkit-keyframes #{$animationName} {
+        @content;
+    }
+    @-moz-keyframes #{$animationName} {
+        @content;
+    }
+    @-o-keyframes #{$animationName} {
+        @content;
+    }
+    @keyframes #{$animationName} {
+        @content;
+    }
+}
+
+.bounce {
+    @include animation(bounce 2s infinite)
+}
+
+@include keyframes(bounce) {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-30px);
+    }
+    60% {
+        transform: translateY(-15px);
+    }
+}

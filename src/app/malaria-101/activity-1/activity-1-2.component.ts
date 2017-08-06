@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs/Rx';
-import swal from 'sweetalert2';
+import { SharedDataService } from '../../services/shared.data.service';
 
 @Component({
     selector: 'app-life-cycle',
@@ -11,6 +11,7 @@ export class MalariaLifeCycleComponent implements OnInit {
 
     private obs;
     private subscription;
+    public activityComplete = false;
     private currArrState = [];
     public solnArr = ['red-blood-cells.png',
                        'character-1.png',
@@ -25,14 +26,11 @@ export class MalariaLifeCycleComponent implements OnInit {
                        'Second infected mosquito',
                        'Second infected person']
 
-    constructor() {
+    constructor(private _sharedData: SharedDataService) {
     }
 
     ngOnInit() {
-        swal({
-            title: 'Drag and drop the images in the container to complete the life cycle',
-            type: 'warning'
-        });
+        this._sharedData.customAlert('Drag and drop the images in the container to complete the life cycle', '', 'warning');
     }
 
     /**
@@ -63,7 +61,7 @@ export class MalariaLifeCycleComponent implements OnInit {
         const data = document.getElementById(ev.dataTransfer.getData('text'));
         const srcParent = data.parentNode;
         const tgt = ev.currentTarget.firstElementChild;
-        
+
         if (tgt) {
             ev.currentTarget.replaceChild (data, tgt);
             srcParent.appendChild (tgt);
@@ -97,23 +95,10 @@ export class MalariaLifeCycleComponent implements OnInit {
         }
 
         if (!f && arrLength === 6) {
-            swal(
-                    'Good job!',
-                    'You completed this activity!',
-                    'success'
-                );
+            this.activityComplete = true;
+            this._sharedData.customAlert('Good job!', 'You completed this activity!', 'success');
         } else if (arrLength === 6) {
-                swal(
-                    'Sorry!',
-                    'Try Again!',
-                    'error'
-                  );
+            this._sharedData.customAlert('Sorry!', 'Try Again!', 'error');
         }
     }
-
-    /*checkCompletion(){
-      console.log(this.currArrState);
-    }*/
-
-
 }

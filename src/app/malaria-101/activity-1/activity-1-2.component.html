@@ -9,3 +9,12 @@
 <div *ngFor="let card of solnArr; let idx = index" class="drag-{{idx+1}}" (drop)="drop($event)" (dragover)="allowDrop($event)">
     <img class="pieces" src="../../../../assets/img/{{card}}" draggable="true" (dragstart)="drag($event)" id="drag{{idx+1}}">    
 </div>
+
+<div class="row">
+    <button class="arrow-red col-lg-5 col-md-offset-2">
+        Prev
+    </button>
+    <button [hidden]="!activityComplete" class="arrow-green col-lg-5 col-md-offset-10">
+        Next
+    </button>    
+</div>
