@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { SharedDataService } from './services/shared.data.service'
+import { SharedDataService } from './services/shared.data.service';
 
 @Component({
     selector: 'app-root',

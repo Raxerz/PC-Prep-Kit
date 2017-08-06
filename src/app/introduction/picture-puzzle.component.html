@@ -10,8 +10,8 @@
     </div>
     <div class="col-md-3 col-md-offset-3">
         <input type="file" name="file" id="file" class="hidden" accept="image/*" (change)="handleInputChange($event)">
-        <button class="btn btn-block btn-danger btn-lg" *ngIf='webcamState!==webcamStates.OPENED' (click)="openWebcam()">{{webcamButtonText}}</button>
-        <button class="btn btn-block btn-danger btn-lg" *ngIf='webcamState===webcamStates.OPENED' (click)="snapshot()">{{webcamButtonText}}</button>
+        <button class="btn btn-block btn-danger btn-lg" id="webcamOpen" *ngIf='webcamState!==webcamStates.OPENED' (click)="openWebcam()">{{webcamButtonText}}</button>
+        <button class="btn btn-block btn-danger btn-lg" id="capture" *ngIf='webcamState===webcamStates.OPENED' (click)="snapshot()">{{webcamButtonText}}</button>
         <button class="btn btn-block btn-primary btn-lg" (click)="fireFileButtonClick()">Choose Existing</button>
         <button class="btn btn-block btn-primary btn-lg" [disabled]='!imageLoaded' (click)="shufflePuzzle()">{{puzzleState}}</button>   
         <button class="btn btn-block btn-success btn-lg" [disabled]='!(webcamState===webcamStates.CAPTURED || imageLoaded)' (click)="upload()">Set as profile picture</button>  

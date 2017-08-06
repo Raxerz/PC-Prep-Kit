@@ -1,20 +1,39 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { DashboardService } from '../../services/dashboard.service';
+import { AnimatedVideoComponent } from './activity-1-1.component';
+import { ResponseOptions, Response, Http, BaseRequestOptions, RequestMethod } from '@angular/http';
+import { MockBackend, MockConnection } from '@angular/http/testing';
+import { APIService } from '../../services/api.service';
+import { SharedDataService } from '../../services/shared.data.service';
 
-import { Activity1Component } from './activity-1.component';
 
-describe('Activity1Component', () => {
-  let component: Activity1Component;
-  let fixture: ComponentFixture<Activity1Component>;
+const mockHttpProvider = {
+    deps: [ MockBackend, BaseRequestOptions ],
+    useFactory: (backend: MockBackend, defaultOptions: BaseRequestOptions) => {
+        return new Http(backend, defaultOptions);
+    }
+};
+
+
+describe('AnimatedVideoComponent', () => {
+  let component: AnimatedVideoComponent;
+  let fixture: ComponentFixture<AnimatedVideoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ Activity1Component ]
+      declarations: [ AnimatedVideoComponent ],
+      providers: [
+        { provide: Http, useValue: mockHttpProvider }, 
+        DashboardService,
+        APIService,
+        SharedDataService
+      ]      
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(Activity1Component);
+    fixture = TestBed.createComponent(AnimatedVideoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

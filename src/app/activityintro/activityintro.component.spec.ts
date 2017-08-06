@@ -1,6 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { SharedDataService } from '../services/shared.data.service';
+import { APIService } from '../services/api.service';
+import { DashboardService } from '../services/dashboard.service';
 import { ActivityintroComponent } from './activityintro.component';
+import { ResponseOptions, Response, Http, BaseRequestOptions, RequestMethod } from '@angular/http';
+import { MockBackend, MockConnection } from '@angular/http/testing';
+
+const mockHttpProvider = {
+    deps: [ MockBackend, BaseRequestOptions ],
+    useFactory: (backend: MockBackend, defaultOptions: BaseRequestOptions) => {
+        return new Http(backend, defaultOptions);
+    }
+};
 
 describe('ActivityintroComponent', () => {
   let component: ActivityintroComponent;
@@ -8,7 +19,13 @@ describe('ActivityintroComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ActivityintroComponent ]
+      declarations: [ ActivityintroComponent ],
+      providers: [
+        { provide: Http, useValue: mockHttpProvider },
+        SharedDataService,
+        DashboardService,
+        APIService
+      ]
     })
     .compileComponents();
   }));

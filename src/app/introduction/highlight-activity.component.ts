@@ -41,7 +41,7 @@ export class HighlightActivityComponent implements OnInit {
             text = window.getSelection().toString();
         }
         this._selectedText = text;
-        this._status = {stage: 1, activity: 1};
+        this._status = {stage: 1, activity: 1};     
         if (this._selectedText === content) {
             const selection = window.getSelection();
             if (selection) {

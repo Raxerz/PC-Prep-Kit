@@ -26,8 +26,7 @@ export class DashboardService {
      * @return {Observable<any>} Return response
      */
     getUserInfo(): Observable<any> {
-        return this._apiservice.get(this._getUserInfo)
-                    .map(res => res.json());
+        return this._apiservice.get(this._getUserInfo);
     }
 
     /**
