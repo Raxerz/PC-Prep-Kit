@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { SplashscreenComponent } from './splashscreen.component';
 
 describe('SplashscreenComponent', () => {
@@ -8,6 +8,9 @@ describe('SplashscreenComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule
+      ],      
       declarations: [ SplashscreenComponent ]
     })
     .compileComponents();

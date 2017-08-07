@@ -58,6 +58,8 @@ describe('PicturePuzzleComponent', () => {
         webcamOpenBtn.click();
         expect(puzzle.disabled).toEqual(true);
         expect(saveProPic.disabled).toEqual(true);
-        expect(component.webcamState).toEqual(component.webcamStates.OPENED);      
-    });   
+        expect(component.webcamState).toEqual(component.webcamStates.OPENED); 
+        expect(component.webcamButtonText).toEqual('Capture');              
+    });
+
 });

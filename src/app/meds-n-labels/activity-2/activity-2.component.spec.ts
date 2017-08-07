@@ -46,4 +46,18 @@ describe('MemoryGameComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should match all pairs', () => {
+    for(let i = 0; i < 16; i++) {
+        for(let j = 0; j < 16; j++) {
+            if(i !== j) {              
+                component.choose(i);
+                component.choose(j);
+                component.check();
+            }
+        }
+    }
+    expect(component.activityComplete).toBeTruthy();
+  });
+
 });
