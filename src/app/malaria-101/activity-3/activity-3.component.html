@@ -1,0 +1,16 @@
+<div class="quiz-container">
+	<div class="row">
+		<h2 class = "col-lg-5 col-lg-offset-4" >{{questionText}}</h2>
+	</div>
+	<br><br>
+	<div class="row col-md-offset-4">
+		<div class="col-lg-4">	
+			<div id= "1" class="option" (click)="optionSelected($event)">{{this.opt[0]}}</div>
+			<div id= "2" class="option" (click)="optionSelected($event)">{{this.opt[1]}}</div>
+		</div>
+		<div class="col-lg-4">
+			<div id= "3" class="option" (click)="optionSelected($event)">{{this.opt[2]}}</div> 
+			<div id= "4" class="option" (click)="optionSelected($event)">{{this.opt[3]}}</div>  
+		</div>
+	</div>
+</div>

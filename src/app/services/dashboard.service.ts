@@ -3,6 +3,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { APIService } from './api.service';
+import { SharedDataService } from '../../services/shared.data.service';
 import 'rxjs/Rx';
 
 @Injectable()
@@ -18,6 +19,7 @@ export class DashboardService {
     private _updateProgressStatus = this._baseAPIUrl + 'updateProgressStatus';
     private _uploadCamPic = this._baseAPIUrl + 'uploadCam';
     private _uploadPic = this._baseAPIUrl + 'upload';
+    private _getJSONData = this._baseAPIUrl + 'getJSONData';
 
     constructor(private _http: Http, private _apiservice: APIService) { }
 
@@ -80,4 +82,10 @@ export class DashboardService {
     getToken() {
         return localStorage.getItem(this._localStorageKey);
     }
+
+    getJSONData(): Observable<any> {
+        return this._apiservice.get(this._getJSONData)
+                    .map(res => res.json());
+    }
+
 }

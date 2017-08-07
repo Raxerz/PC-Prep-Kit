@@ -160,6 +160,35 @@ img {
     @include drag-drop(125%, 65%);
 }
 
+.questionText {
+    font-size:27px;
+    color:#000;
+}
+
+.option {
+    display: inline-block;
+    margin: 4px;
+    padding: 8px;
+    background: #FAE3BB;
+    color: #4C3000;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    height: 50px;
+    &:hover {
+        background: #EBBB67;
+    }
+}
+
+.quiz-container {
+    position: absolute;
+    margin: auto;
+    top: 30%;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
 .arrow {
     width: 75px;
     line-height: 75px;

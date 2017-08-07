@@ -186,6 +186,15 @@ router.put('/updateProgressStatus', authenticationHelpers.isAuthOrRedirect, (req
 });
 
 /**
+ * Return JSON file contents
+ * @param  {Object} '/getJSONData'  URI of the resource
+ * @param  {Function} (req, res)    Anonymous function to handle request and response
+ */
+router.get('/getJSONData', (req, res) => {
+    res.status(200).json({data: fs.readFileSync('./data/quiz.json', 'utf8')});
+});
+
+/**
  * [destination description]
  * @param  {Object} req       Request object
  * @param  {Object} file      File object
