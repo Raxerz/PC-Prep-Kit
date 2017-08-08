@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastModule } from 'ng2-toastr/ng2-toastr';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
@@ -69,7 +70,8 @@ import { OddOneOutComponent } from './malaria-101/activity-3/activity-3.componen
         HttpModule,
         ReactiveFormsModule,
         BrowserModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        ToastModule.forRoot()
     ],
     providers: [DashboardService, AuthService, LoggedInGuard, UnauthenticatedGuard, APIService, RegService, NavbarService, SharedDataService],
     bootstrap: [AppComponent]

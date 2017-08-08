@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import {Observable} from 'rxjs/Rx';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { SharedDataService } from '../../services/shared.data.service';
 
 @Component({
@@ -26,7 +27,8 @@ export class MalariaLifeCycleComponent implements OnInit {
                        'Second infected mosquito',
                        'Second infected person']
 
-    constructor(private _sharedData: SharedDataService) {
+    constructor(private _sharedData: SharedDataService, public toastr: ToastsManager, vcr: ViewContainerRef) {
+        this.toastr.setRootViewContainerRef(vcr);
     }
 
     ngOnInit() {
@@ -96,9 +98,11 @@ export class MalariaLifeCycleComponent implements OnInit {
 
         if (!f && arrLength === 6) {
             this.activityComplete = true;
-            this._sharedData.customAlert('Good job!', 'You completed this activity!', 'success');
+            this.toastr.success('Complete ! ', 'Success!');
+            //this._sharedData.customAlert('Good job!', 'You completed this activity!', 'success');
         } else if (arrLength === 6) {
-            this._sharedData.customAlert('Sorry!', 'Try Again!', 'error');
+            this.toastr.error('The life cycle is incorrect! ', 'Sorry!');
+            //this._sharedData.customAlert('Sorry!', 'Try Again!', 'error');
         }
     }
 }
