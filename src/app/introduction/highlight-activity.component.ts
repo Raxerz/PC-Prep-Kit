@@ -25,7 +25,10 @@ export class HighlightActivityComponent implements OnInit {
      */
     ngOnInit() {
         this._sharedData.customAlert('Highlight the definition of malaria to complete this activity', '', 'warning');
-        this.activityComplete = this._sharedData.checkProgress(1, 1);
+        this._sharedData.checkProgress(1, 1).subscribe(response => {
+            console.log(response);
+            this.activityComplete = response;
+        });
         this._obs = Observable.interval(500)
                        .do(i => this.select());
         this._subscription = this._obs.subscribe();

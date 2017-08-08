@@ -3,7 +3,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { APIService } from './api.service';
-import { SharedDataService } from '../../services/shared.data.service';
+import { SharedDataService } from '../services/shared.data.service';
 import 'rxjs/Rx';
 
 @Injectable()
