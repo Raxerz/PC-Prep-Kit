@@ -197,8 +197,22 @@ img {
     border: none;
     color: $white;
     border-radius: 50%;
+}
+
+.arrow-dnd {
+    @extend .arrow;
     position: absolute;
-    bottom: -50%;
+    bottom: -50%;    
+}
+
+.arrow-dnd-red {
+    @extend .arrow-dnd;
+    background: #d9534f;
+}
+
+.arrow-dnd-green {
+    @extend .arrow-dnd;
+    background: green;    
 }
 
 .arrow-red {
