@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { APIService } from './api.service';
@@ -19,7 +18,7 @@ export class DashboardService {
     private _uploadCamPic = this._baseAPIUrl + 'uploadCam';
     private _uploadPic = this._baseAPIUrl + 'upload';
 
-    constructor(private _http: Http, private _apiservice: APIService) { }
+    constructor(private _apiservice: APIService) { }
 
     /**
      * Get user information from server
