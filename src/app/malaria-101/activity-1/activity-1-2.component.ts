@@ -14,6 +14,7 @@ export class MalariaLifeCycleComponent implements OnInit {
     private subscription;
     public activityComplete = false;
     private currArrState = [];
+    public position: string;
     public solnArr = ['red-blood-cells.png',
                        'character-1.png',
                        'mosquito.png',
@@ -29,6 +30,11 @@ export class MalariaLifeCycleComponent implements OnInit {
 
     constructor(private _sharedData: SharedDataService, public toastr: ToastsManager, vcr: ViewContainerRef) {
         this.toastr.setRootViewContainerRef(vcr);
+        this._sharedData.position.subscribe(
+            value => {
+                this.position = value;
+            }
+        );        
     }
 
     ngOnInit() {

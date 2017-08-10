@@ -39,6 +39,9 @@ import { AnimatedVideoComponent } from './malaria-101/activity-1/activity-1-1.co
 import { MalariaLifeCycleComponent } from './malaria-101/activity-1/activity-1-2.component';
 import { OddOneOutComponent } from './malaria-101/activity-3/activity-3.component';
 
+import { NextActivityDirective } from './directives/next.directive';
+import { PrevActivityDirective } from './directives/prev.directive';
+
 
 @NgModule({
     declarations: [
@@ -62,7 +65,9 @@ import { OddOneOutComponent } from './malaria-101/activity-3/activity-3.componen
         Malaria101Component,
         AnimatedVideoComponent,
         MalariaLifeCycleComponent,
-        OddOneOutComponent
+        OddOneOutComponent,
+        NextActivityDirective,
+        PrevActivityDirective
     ],
     imports: [
         AppRoutingModule,
