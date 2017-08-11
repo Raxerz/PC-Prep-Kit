@@ -1,8 +1,4 @@
-<div class="header">
-  <app-header (toggleNavbar)="nav.toggle()"> </app-header>
-</div>
 <div class="container-fluid">
-  <app-navbar #nav (togglePosition)="toggle()" (infoPop)="info.pop()"> </app-navbar>
   <app-infokit #info > </app-infokit>
   <div class="row">
     <div [className]="position + ' pc-policy-body text-center'">
