@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
 import { LoggedInGuard } from './guards/logged-in.guard';
 import { UnauthenticatedGuard } from './guards/unauthenticated.guard';
@@ -133,7 +132,6 @@ export const routes: Routes = [
         ]
     }
 ];
-
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
