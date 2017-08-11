@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('pcprepkit', 'root', '', {
+const sequelize = new Sequelize('pcprepkit', 'pcprepkit', 'pcprepkit', {
     host: 'localhost',
     dialect: 'mysql',
     define: {
