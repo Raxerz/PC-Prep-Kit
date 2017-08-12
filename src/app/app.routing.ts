@@ -22,7 +22,7 @@ import { PicturePuzzleComponent } from './introduction/picture-puzzle.component'
 
 export const routes: Routes = [
     {
-        path: 'splash',
+        path: '',
         component: SplashscreenComponent,
         canActivate: [UnauthenticatedGuard]
     },
@@ -57,7 +57,7 @@ export const routes: Routes = [
         canActivate: [LoggedInGuard]
     },
     {
-        path: 'dragdrop',
+        path: 'malaria-101/activity-2',
         component: DragdropComponent,
         canActivate: [LoggedInGuard]
     },
@@ -85,6 +85,10 @@ export const routes: Routes = [
                 path: 'activity-1',
                 component: HighlightActivityComponent
             },
+            {
+                path: 'activity-2',
+                component: PcpolicyComponent
+            },            
             {
                 path: 'activity-3',
                 component: PicturePuzzleComponent

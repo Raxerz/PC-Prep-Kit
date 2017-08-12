@@ -1,7 +1,8 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewContainerRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { DashboardService } from '../services/dashboard.service';
 import { SharedDataService } from '../services/shared.data.service';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
     selector: 'app-highlight',
@@ -18,14 +19,18 @@ export class HighlightActivityComponent implements OnInit {
     private _stage: number;
     public activityComplete = false;
 
-    constructor(private _dashboardService: DashboardService, private _sharedData: SharedDataService) { }
+    constructor(private _dashboardService: DashboardService, public toastr: ToastsManager, vcr: ViewContainerRef, private _sharedData: SharedDataService) {
+        this.toastr.setRootViewContainerRef(vcr); 
+    }
 
     /**
      * Handle activity setup (Displaying activity information, checking user's progress and checking completing of activity)
      */
     ngOnInit() {
         this._sharedData.customAlert('Highlight the definition of malaria to complete this activity', '', 'warning');
-        this.activityComplete = this._sharedData.checkProgress(1, 1);
+        this._dashboardService.getProgressStatus().subscribe(response => {
+            this.activityComplete = this._sharedData.checkProgress(1, 2, response);
+        });
         this._obs = Observable.interval(500)
                        .do(i => this.select());
         this._subscription = this._obs.subscribe();
@@ -41,7 +46,7 @@ export class HighlightActivityComponent implements OnInit {
             text = window.getSelection().toString();
         }
         this._selectedText = text;
-        this._status = {stage: 1, activity: 1};
+        this._status = {stage: 1, activity: 2};
         if (this._selectedText === content) {
             const selection = window.getSelection();
             if (selection) {
@@ -53,7 +58,7 @@ export class HighlightActivityComponent implements OnInit {
             } else {
                 this._dashboardService.updateProgressStatus(this._status).subscribe(response => {
                 });
-                this._sharedData.customAlert('Good job!', 'You completed this activity!', 'success');
+                this._sharedData.customSuccessAlert();
                 this.activityComplete = true;
             }
         }
