@@ -191,7 +191,8 @@ router.put('/updateProgressStatus', authenticationHelpers.isAuthOrRedirect, (req
  * @param  {Function} (req, res)    Anonymous function to handle request and response
  */
 router.get('/getJSONData', (req, res) => {
-    res.status(200).json({data: fs.readFileSync('./data/quiz.json', 'utf8')});
+    const uri = `./data/${req.query.file}`;
+    res.status(200).json({data: fs.readFileSync(uri, 'utf8')});
 });
 
 /**

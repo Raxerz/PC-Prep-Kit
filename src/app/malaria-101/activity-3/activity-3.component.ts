@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { DashboardService } from '../../services/dashboard.service';
 import { SharedDataService } from '../../services/shared.data.service';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
     selector: 'app-oddoneout',
@@ -10,23 +11,30 @@ import { SharedDataService } from '../../services/shared.data.service';
 })
 export class OddOneOutComponent implements OnInit {
 
-    private _questionNumber = 0;
-    private _questionLock = false;
+    private _questionNumber;
+    private _questionLock;
     private _numberOfQuestions;
     private _obs;
     private _subscription;
-    private _score = 0;
-
     private _data;
 
+    public activityComplete;
     public questionText;
+    public score;
+    public showNext;
     public opt = [];
 
-    constructor(private _dashboardService: DashboardService, private _sharedData: SharedDataService) {
+    constructor(private _dashboardService: DashboardService, private _sharedData: SharedDataService, public toastr: ToastsManager, vcr: ViewContainerRef) {
+        this.toastr.setRootViewContainerRef(vcr);
     }
 
     ngOnInit() {
-        this._dashboardService.getJSONData().subscribe(response => {
+        this.score = 0;
+        this.activityComplete = false;
+        this._questionNumber = 0;
+        this._questionLock = false;
+        this.opt = [];
+        this._dashboardService.getJSONData('quiz.json').subscribe(response => {
             this._data = JSON.parse(response.data);
             this.shuffle(this._data.quizlist);
             this.displayQuestion();
@@ -45,10 +53,10 @@ export class OddOneOutComponent implements OnInit {
         if (this._questionLock === false) {
             this._questionLock = true;
             if (this._data.quizlist[this._questionNumber].answer === event.target.id) {
-                this._score++;
-                this._sharedData.customAlert('Congratulations!<br>That is correct!', '', 'success');
+                this.score++;
+                this.toastr.success('Correct!', 'Success!');
             } else {
-                this._sharedData.customAlert('Sorry!<br>That is incorrect!', '', 'error');
+                this.toastr.error('Incorrect! ', 'Sorry!');
             }
             this._obs = Observable.interval(1000)
                         .do(i => this.changeQuestion() );
@@ -76,11 +84,16 @@ export class OddOneOutComponent implements OnInit {
         this._subscription.unsubscribe();
         this._questionNumber++;
         if (this._questionNumber === 5) {
-            this._sharedData.customAlert('Score!<br>You got ' + this._score + ' out of 5 questions right.', '', 'warning');
+            this.activityComplete = true;
+            this.showNext = true;
             return;
         }
         this._questionLock = false;
         this.opt = [];
         this.displayQuestion();
+    }
+
+    reload() {
+        this.ngOnInit();
     }
 }

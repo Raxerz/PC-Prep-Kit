@@ -1,16 +1,36 @@
 <div class="quiz-container">
-	<div class="row">
-		<h2 class = "col-lg-5 col-lg-offset-4" >{{questionText}}</h2>
-	</div>
-	<br><br>
-	<div class="row col-md-offset-4">
-		<div class="col-lg-4">	
-			<div id= "1" class="option" (click)="optionSelected($event)">{{this.opt[0]}}</div>
-			<div id= "2" class="option" (click)="optionSelected($event)">{{this.opt[1]}}</div>
-		</div>
-		<div class="col-lg-4">
-			<div id= "3" class="option" (click)="optionSelected($event)">{{this.opt[2]}}</div> 
-			<div id= "4" class="option" (click)="optionSelected($event)">{{this.opt[3]}}</div>  
-		</div>
-	</div>
+    <div class="row" [hidden]="activityComplete">
+        <h2 class = "col-lg-5 col-lg-offset-4 txt-center" >{{questionText}}</h2>
+    </div>
+    <div class="row col-md-offset-4" [hidden]="activityComplete">
+        <br><br>
+        <div class="col-lg-4">  
+            <div id= "1" class="option" (click)="optionSelected($event)">{{this.opt[0]}}</div>
+            <div id= "2" class="option" (click)="optionSelected($event)">{{this.opt[1]}}</div>
+        </div>
+        <div class="col-lg-4">
+            <div id= "3" class="option" (click)="optionSelected($event)">{{this.opt[2]}}</div> 
+            <div id= "4" class="option" (click)="optionSelected($event)">{{this.opt[3]}}</div>  
+        </div>
+    </div>
+    <div class="row pad" [hidden]="!activityComplete">
+        <div class="swal2-icon swal2-info" style="display: block;">i</div>
+        <div>
+            <h2 class="swal2-title txt-center" id="swal2-title">Score!<br>You got {{this.score}} out of 5 questions right.</h2>
+        </div>
+        <br>
+        <div class="swal2-title txt-center">
+            <button class="btn btn-primary btn-lg" (click)="reload()">Reset</button>
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <button prev class="col-lg-5 col-md-offset-3">
+            Prev
+        </button>
+        <button next class="col-lg-5 col-md-offset-6" [hidden]="!showNext">
+            Next
+        </button>
+    </div>
 </div>
+

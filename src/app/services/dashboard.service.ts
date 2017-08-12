@@ -83,8 +83,8 @@ export class DashboardService {
         return localStorage.getItem(this._localStorageKey);
     }
 
-    getJSONData(): Observable<any> {
-        return this._apiservice.get(this._getJSONData)
+    getJSONData(jsonFile): Observable<any> {
+        return this._apiservice.get(this._getJSONData + '?file=' + jsonFile)
                     .map(res => res.json());
     }
 
