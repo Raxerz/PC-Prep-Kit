@@ -18,11 +18,11 @@
     </div>
 </div>
 <div class="row">
-    <button [className]="position + ' arrow-red'">
+    <a [className]="position + ' arrow-red'" routerLink="/introduction/activity-2">
         Prev
-    </button>
-    <button [hidden]="!activityComplete" class="arrow-green bounce col-lg-5 col-md-offset-4">
+    </a>
+    <a [hidden]="!activityComplete" class="arrow-green bounce col-lg-5 col-md-offset-4" routerLink="/malaria-101/activity-1">
         Next
-    </button>    
+    </a>    
 </div>
 
