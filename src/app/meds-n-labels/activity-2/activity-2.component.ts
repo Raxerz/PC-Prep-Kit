@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { DashboardService } from '../../services/dashboard.service';
 import { Observable } from 'rxjs/Rx';
 import { DIAGNOSIS } from './diagnosis-detail';
 import { SharedDataService } from '../../services/shared.data.service';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
     selector: 'app-activity-2',
@@ -46,16 +47,19 @@ export class MemoryGameComponent implements OnInit {
                 'virus-1.png',
             ];
 
-    constructor(private _dashboardService: DashboardService, private _sharedData: SharedDataService) {
+    constructor(private _dashboardService: DashboardService, private _sharedData: SharedDataService, public toastr: ToastsManager, vcr: ViewContainerRef) {
             this._sharedData.position.subscribe(
             value => {
                 this.position = value;
             }
         );
+        this.toastr.setRootViewContainerRef(vcr);             
     }
 
     ngOnInit() {
-        this.activityComplete = this._sharedData.checkProgress(3, 2);
+        this._dashboardService.getProgressStatus().subscribe(response => {
+            this.activityComplete = this._sharedData.checkProgress(3, 2, response);
+        });
         this.shuffle(this._faces);
         this.createBoolArr();
     }
@@ -146,7 +150,7 @@ export class MemoryGameComponent implements OnInit {
             }
             this._matches++;
             if (this._matches === 8) {
-                this._sharedData.customAlert('Good job!', 'You completed this activity!', 'success');
+                this._sharedData.customSuccessAlert();
                 this._status = {stage: 3, activity: 2};
                 this._dashboardService.updateProgressStatus(this._status).subscribe(response => {});
                 this.activityComplete = true;

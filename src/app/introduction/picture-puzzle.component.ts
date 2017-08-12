@@ -1,10 +1,11 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, Renderer } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, Renderer, ViewContainerRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { DashboardService } from '../services/dashboard.service';
 import 'webrtc-adapter';
 import { webcamEnum } from './webcamEnum';
 import { SharedDataService } from '../services/shared.data.service';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
     selector: 'app-activity3',
@@ -37,7 +38,7 @@ export class PicturePuzzleComponent implements OnInit {
     private _mousedownListener: any;
     private _width = 480;
     private _height = 360
-    private _status: object;
+    private _status: object = {stage: 1, activity: 3};
     private _activity: number;
 
     public webcamStates = webcamEnum;
@@ -52,12 +53,13 @@ export class PicturePuzzleComponent implements OnInit {
     public position: string;
     public filesToUpload: Array<File> = [];
 
-    constructor(private _http: Http, private _dashboardService: DashboardService, private _renderer: Renderer, private _sharedData: SharedDataService) {
+    constructor(private _http: Http, private _dashboardService: DashboardService, public toastr: ToastsManager, vcr: ViewContainerRef, private _renderer: Renderer, private _sharedData: SharedDataService) {
         this._sharedData.position.subscribe(
             value => {
                 this.position = value;
             }
         );
+        this.toastr.setRootViewContainerRef(vcr); 
     }
 
     changeWebcamState(state, btnText) {
@@ -90,21 +92,23 @@ export class PicturePuzzleComponent implements OnInit {
 
     ngOnInit() {
         this.changeWebcamState(this.webcamStates.PAGE_LOAD, 'Take Photo');
-        this.activityComplete = this._sharedData.checkProgress(1, 3);
+        this._dashboardService.getProgressStatus().subscribe(response => {
+            this.activityComplete = this._sharedData.checkProgress(1, 3, response);
+        });
     }
 
     upload() {
         if (this.webcamState === this.webcamStates.CAPTURED) {
             const camData = {base64: this._canvas.toDataURL('image/jpeg')}
             this._dashboardService.uploadCamPic(camData).subscribe(response => {
-                this._sharedData.customAlert('Success!', 'Profile picture updated successfully!', 'success');
+                this._sharedData.customSuccessAlert();
             });
         } else {
             const formData: any = new FormData();
             const files: Array<File> = this.filesToUpload;
             formData.append('uploads[]', files, 'profile_picture');
             this._dashboardService.uploadPic(formData).subscribe(response => {
-                this._sharedData.customAlert('Success!', 'Profile picture updated successfully!', 'success');
+                this._sharedData.customSuccessAlert();
             });
         }
     }
@@ -127,7 +131,7 @@ export class PicturePuzzleComponent implements OnInit {
         const reader = new FileReader();
 
         if (!file.type.match(pattern)) {
-            this._sharedData.customAlert('Oops...', 'Invalid format!', 'error');
+            this._sharedData.customErrorAlert();
             return;
         }
 
@@ -156,6 +160,8 @@ export class PicturePuzzleComponent implements OnInit {
         if (this.webcamState === this.webcamStates.CAPTURED) {
             this._stage.drawImage(this._video, 0, 0, this._width, this._height);
             this.activityComplete = true;
+            this._sharedData.customSuccessAlert();
+            this._dashboardService.updateProgressStatus(this._status).subscribe(response => {});
         } else {
             this.initPuzzle();
         }
@@ -347,7 +353,7 @@ export class PicturePuzzleComponent implements OnInit {
 
     gameOver() {
         this._dashboardService.updateProgressStatus(this._status).subscribe(response => {});
-        this._sharedData.customAlert('Good job!', 'You completed this activity!', 'success');
+        this._sharedData.customSuccessAlert();
         this._mousedownListener();
         this._mousemoveListener();
         this._mouseupListener();
