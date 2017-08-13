@@ -14,7 +14,6 @@ export class MalariaLifeCycleComponent implements OnInit {
     private subscription;
     private _status: object = {stage: 2, activity: 1};
     private currArrState = [];
-
     public activityComplete = false;
     public solnArr = ['red-blood-cells.png',
                        'character-1.png',

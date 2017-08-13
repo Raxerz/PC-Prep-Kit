@@ -21,6 +21,7 @@ import { PicturePuzzleComponent } from './introduction/picture-puzzle.component'
 import { Malaria101Component } from './malaria-101/malaria-101.component';
 import { AnimatedVideoComponent } from './malaria-101/activity-1/activity-1-1.component';
 import { MalariaLifeCycleComponent } from './malaria-101/activity-1/activity-1-2.component';
+import { OddOneOutComponent } from './malaria-101/activity-3/activity-3.component';
 
 export const routes: Routes = [
     {
@@ -98,10 +99,14 @@ export const routes: Routes = [
             {
                 path: 'activity-1-2',
                 component: MalariaLifeCycleComponent
-            },
+            },            
             {
                 path: 'activity-2',
                 component: DragdropComponent
+            },            
+            {
+                path: 'activity-3',
+                component: OddOneOutComponent
             }
         ]
     },

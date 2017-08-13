@@ -18,6 +18,7 @@ export class DashboardService {
     private _updateProgressStatus = this._baseAPIUrl + 'updateProgressStatus';
     private _uploadCamPic = this._baseAPIUrl + 'uploadCam';
     private _uploadPic = this._baseAPIUrl + 'upload';
+    private _getJSONData = this._baseAPIUrl + 'getJSONData';
 
     constructor(private _http: Http, private _apiservice: APIService) { }
 
@@ -81,4 +82,14 @@ export class DashboardService {
         return this._apiservice.patch(this._updateProgressStatus, body)
                     .map(res => res.json());
     }
+
+    /**
+     * Get JSON data from file stored on the server
+     * @param  {String}          jsonFile Name of the JSON file containing the data
+     * @return {Observable<any>}          Return response
+     */
+    getJSONData(jsonFile): Observable<any> {
+        return this._apiservice.get(this._getJSONData + '?file=' + jsonFile)
+                    .map(res => res.json());
+    }    
 }

@@ -36,6 +36,7 @@ import { MemoryGameComponent } from './meds-n-labels/activity-2/activity-2.compo
 import { Malaria101Component } from './malaria-101/malaria-101.component';
 import { AnimatedVideoComponent } from './malaria-101/activity-1/activity-1-1.component';
 import { MalariaLifeCycleComponent } from './malaria-101/activity-1/activity-1-2.component';
+import { OddOneOutComponent } from './malaria-101/activity-3/activity-3.component';
 
 import { DashboardService } from './services/dashboard.service';
 import { AuthService } from './services/auth.service';
@@ -73,6 +74,7 @@ import { SharedDataService } from './services/shared.data.service';
         Malaria101Component,
         AnimatedVideoComponent,
         MalariaLifeCycleComponent,
+        OddOneOutComponent,
         ButtonNavComponent
     ],
     imports: [
