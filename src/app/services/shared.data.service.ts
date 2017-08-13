@@ -36,7 +36,7 @@ export class SharedDataService {
     checkProgress(currStage, currActivity, response): boolean {
             const activity = response.activity;
             const stage = response.stage;
-            if (stage >= currStage && activity >= currActivity) {
+            if ((stage > currStage) || (stage === currStage && activity >= currActivity)) {
                 return true;
             }
             return false;

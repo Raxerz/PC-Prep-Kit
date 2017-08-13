@@ -68,6 +68,25 @@
             "nextButton": "Cool, next"
           }
         },
+        "highlightActivity": {
+          "headings": {
+            "question": "Q: What is Malaria?"
+          },
+          "descriptions": {
+            "bodyContent1": "ma.lar.i.a",
+            "bodyContent2": "noun",
+            "bodyContent3": "An intermittent and remittent fever caused by a protozoan parasite that invades the red blood cells. The parasite is transmitted by mosquitoes in many tropical and subtropical regions."
+          }
+        },
+        "picturePuzzle": {
+          "descriptions": {
+            "bodyContent": "Take a picture of yourself, someone or something important to you"
+           },
+          "messages": {
+            "browseButton": "Choose Existing",
+            "setProPicButton": "Set as profile picture"
+          }           
+        },
         "pcpolicy": {
           "headings": {
             "introduction": "Introduction"
@@ -90,7 +109,17 @@
             "boxIndicatorDont": "Don'ts",
             "boxIndicatorAvailable": "Available to drag"
           }
-        }
+        },
+        "oddOneOut": {
+          "descriptions": {
+            "score": "Score!",
+            "resultText1": "You got",
+            "resultText2": "out of 5 questions right."
+          },
+          "messages": {
+            "resetButton": "Reset"
+          }          
+        }        
       }
     }
   }
