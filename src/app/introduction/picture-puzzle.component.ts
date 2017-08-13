@@ -6,6 +6,7 @@ import 'webrtc-adapter';
 import { webcamEnum } from './webcamEnum';
 import { SharedDataService } from '../services/shared.data.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { LanguageService } from '../services/language.service';
 
 @Component({
     selector: 'app-activity3',
@@ -51,8 +52,9 @@ export class PicturePuzzleComponent implements OnInit {
     public puzzleState = 'Start puzzle';
     public activityComplete = false;
     public filesToUpload: Array<File> = [];
+    public language: any;
 
-    constructor(private _http: Http, private _dashboardService: DashboardService, public toastr: ToastsManager, vcr: ViewContainerRef, private _renderer: Renderer, private _sharedData: SharedDataService) {
+    constructor(private _langService: LanguageService, private _http: Http, private _dashboardService: DashboardService, public toastr: ToastsManager, vcr: ViewContainerRef, private _renderer: Renderer, private _sharedData: SharedDataService) {
         this.toastr.setRootViewContainerRef(vcr);
     }
 
@@ -85,6 +87,9 @@ export class PicturePuzzleComponent implements OnInit {
     }
 
     ngOnInit() {
+        this._langService.loadLanguage().subscribe(response => {
+            this.language = response.pcprepkit.stages.introduction.picturePuzzle;
+        });
         this.changeWebcamState(this.webcamStates.PAGE_LOAD, 'Take Photo');
         this._dashboardService.getProgressStatus().subscribe(response => {
             this.activityComplete = this._sharedData.checkProgress(1, 3, response);

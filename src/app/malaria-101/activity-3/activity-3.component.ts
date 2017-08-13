@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Rx';
 import { DashboardService } from '../../services/dashboard.service';
 import { SharedDataService } from '../../services/shared.data.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
     selector: 'app-oddoneout',
@@ -24,8 +25,9 @@ export class OddOneOutComponent implements OnInit {
     public score;
     public showNext = false;
     public opt = [];
+    public language: any;
 
-    constructor(private _dashboardService: DashboardService, private _sharedData: SharedDataService, public toastr: ToastsManager, vcr: ViewContainerRef) {
+    constructor(private _langService: LanguageService, private _dashboardService: DashboardService, private _sharedData: SharedDataService, public toastr: ToastsManager, vcr: ViewContainerRef) {
         this.toastr.setRootViewContainerRef(vcr);
     }
 
@@ -34,6 +36,9 @@ export class OddOneOutComponent implements OnInit {
      * A set of 5 questions will be used
      */
     ngOnInit() {
+        this._langService.loadLanguage().subscribe(response => {
+            this.language = response.pcprepkit.stages.malaria101.oddOneOut;
+        });
         this.score = 0;
         this.activityComplete = false;
         this._questionNumber = 0;

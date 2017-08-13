@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Rx';
 import { DashboardService } from '../services/dashboard.service';
 import { SharedDataService } from '../services/shared.data.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { LanguageService } from '../services/language.service';
 
 @Component({
     selector: 'app-highlight',
@@ -18,8 +19,9 @@ export class HighlightActivityComponent implements OnInit {
     private _activity: number;
     private _stage: number;
     public activityComplete = false;
+    public language: any;
 
-    constructor(private _dashboardService: DashboardService, public toastr: ToastsManager, vcr: ViewContainerRef, private _sharedData: SharedDataService) {
+    constructor(private _langService: LanguageService, private _dashboardService: DashboardService, public toastr: ToastsManager, vcr: ViewContainerRef, private _sharedData: SharedDataService) {
         this.toastr.setRootViewContainerRef(vcr);
     }
 
@@ -27,6 +29,9 @@ export class HighlightActivityComponent implements OnInit {
      * Handle activity setup (Displaying activity information, checking user's progress and checking completing of activity)
      */
     ngOnInit() {
+        this._langService.loadLanguage().subscribe(response => {
+            this.language = response.pcprepkit.stages.introduction.highlightActivity;
+        });
         this._sharedData.customAlert('Highlight the definition of malaria to complete this activity', '', 'warning');
         this._dashboardService.getProgressStatus().subscribe(response => {
             this.activityComplete = this._sharedData.checkProgress(1, 1, response);
