@@ -15,7 +15,7 @@ export class ButtonNavComponent {
 
     public position: string;
     constructor(private _sharedData: SharedDataService, private _router: Router) {
-            this._sharedData.position.subscribe(
+            this._sharedData.navPosition.subscribe(
             value => {
                 this.position = value;
             }
