@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import { DashboardService } from '../../services/dashboard.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { SharedDataService } from '../../services/shared.data.service';
 
@@ -28,11 +29,11 @@ export class MalariaLifeCycleComponent implements OnInit {
                        'Second infected mosquito',
                        'Second infected person']
 
-    constructor(private _sharedData: SharedDataService, public toastr: ToastsManager, vcr: ViewContainerRef) {
+    constructor(private _dashboardService: DashboardService, private _sharedData: SharedDataService, public toastr: ToastsManager, vcr: ViewContainerRef) {
+        this.toastr.setRootViewContainerRef(vcr);
         this._dashboardService.getProgressStatus().subscribe(response => {
             this.activityComplete = this._sharedData.checkProgress(2, 1, response);
         });
-        this.toastr.setRootViewContainerRef(vcr);
     }
 
     ngOnInit() {

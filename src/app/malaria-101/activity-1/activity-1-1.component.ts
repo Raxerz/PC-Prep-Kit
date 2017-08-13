@@ -9,22 +9,5 @@ import { Router } from '@angular/router';
     styleUrls: ['../malaria-101.component.scss']
 })
 export class AnimatedVideoComponent {
-<<<<<<< HEAD
     public activityComplete = true;
-=======
-
-    public position: string;
-    public activityComplete = true;
-    constructor(private _dashboardService: DashboardService, private _sharedData: SharedDataService, private _router: Router) {
-        this._sharedData.position.subscribe(
-            value => {
-                this.position = value;
-            }
-        );
-    }
-
-    nextActivity() {
-        this._router.navigateByUrl('/malaria-101/activity-1-2');
-    }
->>>>>>> Made changes for demo
 }

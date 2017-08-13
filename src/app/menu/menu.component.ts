@@ -29,8 +29,8 @@ export class MenuComponent implements OnInit {
     /**
      * Handle router linking to introduction page
      */
-    introPage() {
-        this._router.navigateByUrl('/introduction');
+    navigateToPage(url) {
+        this._router.navigateByUrl(url);
     }
 
     /**
