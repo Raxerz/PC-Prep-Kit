@@ -100,7 +100,7 @@ export const routes: Routes = [
             {
                 path: 'activity-1-2',
                 component: MalariaLifeCycleComponent
-            },
+            },            
             {
                 path: 'activity-2',
                 component: DragdropComponent

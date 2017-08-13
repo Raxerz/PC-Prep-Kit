@@ -109,6 +109,7 @@ export class OddOneOutComponent implements OnInit {
         if (this._questionNumber === 5) {
             this.activityComplete = true;
             this._dashboardService.updateProgressStatus(this._status).subscribe(response => {});
+            this.showNext = true;
             return;
         }
         this._questionLock = false;

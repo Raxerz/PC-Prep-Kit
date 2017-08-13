@@ -12,6 +12,7 @@ import { LanguageService } from '../../services/language.service';
 export class DragdropComponent implements OnInit {
 
     language: any;
+    public activityComplete = false;
     /**
      * To change the postion of contents along with Body
      */
@@ -81,6 +82,7 @@ export class DragdropComponent implements OnInit {
      * Display the completion Message and Activate Infokit for the activity.
      */
     onComplete() {
+        this.activityComplete = true;
         this.toastr.success('Complete ! ', 'Success!');
       //  this._infokitService.activateinfokit('do_dont').subscribe(res => {});
     }
