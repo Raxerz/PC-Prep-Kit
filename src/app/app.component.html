@@ -3,5 +3,50 @@
 	<app-header (toggleNavbar)="nav.toggle()"> </app-header>
 </div>
 <app-navbar #nav (togglePosition)="toggle()" [hidden]='!loggedIn'> </app-navbar>
-<router-outlet></router-outlet>
+  <div class="app-content">
+   <router-outlet></router-outlet>
+  </div> 
+
+<!--md-sidenav-container fullscreen>
+  <div class="header" [hidden]='!loggedIn'>
+    <md-toolbar color="primary">
+    <div class="col-xs-1">
+      <button md-button (click)="sidenav.open()">
+           <i class="fa fa-list"></i>
+      </button>
+    </div>
+    <div class="col-md-10 text-center">
+      <span class="header-1 text-center">PC Prep</span><span class="header-2 text-center">Kit</span>
+    </div>
+    </md-toolbar>
+  </div>
+    <md-sidenav #sidenav class="sidebar">
+    <div class="sidenavbar" [hidden]='!loggedIn'>    
+      <md-toolbar color="primary">
+    	</md-toolbar>
+      <ul class="nav text-center">
+        <div class="profile">
+          <img  src="assets/img/profilepic.png" class="profile-pic img-circle">
+          <p> {{username}} </p>
+        </div>
+        <li><a routerLink="/intro" >Introduction</a></li>
+        <li><a routerLink="/malaria101" >Malaria 101</a></li>
+        <li><a routerLink="/medicationlabels" >Medication and Labels</a></li>
+        <li><a routerLink="/pcpolicy" >Peace Corps Policy</a></li>
+        <li><a routerLink="/infokit" >InfoKit</a></li>
+      </ul>
+      </div>      
+    </md-sidenav> 
+     
+</md-sidenav-container>
+  <span class="nav-back" [hidden]='!loggedIn'>
+    <button md-fab class="prev">
+      <i class="material-icons">arrow_back</i>
+    </button>
+  </span>    
+  <span class="nav-forward" [hidden]='!loggedIn'>
+    <button md-fab class="next">
+      <i class="material-icons">arrow_forward</i>
+    </button>
+  </span-->   
 

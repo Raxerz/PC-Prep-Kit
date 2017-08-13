@@ -16,9 +16,16 @@
     font-size: 20px;
 }
 
+.toggle-button {
+    color: white;
+    background: #3F51B5;
+}
+
 .sidebar{
     background: $sidebar-background;
     color: $font-black;
+    font-weight: 900;
+    font-size: 18px;      
     box-shadow: 0px 0px 10px;
     position: fixed;
     top: 0;
@@ -32,3 +39,4 @@
         color: $font-black;
     }
 }
+

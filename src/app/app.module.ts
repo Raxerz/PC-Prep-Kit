@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
+import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
@@ -76,8 +77,10 @@ import { PrevActivityDirective } from './directives/prev.directive';
         ReactiveFormsModule,
         BrowserModule,
         BrowserAnimationsModule,
+        MaterialModule,
         ToastModule.forRoot()
     ],
+    schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     providers: [DashboardService, AuthService, LoggedInGuard, UnauthenticatedGuard, APIService, RegService, NavbarService, SharedDataService],
     bootstrap: [AppComponent]
 })

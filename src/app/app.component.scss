@@ -1,0 +1,79 @@
+@import "./styles/components/_buttons";
+@import "./styles/components/_headings";
+@import "./styles/base/_variables";
+
+md-sidenav {
+	background: #3F51B5;
+}
+
+md-sidenav-container {
+	background: white;
+}
+
+.header-1 {
+    color: $headerbar-header-left-color;
+}
+
+.profile-pic{
+    height: $profile-pic-height;
+    width: $profile-pic-width;
+    padding: $profile-pic-padding;
+}
+
+.sidebar-header{
+    background: $header-background;
+    padding: $side-bar-header-padding;
+}
+
+.profile{
+    font-size: 20px;
+}
+
+.sidebar{
+    background: $sidebar-background;
+    color: $font-black;
+    font-weight: 900;
+    font-size: 18px;    
+    box-shadow: 0px 0px 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: $sidebar-width;
+    overflow: hidden;
+    display: block;
+    z-index: 1000;
+    a{
+        color: $font-black;
+    }
+}
+
+.logout-button {
+    float: right;
+    color: white;
+    background: #3F51B5;
+    padding: $button-padding;
+}
+
+.nav-forward {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  color: white;
+}
+
+.nav-back {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+}
+
+.prev {
+  background: red;	
+  color: white;
+}
+
+.next {
+  background: green;
+  color: white;	
+}

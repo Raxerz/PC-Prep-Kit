@@ -11,3 +11,43 @@
 .header-1 {
     color: $headerbar-header-left-color;
 }
+
+.toggle-button {
+	color: white;
+	background: #3F51B5;
+}
+
+.header {
+  position: fixed;
+}
+
+.logout-button {
+    float: right;
+    color: white;
+    background: #3F51B5;
+    padding: $button-padding;
+}
+
+.nav-forward {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  color: white;
+}
+
+.nav-back {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+}
+
+.prev {
+  background: red;	
+  color: white;
+}
+
+.next {
+  background: green;
+  color: white;	
+}
+

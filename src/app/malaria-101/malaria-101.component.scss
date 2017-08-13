@@ -34,6 +34,7 @@ video{
     width: 15%;
     top: $topPos;
     left: $leftPos;
+    color: black;
 }
 
 @mixin rotate($rotation) {
@@ -181,14 +182,6 @@ video{
     }
 }
 
-.quiz-container {
-    position: absolute;
-    margin: auto;
-    top: 30%;
-    left: 0;
-    bottom: 0;
-    right: 0;
-}
 
 .pad {
     padding-left: 10%;

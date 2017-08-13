@@ -1,4 +1,25 @@
-<div class="container-fluid">
+    <md-toolbar color="primary">
+    <div class="col-xs-1">
+            <button type="button" class="btn btn-default btn-lg toggle-button" aria-label="Left Align" (click)="navbartoggle()">
+      <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+      </button>
+    </div>
+    <div class="col-md-10 text-center">
+      <span class="header-1 text-center">PC Prep</span><span class="header-2 text-center">Kit</span>
+    </div>
+      <button type="button" class="btn btn-default logout-button" aria-label="Left Align" (click)="logout()">Logout</button>      
+    </md-toolbar>
+  <span class="nav-back">
+    <button md-fab class="prev">
+      <i class="material-icons">arrow_back</i>
+    </button>
+  </span>    
+  <span class="nav-forward">
+    <button md-fab class="next">
+      <i class="material-icons">arrow_forward</i>
+    </button>
+  </span>    
+<!--div class="container-fluid">
   <div class="page-header header-bar row">
     <div class="col-xs-2 col-sm-5">
       <button type="button" class="btn btn-default btn-lg toggle-button" aria-label="Left Align" (click)="navbartoggle()">
@@ -10,4 +31,4 @@
       <button type="button" class="btn btn-default logout-button" aria-label="Left Align" (click)="logout()">Logout</button>
     </div>
   </div>
-</div>
+</div-->
