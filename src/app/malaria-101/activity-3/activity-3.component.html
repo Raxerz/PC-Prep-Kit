@@ -15,10 +15,10 @@
     <div class="row col-lg-6 col-lg-offset-3 text-center" [hidden]="!activityComplete">
         <div class="swal2-icon swal2-info">i</div>
         <div>
-            <h2 class="swal2-title text-center" id="swal2-title">Score!<br>You got {{this.score}} out of 5 questions right.</h2>
+            <h2 class="swal2-title text-center" id="swal2-title">{{language?.descriptions.score}}<br>{{language?.descriptions.resultText1}} {{this.score}} {{language?.descriptions.resultText2}}</h2>
         </div>
         <div class="swal2-title txt-center">
-            <button class="btn btn-primary btn-lg" (click)="reload()">Reset</button>
+            <button class="btn btn-primary btn-lg" (click)="reload()">{{language?.messages.resetButton}}</button>
         </div>
     </div>
 </div>
