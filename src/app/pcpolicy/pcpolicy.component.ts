@@ -12,6 +12,7 @@ export class PcpolicyComponent implements OnInit {
     language: any;
     email: String;
     public position = 'col-md-10 col-md-offset-2';
+    public activityComplete = true;
 
     constructor(private _dashboardService: DashboardService, private _langService: LanguageService) { }
 

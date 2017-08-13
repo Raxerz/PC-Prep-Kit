@@ -1,8 +1,7 @@
 <div class="container-fluid">
   <app-infokit #info > </app-infokit>
   <div class="row">
-    <div [className]="position + ' pc-policy-body text-center'">
-      <H1> {{language?.headings.introduction}} </H1>
+    <div class="pc-policy-body text-center">
       <p class="lead"> {{language?.descriptions.bodyContent1}} <Br> {{language?.descriptions.bodyContent2}}</p>
       <p class="lead text-primary"><strong> {{language?.descriptions.bodyContent3}} </strong></p>
       <img src="assets/img/mailpolicy.PNG" class="img-responsive center-block mail-policy-image">
@@ -10,12 +9,5 @@
       <p>{{language?.descriptions.bodyContent4 +' '+ email}}</p>
     </div>
   </div>
-<div class="row">
-    <a [className]="position + ' arrow-red'" routerLink="/introduction/activity-1">
-        Prev
-    </a>
-    <a class="arrow-green bounce col-lg-5 col-md-offset-4" routerLink="/introduction/activity-3">
-        Next
-    </a>    
-</div>  
+  <button-nav [complete]="activityComplete" nexturl="/introduction/activity-3" prevurl="/introduction/activity-1"></button-nav>
 </div>

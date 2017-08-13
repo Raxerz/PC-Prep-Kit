@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-lg-5 col-md-offset-4">
+    <div class="col-lg-6 col-md-offset-3">
         <table class="image-table">
             <tbody>
                 <tr *ngFor="let imgRows of createRange(4); let outerIdx = index">
@@ -11,12 +11,5 @@
         </table>
     </div>
 </div>
-<div class="row">
-    <button [className]="position + ' arrow-red'">
-        Prev
-    </button>
-    <button [hidden]="!activityComplete" class="arrow-green bounce col-lg-5 col-md-offset-4">
-        Next
-    </button>    
-</div>
+<button-nav nexturl="/meds-n-labels/activity-3" prevurl="/meds-n-labels/activity-1" [complete]="activityComplete"></button-nav>
 

@@ -43,10 +43,10 @@ const app = express();
 const api = require('./routes/api');
 
 // test api route
-const test=require('./routes/test');
+const test = require('./routes/test');
 // route for verification and registration
-const verification=require('./routes/verification');
-const registration=require('./routes/registration');
+const verification = require('./routes/verification');
+const registration = require('./routes/registration');
 
 // uncomment after placing your favicon in /public
 //const favicon = require('serve-favicon');
@@ -94,21 +94,5 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
-
-/**
- * Get port from environment and store in Express.
- */
-const port = process.env.PORT || '3000';
-app.set('port', port);
-
-/**
- * Create HTTP server.
- */
-const server = http.createServer(app);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-server.listen(port, () => console.log(`API running on localhost:${port}`));
 
 module.exports = app;

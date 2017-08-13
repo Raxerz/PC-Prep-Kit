@@ -19,9 +19,5 @@
         <img class="mosquito" src="../../assets/img/cartoon-mosquito.png">
     </div>
 </div>
-<div class="row" [hidden]="!activityComplete">
-    <a class="arrow-green bounce col-lg-5 col-md-offset-6" routerLink="/introduction/activity-2">
-        Next
-    </a>
-</div>
+<button-nav [complete]="activityComplete" nexturl="/introduction/activity-2"></button-nav>
 
