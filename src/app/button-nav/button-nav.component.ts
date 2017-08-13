@@ -3,19 +3,17 @@ import { SharedDataService } from '../services/shared.data.service';
 import { Router } from '@angular/router';
 
 @Component({
-  	selector: 'button-nav',
+    selector: 'button-nav',
     templateUrl: './button-nav.component.html',
     styleUrls: ['./button-nav.component.scss']
 })
 export class ButtonNavComponent {
 
-	@Input() first: boolean;
-	@Input() last: boolean;
-  	@Input() complete: boolean;
-  	@Input() nexturl: string;
-  	@Input() prevurl: string;
+    @Input() complete: boolean;
+    @Input() nexturl: string;
+    @Input() prevurl: string;
 
-  	public position: string;
+    public position: string;
     constructor(private _sharedData: SharedDataService, private _router: Router) {
             this._sharedData.position.subscribe(
             value => {
@@ -25,11 +23,11 @@ export class ButtonNavComponent {
     }
 
     next() {
-    	this._router.navigateByUrl(this.nexturl);
+        this._router.navigateByUrl(this.nexturl);
     }
 
     prev() {
-    	this._router.navigateByUrl(this.prevurl);
+        this._router.navigateByUrl(this.prevurl);
     }
 }
 
