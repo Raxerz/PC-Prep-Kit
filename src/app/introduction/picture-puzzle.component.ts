@@ -50,16 +50,10 @@ export class PicturePuzzleComponent implements OnInit {
     public webcamStream;
     public puzzleState = 'Start puzzle';
     public activityComplete = false;
-    public position: string;
     public filesToUpload: Array<File> = [];
 
     constructor(private _http: Http, private _dashboardService: DashboardService, public toastr: ToastsManager, vcr: ViewContainerRef, private _renderer: Renderer, private _sharedData: SharedDataService) {
-        this._sharedData.position.subscribe(
-            value => {
-                this.position = value;
-            }
-        );
-        this.toastr.setRootViewContainerRef(vcr); 
+        this.toastr.setRootViewContainerRef(vcr);
     }
 
     changeWebcamState(state, btnText) {
