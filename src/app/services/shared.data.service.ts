@@ -14,7 +14,9 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 export class SharedDataService {
 
     public position: Subject<string> = new BehaviorSubject<string>('col-md-10 col-md-offset-2');
+    public navPosition: Subject<string> = new BehaviorSubject<string>('col-md-2 col-md-offset-2');
     private _togglePosition = 'col-md-10 col-md-offset-2';
+    private _toggleNavPosition = 'col-md-2 col-md-offset-2';
     constructor(private _dashboardService: DashboardService, public toastr: ToastsManager) {
     }
 
@@ -24,6 +26,8 @@ export class SharedDataService {
     toggle() {
         this._togglePosition  = (this._togglePosition === 'col-md-10 col-md-offset-2') ? 'col-md-12' : 'col-md-10 col-md-offset-2';
         this.position.next(this._togglePosition);
+        this._toggleNavPosition  = (this._toggleNavPosition === 'col-md-2 col-md-offset-2') ? 'col-md-2' : 'col-md-2 col-md-offset-2';
+        this.navPosition.next(this._toggleNavPosition);
     }
 
     /**
@@ -51,5 +55,5 @@ export class SharedDataService {
     }
     customErrorAlert() {
         this.toastr.error('Sorry! Try Again!', 'Error!');
-    }    
+    }
 }

@@ -20,7 +20,7 @@ export class HighlightActivityComponent implements OnInit {
     public activityComplete = false;
 
     constructor(private _dashboardService: DashboardService, public toastr: ToastsManager, vcr: ViewContainerRef, private _sharedData: SharedDataService) {
-        this.toastr.setRootViewContainerRef(vcr); 
+        this.toastr.setRootViewContainerRef(vcr);
     }
 
     /**
@@ -29,7 +29,7 @@ export class HighlightActivityComponent implements OnInit {
     ngOnInit() {
         this._sharedData.customAlert('Highlight the definition of malaria to complete this activity', '', 'warning');
         this._dashboardService.getProgressStatus().subscribe(response => {
-            this.activityComplete = this._sharedData.checkProgress(1, 2, response);
+            this.activityComplete = this._sharedData.checkProgress(1, 1, response);
         });
         this._obs = Observable.interval(500)
                        .do(i => this.select());
@@ -46,7 +46,7 @@ export class HighlightActivityComponent implements OnInit {
             text = window.getSelection().toString();
         }
         this._selectedText = text;
-        this._status = {stage: 1, activity: 2};
+        this._status = {stage: 1, activity: 1};
         if (this._selectedText === content) {
             const selection = window.getSelection();
             if (selection) {

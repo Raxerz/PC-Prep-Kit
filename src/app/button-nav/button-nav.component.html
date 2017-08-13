@@ -1,10 +1,10 @@
-<span [className]="position + ' nav-back'" (click)="prev()" *ngIf="prevurl">
-    <button md-fab class="prev">
+<span [className]="position + ' nav-back'" *ngIf="prevurl">
+    <button md-fab class="prev" (click)="prev()">
         <i class="material-icons">arrow_back</i>
     </button>
 </span>    
-<span class="nav-forward bounce" *ngIf="complete" (click)="next()">
-    <button md-fab class="next">
+<span class="nav-forward bounce" *ngIf="complete">
+    <button md-fab class="next"  (click)="next()">
         <i class="material-icons">arrow_forward</i>
     </button>
 </span> 

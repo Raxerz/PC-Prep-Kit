@@ -29,12 +29,12 @@ export class MenuComponent implements OnInit {
     /**
      * Handle router linking to introduction page
      */
-    introPage() {
-        this._router.navigateByUrl('/introduction');
+    navigateToPage(url) {
+        this._router.navigateByUrl(url);
     }
 
     /**
-     * Check if user is logged in or not before loading the menu page 
+     * Check if user is logged in or not before loading the menu page
      */
     ngOnInit() {
         this._dashboardService.getProgressStatus().subscribe(response => {

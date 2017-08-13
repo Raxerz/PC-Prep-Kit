@@ -162,7 +162,7 @@ router.patch('/updateProgressStatus', authenticationHelpers.isAuthOrRedirect, (r
                 const progressActivity = data.progress.activity;
                 const stageDiff = currStage - progressStage;
                 const activityDiff = currActivity - progressActivity;
-                if((currStage === progressStage || stageDiff === 1) && (activityDiff === 1)) {
+                if((currStage === progressStage && activityDiff === 1) || (stageDiff === 1 && progressActivity === 3)) {
                     progress.update({
                         stage: currStage,
                         activity: currActivity
@@ -174,10 +174,10 @@ router.patch('/updateProgressStatus', authenticationHelpers.isAuthOrRedirect, (r
                         .then(response => {
                             return res.status(200).json({info: 'success'});
                         })
-                } else if(stageDiff > 1 && activityDiff > 1) {
-                    return res.status(200).json({info: 'Illegal operation'});
                 } else if(stageDiff < 1 && activityDiff < 1) {
                     return res.status(200).json({info: 'success'});
+                } else {
+                    return res.status(200).json({info: 'Illegal operation'});
                 }
             })
             .catch(function(err) {

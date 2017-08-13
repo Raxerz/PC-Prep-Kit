@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import {Observable} from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
+import { DashboardService } from '../../services/dashboard.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { SharedDataService } from '../../services/shared.data.service';
 
@@ -15,6 +16,7 @@ export class MalariaLifeCycleComponent implements OnInit {
     public activityComplete = false;
     private currArrState = [];
     public position: string;
+    private _status: object = {stage: 2, activity: 1};
     public solnArr = ['red-blood-cells.png',
                        'character-1.png',
                        'mosquito.png',
@@ -28,13 +30,11 @@ export class MalariaLifeCycleComponent implements OnInit {
                        'Second infected mosquito',
                        'Second infected person']
 
-    constructor(private _sharedData: SharedDataService, public toastr: ToastsManager, vcr: ViewContainerRef) {
+    constructor(private _dashboardService: DashboardService, private _sharedData: SharedDataService, public toastr: ToastsManager, vcr: ViewContainerRef) {
         this.toastr.setRootViewContainerRef(vcr);
-        this._sharedData.position.subscribe(
-            value => {
-                this.position = value;
-            }
-        );        
+        this._dashboardService.getProgressStatus().subscribe(response => {
+            this.activityComplete = this._sharedData.checkProgress(2, 1, response);
+        });
     }
 
     ngOnInit() {
@@ -105,10 +105,9 @@ export class MalariaLifeCycleComponent implements OnInit {
         if (!f && arrLength === 6) {
             this.activityComplete = true;
             this.toastr.success('Complete ! ', 'Success!');
-            //this._sharedData.customAlert('Good job!', 'You completed this activity!', 'success');
+            this._dashboardService.updateProgressStatus(this._status).subscribe(response => {});
         } else if (arrLength === 6) {
             this.toastr.error('The life cycle is incorrect! ', 'Sorry!');
-            //this._sharedData.customAlert('Sorry!', 'Try Again!', 'error');
         }
     }
 }

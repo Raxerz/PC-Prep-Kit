@@ -11,6 +11,7 @@ import { LanguageService } from '../services/language.service';
 export class PcpolicyComponent implements OnInit {
     language: any;
     email: String;
+    private _status: object = {stage: 1, activity: 2};
     public position = 'col-md-10 col-md-offset-2';
     public activityComplete = true;
 
@@ -20,6 +21,8 @@ export class PcpolicyComponent implements OnInit {
         this._dashboardService.getUserInfo().subscribe(response => {
             this.email = response.user.email;
         });
+
+        this._dashboardService.updateProgressStatus(this._status).subscribe(response => {});
 
         this._langService.loadLanguage().subscribe(response => {
             this.language = response.pcprepkit.stages.introduction.pcpolicy;
