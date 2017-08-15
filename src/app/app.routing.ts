@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
 import { LoggedInGuard } from './guards/logged-in.guard';
 import { UnauthenticatedGuard } from './guards/unauthenticated.guard';
