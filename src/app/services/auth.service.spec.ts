@@ -6,9 +6,12 @@ import { APIService } from './api.service';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { environment } from '../../environments/environment';
 
+const localStorageKey = 'pcprepkitUser';
 const mockLoginResponse = {user: {email: 'abc@gmail.com', name: 'Rajath'}, token: 'abcdef'};
+const mockAuthenticatedResponse = {authenticated: true, token: 'abcdef'};
 const loginAuthUrl = environment.baseURL + environment.authEndpoint + 'login';
-const logoutAuthUrl = environment.baseURL + environment.authEndpoint + 'login';
+const logoutAuthUrl = environment.baseURL + environment.authEndpoint + 'logout';
+const authenticatedApi = environment.baseURL + environment.authEndpoint  + 'authenticated';
 
 describe('AuthService', () => {
     beforeEach(() => {
@@ -28,7 +31,7 @@ describe('AuthService', () => {
         });
     });
 
-    it('should be created', fakeAsync(
+    beforeEach(() => { fakeAsync(
         inject([
             XHRBackend, 
             AuthService
@@ -40,22 +43,45 @@ describe('AuthService', () => {
                         connection.mockRespond(new Response(
                             new ResponseOptions({})
                         ));                
-                    } else if (connection.request.url === loginAuthUrl) {
+                    } 
+                    if (connection.request.url === authenticatedApi) {
+                        expect(connection.request.method).toBe(RequestMethod.Get);
+                        connection.mockRespond(new Response(
+                            new ResponseOptions({body: mockAuthenticatedResponse})
+                        ));               
+                    }                     
+                    if (connection.request.url === loginAuthUrl) {
                         expect(connection.request.method).toBe(RequestMethod.Post);
                         connection.mockRespond(new Response(
                             new ResponseOptions({ body: mockLoginResponse })
                         ));                    
                     }
-                });            
-                expect(service).toBeTruthy();
+                }); 
+            })
+        )
+    });    
+
+    it('should be created', inject([AuthService], (service: AuthService) => {
+        expect(service).toBeTruthy();
+    }));
+
+    it('should clear token from local storage on logging out', inject([AuthService], (service: AuthService) => {
                 service.logout()
                         .subscribe(res => {
-                            expect(service).toBeTruthy();
-                        });                
+                            expect(localStorage.getItem(localStorageKey)).toBe(null);
+                        });
+    }));
+    it('should add token to localstorage on logging in', inject([AuthService], (service: AuthService) => {               
                 service.loginUser({email: 'abc@gmail.com', password: 'abc'})
                         .subscribe(res => {
                             expect(res).toBeTruthy();
+                            expect(localStorage.getItem(localStorageKey)).toBeDefined();
                         });
-            })
-    ));
+    })); 
+    it('should check for authentication', inject([AuthService], (service: AuthService) => {               
+                service.authenticated()
+                        .subscribe(res => {
+                            expect(res.authenticated).toBeTruthy();
+                        });
+    }));        
 });

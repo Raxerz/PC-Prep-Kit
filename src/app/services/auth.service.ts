@@ -36,7 +36,7 @@ export class AuthService {
      * @return {Observable<any>}      Return response
      */
     public loginUser (body: Object): Observable<any> {
-        this.logout();
+        //this.logout();
 
         return this._apiservice.post(this._loginAuth, body)
                     .map((res: Response) => {
