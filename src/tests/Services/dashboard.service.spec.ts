@@ -1,7 +1,7 @@
 import { fakeAsync, TestBed, inject } from '@angular/core/testing';
 import { HttpModule, XHRBackend, ResponseOptions, Response, RequestMethod } from '@angular/http';
-import { APIService } from './api.service';
-import { DashboardService } from './dashboard.service';
+import { APIService } from '../../app/services/api.service';
+import { DashboardService } from '../../app/services/dashboard.service';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { environment } from '../../environments/environment';
 

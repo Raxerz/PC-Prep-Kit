@@ -2,10 +2,10 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 import 'webrtc-adapter';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DashboardService } from '../services/dashboard.service';
-import { APIService } from '../services/api.service';
-import { PicturePuzzleComponent } from './picture-puzzle.component';
-import { SharedDataService } from '../services/shared.data.service';
+import { DashboardService } from '../../app/services/dashboard.service';
+import { APIService } from '../../app/services/api.service';
+import { PicturePuzzleComponent } from '../../app/introduction/picture-puzzle.component';
+import { SharedDataService } from '../../app/services/shared.data.service';
 import { HttpModule } from '@angular/http';
 import { RouterTestingModule } from '@angular/router/testing';
 

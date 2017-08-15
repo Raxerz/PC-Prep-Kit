@@ -1,9 +1,9 @@
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DashboardService } from '../services/dashboard.service';
-import { APIService } from '../services/api.service';
-import { MenuComponent } from './menu.component';
+import { DashboardService } from '../../app/services/dashboard.service';
+import { APIService } from '../../app/services/api.service';
+import { MenuComponent } from '../../app/menu/menu.component';
 import { HttpModule } from '@angular/http';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';

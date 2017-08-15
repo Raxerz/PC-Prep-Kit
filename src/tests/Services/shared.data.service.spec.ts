@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { DashboardService } from './dashboard.service';
-import { SharedDataService } from './shared.data.service';
-import { APIService } from './api.service';
+import { DashboardService } from '../../app/services/dashboard.service';
+import { SharedDataService } from '../../app/services/shared.data.service';
+import { APIService } from '../../app/services/api.service';
 import { HttpModule } from '@angular/http';
 
 describe('SharedDataService', () => {

@@ -13,7 +13,6 @@ import { UnauthenticatedGuard } from './guards/unauthenticated.guard';
 import { LoginComponent } from './authentication/login.component';
 import { ForgotPasswordComponent } from './authentication/forgot-password.component';
 import { ResetPasswordComponent } from './authentication/reset-password.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { PcpolicyComponent } from './pcpolicy/pcpolicy.component';
 import { SplashscreenComponent } from './splashscreen/splashscreen.component';
 import { RegisterComponent } from './register/register.component';
@@ -41,7 +40,6 @@ import { MalariaLifeCycleComponent } from './malaria-101/activity-1/activity-1-2
 @NgModule({
     declarations: [
         AppComponent,
-        DashboardComponent,
         LoginComponent,
         ForgotPasswordComponent,
         ResetPasswordComponent,

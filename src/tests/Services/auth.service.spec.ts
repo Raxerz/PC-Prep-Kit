@@ -1,17 +1,18 @@
 import { fakeAsync, TestBed, inject } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService } from './auth.service';
+import { AuthService } from '../../app/services/auth.service';
 import { HttpModule, XHRBackend, ResponseOptions, Response, RequestMethod } from '@angular/http';
-import { APIService } from './api.service';
+import { APIService } from '../../app/services/api.service';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { environment } from '../../environments/environment';
 
-const localStorageKey = 'pcprepkitUser';
+const localStorageKey = environment.localStorageKey;
+const baseAPIUrl = environment.baseURL + environment.apiEndpoint;
 const mockLoginResponse = {user: {email: 'abc@gmail.com', name: 'Rajath'}, token: 'abcdef'};
 const mockAuthenticatedResponse = {authenticated: true, token: 'abcdef'};
-const loginAuthUrl = environment.baseURL + environment.authEndpoint + 'login';
-const logoutAuthUrl = environment.baseURL + environment.authEndpoint + 'logout';
-const authenticatedApi = environment.baseURL + environment.authEndpoint  + 'authenticated';
+const loginAuthUrl = baseAPIUrl + 'login';
+const logoutAuthUrl = baseAPIUrl + 'logout';
+const authenticatedApi = baseAPIUrl  + 'authenticated';
 
 describe('AuthService', () => {
     beforeEach(() => {
