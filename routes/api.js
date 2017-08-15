@@ -162,7 +162,7 @@ router.patch('/updateProgressStatus', authenticationHelpers.isAuthOrRedirect, (r
                 const progressActivity = data.progress.activity;
                 const stageDiff = currStage - progressStage;
                 const activityDiff = currActivity - progressActivity;
-                if((currStage === progressStage && activityDiff === 1) || (stageDiff === 1 && progressActivity === 3)) {
+                if((currStage === progressStage && activityDiff === 1) || (stageDiff === 1 && progressActivity === 3) || (stageDiff === 1 && progressActivity === 0)) {
                     progress.update({
                         stage: currStage,
                         activity: currActivity
