@@ -23,6 +23,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ActivityintroComponent } from './activityintro/activityintro.component';
 import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './menu/menu.component';
+import { UnlockedStageComponent } from './unlocked-stage/unlocked-stage.component';
 
 import { DashboardService } from './services/dashboard.service';
 import { AuthService } from './services/auth.service';
@@ -68,7 +69,8 @@ import { PrevActivityDirective } from './directives/prev.directive';
         MalariaLifeCycleComponent,
         OddOneOutComponent,
         NextActivityDirective,
-        PrevActivityDirective
+        PrevActivityDirective,
+        UnlockedStageComponent
     ],
     imports: [
         AppRoutingModule,
