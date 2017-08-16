@@ -2,9 +2,9 @@
 .bananas{
   position:relative;
   border:1px solid black;
-  height:500px;
-  width:750px;
-  top: 100px;
+  height:450px;
+  width:700px;
+  top: 50px;
   left: 25%;
   user-select: none;
   -moz-user-select: none;
@@ -54,12 +54,16 @@
   -moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
-  -o-user-select: none;   
+  -o-user-select: none;  
+    -webkit-user-drag: none; /* Prevents dragging of images/divs etc */
+    user-drag: none;      
 }
 
 #abc {
   position: absolute;
-  top:;
+  top:150px;
+  left: 80%;
+  width: 5%; 
 }
 
 #human-health {
