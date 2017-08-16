@@ -53,6 +53,7 @@ export class PicturePuzzleComponent implements OnInit {
     public activityComplete = false;
     public filesToUpload: Array<File> = [];
     public language: any;
+    public completed = false;
 
     constructor(private _langService: LanguageService, private _http: Http, private _dashboardService: DashboardService, public toastr: ToastsManager, vcr: ViewContainerRef, private _renderer: Renderer, private _sharedData: SharedDataService) {
         this.toastr.setRootViewContainerRef(vcr);
@@ -92,7 +93,7 @@ export class PicturePuzzleComponent implements OnInit {
         });
         this.changeWebcamState(this.webcamStates.PAGE_LOAD, 'Take Photo');
         this._dashboardService.getProgressStatus().subscribe(response => {
-            this.activityComplete = this._sharedData.checkProgress(1, 3, response);
+            this.completed = this._sharedData.checkProgress(1, 3, response);
         });
     }
 

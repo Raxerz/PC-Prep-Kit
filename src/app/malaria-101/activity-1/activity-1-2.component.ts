@@ -16,6 +16,7 @@ export class MalariaLifeCycleComponent implements OnInit {
     private _status: object = {stage: 2, activity: 1};
     private currArrState = [];
     public activityComplete = false;
+    public completed = false;
     public solnArr = ['red-blood-cells.png',
                        'character-1.png',
                        'mosquito.png',
@@ -32,7 +33,7 @@ export class MalariaLifeCycleComponent implements OnInit {
     constructor(private _dashboardService: DashboardService, private _sharedData: SharedDataService, public toastr: ToastsManager, vcr: ViewContainerRef) {
         this.toastr.setRootViewContainerRef(vcr);
         this._dashboardService.getProgressStatus().subscribe(response => {
-            this.activityComplete = this._sharedData.checkProgress(2, 1, response);
+            this.completed = this._sharedData.checkProgress(2, 1, response);
         });
     }
 

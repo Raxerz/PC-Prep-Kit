@@ -9,5 +9,5 @@ import { Router } from '@angular/router';
     styleUrls: ['../malaria-101.component.scss']
 })
 export class AnimatedVideoComponent {
-    public activityComplete = true;
+    public completed = true;
 }

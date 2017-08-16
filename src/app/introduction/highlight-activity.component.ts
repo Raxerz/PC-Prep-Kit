@@ -20,6 +20,7 @@ export class HighlightActivityComponent implements OnInit {
     private _stage: number;
     public activityComplete = false;
     public language: any;
+    public completed = false;
 
     constructor(private _langService: LanguageService, private _dashboardService: DashboardService, public toastr: ToastsManager, vcr: ViewContainerRef, private _sharedData: SharedDataService) {
         this.toastr.setRootViewContainerRef(vcr);
@@ -34,7 +35,7 @@ export class HighlightActivityComponent implements OnInit {
         });
         this._sharedData.customAlert('Highlight the definition of malaria to complete this activity', '', 'warning');
         this._dashboardService.getProgressStatus().subscribe(response => {
-            this.activityComplete = this._sharedData.checkProgress(1, 1, response);
+            this.completed = this._sharedData.checkProgress(1, 1, response);
         });
         this._obs = Observable.interval(500)
                        .do(i => this.select());

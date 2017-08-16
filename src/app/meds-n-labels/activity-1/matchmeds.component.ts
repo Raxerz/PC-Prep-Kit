@@ -2,6 +2,8 @@ import { Component, OnInit, AfterViewInit, ViewChild, HostListener, ViewContaine
 import { Coordinates } from './coordinate-structure';
 import { MatchingInfo } from './matching.info';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { DashboardService } from '../../services/dashboard.service';
+import { SharedDataService } from '../../services/shared.data.service';
 
 @Component({
     selector: 'app-matchmeds',
@@ -20,6 +22,9 @@ export class MatchmedsComponent implements OnInit {
     height = 400;
     width = 75;
     windowWidth = window.innerWidth;
+    completed = false;
+    activityComplete = false;
+    private _status: object = {stage: 3, activity: 1};
 
     // Number of Elements for Matching
     numElements = MatchingInfo.numElements;
@@ -52,11 +57,15 @@ export class MatchmedsComponent implements OnInit {
     correctAns = MatchingInfo.match1ans;
     givenAns = [0, 0, 0];
 
-    constructor(public toastr: ToastsManager, vcr: ViewContainerRef) {
+    constructor(public toastr: ToastsManager, private _dashboardService: DashboardService, private _sharedData: SharedDataService, vcr: ViewContainerRef) {
         this.toastr.setRootViewContainerRef(vcr);
     }
 
     ngOnInit() {
+
+        this._dashboardService.getProgressStatus().subscribe(response => {
+            this.completed = this._sharedData.checkProgress(3, 1, response);
+        });
 
         /**
         * Check Window Size and Change Width
@@ -257,6 +266,7 @@ export class MatchmedsComponent implements OnInit {
                 if (this.count === this.numElements) {
                     if (this.isEqual()) {
                         this.toastr.success('Complete ! ', 'Success!');
+                        this._dashboardService.updateProgressStatus(this._status).subscribe(response => {});                        
                         this.matchingComplete++;
                         if (this.matchingComplete === 1) {
                             this.count = 0;

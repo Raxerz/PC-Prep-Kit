@@ -3,7 +3,12 @@
         <i class="material-icons">arrow_back</i>
     </button>
 </span>    
-<span class="nav-forward bounce" *ngIf="complete">
+<span class="nav-forward" *ngIf="completed">
+    <button md-fab class="next"  (click)="next()">
+        <i class="material-icons">arrow_forward</i>
+    </button>
+</span>
+<span class="nav-forward bounce" *ngIf="!completed && complete">
     <button md-fab class="next"  (click)="next()">
         <i class="material-icons">arrow_forward</i>
     </button>

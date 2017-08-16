@@ -12,6 +12,7 @@ export class ButtonNavComponent {
     @Input() complete: boolean;
     @Input() nexturl: string;
     @Input() prevurl: string;
+    @Input() completed: boolean;
 
     public position: string;
     constructor(private _sharedData: SharedDataService, private _router: Router) {

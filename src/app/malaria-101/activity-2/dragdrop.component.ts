@@ -21,6 +21,7 @@ export class DragdropComponent implements OnInit {
      * To change the postion of contents along with Body
      */
     public position= 'col-md-10 col-md-offset-2 introbody';
+    public completed = false;
 
     /**
      * dosAndDonts description with the values,the same order will be displayed
@@ -96,7 +97,7 @@ export class DragdropComponent implements OnInit {
       private _langService: LanguageService) {
         this.toastr.setRootViewContainerRef(vcr);
         this._dashboardService.getProgressStatus().subscribe(response => {
-            this.activityComplete = this._sharedData.checkProgress(2, 2, response);
+            this.completed = this._sharedData.checkProgress(2, 2, response);
         });
     }
 

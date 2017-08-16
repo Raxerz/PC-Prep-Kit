@@ -27,6 +27,7 @@ export class MemoryGameComponent implements OnInit {
     public isMatchArr: boolean[] = [];
     public backcard = this._baseImgPath + 'logo.png'; // shows back of card when turned over
     public activityComplete = false;
+    public completed = false;
 
     private _faces = [
                 'area-1.png',
@@ -58,7 +59,7 @@ export class MemoryGameComponent implements OnInit {
 
     ngOnInit() {
         this._dashboardService.getProgressStatus().subscribe(response => {
-            this.activityComplete = this._sharedData.checkProgress(3, 2, response);
+            this.completed = this._sharedData.checkProgress(3, 2, response);
         });
         this.shuffle(this._faces);
         this.createBoolArr();

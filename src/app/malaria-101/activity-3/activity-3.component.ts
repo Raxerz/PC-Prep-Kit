@@ -23,9 +23,9 @@ export class OddOneOutComponent implements OnInit {
     public activityComplete;
     public questionText;
     public score;
-    public showNext = false;
     public opt = [];
     public language: any;
+    public completed = false;
 
     constructor(private _langService: LanguageService, private _dashboardService: DashboardService, private _sharedData: SharedDataService, public toastr: ToastsManager, vcr: ViewContainerRef) {
         this.toastr.setRootViewContainerRef(vcr);
@@ -45,8 +45,7 @@ export class OddOneOutComponent implements OnInit {
         this._questionLock = false;
         this.opt = [];
         this._dashboardService.getProgressStatus().subscribe(response => {
-            this.showNext = this._sharedData.checkProgress(2, 3, response);
-            this.activityComplete = this._sharedData.checkProgress(2, 3, response);
+            this.completed = this._sharedData.checkProgress(2, 3, response);
         });
         this._dashboardService.getJSONData('quiz.json').subscribe(response => {
             this._data = JSON.parse(response.data);
@@ -114,8 +113,6 @@ export class OddOneOutComponent implements OnInit {
         this._questionNumber++;
         if (this._questionNumber === 5) {
             this.activityComplete = true;
-            this._dashboardService.updateProgressStatus(this._status).subscribe(response => {});
-            this.showNext = true;
             this._dashboardService.updateProgressStatus(this._status).subscribe(response => {});
             return;
         }
