@@ -1,131 +1,125 @@
 import { Component, OnInit, AfterViewChecked, Renderer } from '@angular/core';
-import {Observable} from 'rxjs/Rx';
 import * as $ from 'jquery';
 
 @Component({
     selector: 'app-unlocked-stage',
     templateUrl: './unlocked-stage.component.html',
-    styleUrls: ['./unlocked-stage.component.css']
+    styleUrls: ['./unlocked-stage.component.scss']
 })
 export class UnlockedStageComponent implements OnInit {
 
-	private canvas;
-    private stage;
-    private spray;
-    private spray1;
-    private img;
-    private x = 10;
-    private y = 20;
-    private object;
-    private human;
-    private humanBarWidth = 100;
-    private mosquitoBarWidth = 100;
-  	private obs;
-    private humanProgBar;
-    private mosquitoProgBar;
-  	private subscription;
+    private _canvas;
+    private _sprayItem;
+    private _spray;
+    private _human;
+    private _humanProgBar;
+    private _mosquitoProgBar;
+    private _humanBarWidth = 100;
+    private _mosquitoBarWidth = 100;
+    private _mousemoveListener;
+    private _mouseleaveListener;
     private _mousedownListener;
-    private _mousemoveList;
-    private _mousemoveList1;
-    private _mousemoveList2;
-    private _mousemoveList3;
-    private mousedown = false;
-    private sprayObj = {};
-    private mosquitoObj = {};
+    private _mouseupListener;
+    private _mousedown = false;
 
-  	constructor(private _renderer: Renderer) { }
+    public mosquito;
 
-  	ngOnInit() {
-        this.humanProgBar = document.getElementById('human-health-bar');
-        this.mosquitoProgBar = document.getElementById('mosquito-health-bar');
-        this.object = document.getElementById('imgdisplay2');
-        this.human = document.getElementById('human');
-        this.spray = document.getElementById('abc');
-        this._mousedownListener = this._renderer.listen(this.spray, 'click', (event) => this.ccursor(event));
+    constructor(private _renderer: Renderer) { }
+
+    ngOnInit() {
+        this._humanProgBar = document.getElementById('human-health-bar');
+        this._mosquitoProgBar = document.getElementById('mosquito-health-bar');
+        this.mosquito = document.getElementById('moz');
+        this._human = document.getElementById('human');
+        this._sprayItem = document.getElementById('spray-item');
+        this._mousedownListener = this._renderer.listen(this._sprayItem, 'click', (event) => this.changeCursor(event));
         this.animateDiv();
-  	}
-
-    ccursor(e) {        
-        this.spray1 = document.getElementById('abc1');
-        this.canvas =  document.getElementById('fotos');
-        this._mousemoveList = this._renderer.listen(this.canvas, 'mousemove', (event) => this.movemm(event));
-        this._mousemoveList1 = this._renderer.listen(this.canvas, 'mouseleave', (event) => this.movemmee(event)); 
-        this._mousemoveList2 = this._renderer.listen(this.canvas, 'mousedown', (event) => this.me(event));
-        this._mousemoveList3 = this._renderer.listen(this.canvas, 'mouseup', (event) => this.up(event));      
-    }
-    me(e) {
-        this.spray1.src = '../assets/img/12.gif';
-        this.mousedown = true;
-    }
-    up(e) {
-        this.spray1.src = '../assets/img/13.gif';
-        this.mousedown = false;
-    }    
-    movemm(e){
-        this.canvas.style.cursor = 'none';
-        this.spray1.style.display = "block";      
-        this.spray1.style.left = e.pageX - 425 + "px";
-        this.spray1.style.top = e.pageY -150 + "px";      
     }
 
-    movemmee(e){
-        this.spray1.style.display = "none";
+    changeCursor(e) {
+        this._spray = document.getElementById('spray');
+        this._canvas =  document.getElementById('scene');
+        this._mousemoveListener = this._renderer.listen(this._canvas, 'mousemove', (event) => this.moveOverCanvas(event));
+        this._mouseleaveListener = this._renderer.listen(this._canvas, 'mouseleave', (event) => this.leaveCanvas());
+        this._mousedownListener = this._renderer.listen(this._canvas, 'mousedown', (event) => this.attack());
+        this._mouseupListener = this._renderer.listen(this._canvas, 'mouseup', (event) => this.stopAttack());
     }
 
-	animateDiv(){
-	    var newq = this.makeNewPosition();
-	    var oldqtop = this.object.offsetTop;
-	    var oldqleft = this.object.offsetLeft;
-        var currObj = this;
-  		var speed = this.calcSpeed([oldqtop, oldqleft], newq);
-        $("img[name=animate]").animate({ top: newq[1], left: newq[0] }, speed, function(){
-            if(currObj.spray1 && currObj.mousedown) {
-                if(currObj.checkCollision(currObj.spray1, currObj.object)) {
-                    currObj.mosquitoBarWidth-=10;
-                    currObj.mosquitoProgBar.style.width = currObj.mosquitoBarWidth + '%';
-                }                
+    attack() {
+        this._spray.src = '../assets/img/12.gif';
+        this._mousedown = true;
+    }
+
+    stopAttack() {
+        this._spray.src = '../assets/img/13.gif';
+        this._mousedown = false;
+    }
+
+    moveOverCanvas(e) {
+        this._canvas.style.cursor = 'none';
+        this._spray.style.display = 'block';
+        this._spray.style.left = e.pageX - 425 + 'px';
+        this._spray.style.top = e.pageY - 150 + 'px';
+    }
+
+    leaveCanvas() {
+        this._spray.style.display = 'none';
+    }
+
+    animateDiv() {
+        const newMosquitoPos = this.makeNewPosition();
+        const oldMosquitoTop = this.mosquito.offsetTop;
+        const oldMosquitoLeft = this.mosquito.offsetLeft;
+        const currObj = this;
+        const speed = this.calcSpeed([oldMosquitoTop, oldMosquitoLeft], newMosquitoPos);
+        $('img[name=animate]').animate({ top: newMosquitoPos[1], left: newMosquitoPos[0] }, speed, function(){
+            if (currObj._spray && currObj._mousedown) {
+                if (currObj.checkCollision(currObj._spray, currObj.mosquito)) {
+                    currObj._mosquitoBarWidth -= 10;
+                    currObj._mosquitoProgBar.style.width = currObj._mosquitoBarWidth + '%';
+                }
             }
-            if(currObj.checkCollision(currObj.human, currObj.object)) {
-                currObj.humanBarWidth-=10;
-                currObj.humanProgBar.style.width = currObj.humanBarWidth + '%';
+            if (currObj.checkCollision(currObj._human, currObj.mosquito)) {
+                currObj._humanBarWidth -= 10;
+                currObj._humanProgBar.style.width = currObj._humanBarWidth + '%';
             }
-            currObj.animateDiv();        
-        });	    
-	}
+            currObj.animateDiv();
+        });
+    }
 
     checkCollision(obj1, obj2) {
-            var top1 = obj1.offsetTop;
-            var left1 = obj1.offsetLeft;
-            var bottom1 = top1 + obj1.height;
-            var right1 = left1 + obj1.width;
-            var top2 = obj2.offsetTop;
-            var left2 = obj2.offsetLeft;
-            var bottom2 = top2 + obj2.height;
-            var right2 = left2 + obj2.width;
-            if (!(bottom1 < top2 || top1 > bottom2 || left1 > right2 || right1 < left2)) {
-                return true;
-            }            
+        const topObj1 = obj1.offsetTop;
+        const leftObj1 = obj1.offsetLeft;
+        const bottomObj1 = topObj1 + obj1.height;
+        const rightObj1 = leftObj1 + obj1.width;
+        const topObj2 = obj2.offsetTop;
+        const leftObj2 = obj2.offsetLeft;
+        const bottomObj2 = topObj2 + obj2.height;
+        const rightObj2 = leftObj2 + obj2.width;
+        if (!(bottomObj1 < topObj2 || topObj1 > bottomObj2 || leftObj1 > rightObj2 || rightObj1 < leftObj2)) {
+            return true;
+        }
     }
 
- 	makeNewPosition(){    
+    makeNewPosition() {
         // Get viewport dimensions (remove the dimension of the div)
-        var h = document.getElementById('fotos').offsetWidth-25;
-        var w = document.getElementById('fotos').offsetHeight-25;
-        
-        var nh = Math.floor(Math.random() * h);
-        var nw = Math.floor(Math.random() * w);
-        
-        return [nh,nw];    
-    }	
-	calcSpeed(prev, next) {   
-        var x = Math.abs(prev[1] - next[1]);
-        var y = Math.abs(prev[0] - next[0]);
-        
-        var greatest = x > y ? x : y;
-        
-        var speedModifier = 0.25;
+        const h = document.getElementById('scene').offsetWidth - 25;
+        const w = document.getElementById('scene').offsetHeight - 25;
 
-        var speed = Math.ceil(greatest/speedModifier);
+        const nh = Math.floor(Math.random() * h);
+        const nw = Math.floor(Math.random() * w);
+
+        return [nh, nw];
+    }
+    calcSpeed(prev, next) {
+        const x = Math.abs(prev[1] - next[1]);
+        const y = Math.abs(prev[0] - next[0]);
+
+        const greatest = x > y ? x : y;
+
+        const speedModifier = 0.25;
+
+        const speed = Math.ceil(greatest / speedModifier);
 
         return speed;
     }
