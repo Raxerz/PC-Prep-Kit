@@ -36,7 +36,7 @@ export class UnlockedStageComponent implements OnInit {
     ngOnInit() {
         this._langService.loadLanguage().subscribe(response => {
             this.language = response.pcprepkit.stages.lockedStage.game;
-        });        
+        });
         this._humanProgBar = document.getElementById('human-health-bar');
         this._mosquitoProgBar = document.getElementById('mosquito-health-bar');
         this.mosquito = document.getElementById('moz');
@@ -85,12 +85,12 @@ export class UnlockedStageComponent implements OnInit {
         $('img[name=animate]').animate({ top: newMosquitoPos[1], left: newMosquitoPos[0] }, speed, function() {
             if (currObj._mosquitoBarWidth <= 0) {
                 currObj.success = true;
-                this._dashboardService.updateProgressStatus(currObj._status).subscribe(response => {});
+                currObj._dashboardService.updateProgressStatus(currObj._status).subscribe(response => {});
                 return;
             }
-            if (currObj._humanBarWidth <=0) {
+            if (currObj._humanBarWidth <= 0) {
                 currObj.gameOver = true;
-                return;                
+                return;
             }
             if (currObj._spray && currObj._mousedown) {
                 if (currObj.checkCollision(currObj._spray, currObj.mosquito)) {
@@ -146,7 +146,9 @@ export class UnlockedStageComponent implements OnInit {
 
     reload() {
         this._mosquitoBarWidth = 100;
+        this._mosquitoProgBar.style.width = this._mosquitoBarWidth + '%';
         this._humanBarWidth = 100;
+        this._humanProgBar.style.width = this._humanBarWidth + '%';
         this.gameOver = false;
         this.success = false;
         this.ngOnInit();
