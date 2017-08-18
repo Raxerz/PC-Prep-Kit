@@ -65,7 +65,7 @@ export class PicturePuzzleComponent implements OnInit {
     }
 
     openWebcam() {
-        this.changeWebcamState(this.webcamStates.OPENED, 'Capture');
+        this.changeWebcamState(this.webcamStates.OPENED, this.language.messages.capture);
         this.imageLoaded = false;
         this._video = this.video.nativeElement;
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -83,15 +83,15 @@ export class PicturePuzzleComponent implements OnInit {
         } else {
             this.webcamStream.getTracks().forEach(function(track) { track.stop() })
         }
-        this.changeWebcamState(this.webcamStates.CAPTURED, 'Take another photo');
+        this.changeWebcamState(this.webcamStates.CAPTURED, this.language.messages.afterCapture);
         this.onImage();
     }
 
     ngOnInit() {
         this._langService.loadLanguage().subscribe(response => {
             this.language = response.pcprepkit.stages.introduction.picturePuzzle;
+            this.changeWebcamState(this.webcamStates.PAGE_LOAD, this.language.messages.takePhoto);            
         });
-        this.changeWebcamState(this.webcamStates.PAGE_LOAD, 'Take Photo');
         this._dashboardService.getProgressStatus().subscribe(response => {
             this.completed = this._sharedData.checkProgress(1, 3, response);
         });
@@ -121,7 +121,7 @@ export class PicturePuzzleComponent implements OnInit {
                 this.webcamStream.getTracks().forEach(function(track) {track.stop()})
             }
         }
-        this.changeWebcamState(this.webcamStates.PAGE_LOAD, 'Take Photo');
+        this.changeWebcamState(this.webcamStates.PAGE_LOAD, this.language.messages.takePhoto);
         document.getElementById('file').click();
     }
 
@@ -203,7 +203,7 @@ export class PicturePuzzleComponent implements OnInit {
         let i;
         let piece;
         let posn = {x: 0, y: 0};
-        this.puzzleState = 'Shuffle';
+        this.puzzleState = this.language.messages.shuffle;
         this._pieces = this.shuffleArray(this._pieces);
         this._stage.clearRect(0, 0, this._puzzleWidth, this._puzzleHeight);
         for (i = 0;  i < this._pieces.length; i++) {

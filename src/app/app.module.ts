@@ -38,6 +38,8 @@ import { Malaria101Component } from './malaria-101/malaria-101.component';
 import { AnimatedVideoComponent } from './malaria-101/activity-1/activity-1-1.component';
 import { MalariaLifeCycleComponent } from './malaria-101/activity-1/activity-1-2.component';
 import { OddOneOutComponent } from './malaria-101/activity-3/activity-3.component';
+import { UnlockedStageComponent } from './unlocked-stage/unlocked-stage.component';
+import { HowToPlayComponent } from './unlocked-stage/how-to-play/howtoplay.component';
 
 import { DashboardService } from './services/dashboard.service';
 import { AuthService } from './services/auth.service';
@@ -77,7 +79,9 @@ import { SharedDataService } from './services/shared.data.service';
         AnimatedVideoComponent,
         MalariaLifeCycleComponent,
         OddOneOutComponent,
-        ButtonNavComponent
+        ButtonNavComponent,
+        UnlockedStageComponent,
+        HowToPlayComponent
     ],
     imports: [
         AppRoutingModule,

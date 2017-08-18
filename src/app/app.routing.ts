@@ -24,6 +24,8 @@ import { Malaria101Component } from './malaria-101/malaria-101.component';
 import { AnimatedVideoComponent } from './malaria-101/activity-1/activity-1-1.component';
 import { MalariaLifeCycleComponent } from './malaria-101/activity-1/activity-1-2.component';
 import { OddOneOutComponent } from './malaria-101/activity-3/activity-3.component';
+import { UnlockedStageComponent } from './unlocked-stage/unlocked-stage.component';
+import { HowToPlayComponent } from './unlocked-stage/how-to-play/howtoplay.component';
 
 export const routes: Routes = [
     {
@@ -126,7 +128,17 @@ export const routes: Routes = [
                 component: MemoryGameComponent
             }
         ]
-    }
+    },
+    {
+        path: 'unlocked-stage',
+        component: HowToPlayComponent,
+        canActivate: [LoggedInGuard],
+    },
+    {
+        path: 'unlocked-stage/game',
+        component: UnlockedStageComponent,
+        canActivate: [LoggedInGuard],
+    },    
 ];
 @NgModule({
     imports: [RouterModule.forRoot(routes)],

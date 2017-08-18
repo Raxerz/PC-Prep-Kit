@@ -32,8 +32,8 @@ export class HighlightActivityComponent implements OnInit {
     ngOnInit() {
         this._langService.loadLanguage().subscribe(response => {
             this.language = response.pcprepkit.stages.introduction.highlightActivity;
+            this._sharedData.customAlert(this.language.alerts.info, '', 'warning');
         });
-        this._sharedData.customAlert('Highlight the definition of malaria to complete this activity', '', 'warning');
         this._dashboardService.getProgressStatus().subscribe(response => {
             this.completed = this._sharedData.checkProgress(1, 1, response);
         });
@@ -47,7 +47,7 @@ export class HighlightActivityComponent implements OnInit {
      */
     select() {
         let text = '';
-        const content = 'An intermittent and remittent fever caused by a protozoan parasite that invades the red blood cells. The parasite is transmitted by mosquitoes in many tropical and subtropical regions.';
+        const content = this.language.descriptions.bodyContent3;
         if (window.getSelection) {
             text = window.getSelection().toString();
         }
@@ -60,7 +60,7 @@ export class HighlightActivityComponent implements OnInit {
                 selection.empty();
             }
             if (this.activityComplete) {
-                this._sharedData.customAlert('You have already completed this activity!', '', 'warning');
+                this._sharedData.customSuccessAlert();
             } else {
                 this._dashboardService.updateProgressStatus(this._status).subscribe(response => {
                 });
