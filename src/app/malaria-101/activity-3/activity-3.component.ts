@@ -26,6 +26,7 @@ export class OddOneOutComponent implements OnInit {
     public opt = [];
     public language: any;
     public completed = false;
+    public alerts: any;
 
     constructor(private _langService: LanguageService, private _dashboardService: DashboardService, private _sharedData: SharedDataService, public toastr: ToastsManager, vcr: ViewContainerRef) {
         this.toastr.setRootViewContainerRef(vcr);
@@ -38,6 +39,7 @@ export class OddOneOutComponent implements OnInit {
     ngOnInit() {
         this._langService.loadLanguage().subscribe(response => {
             this.language = response.pcprepkit.stages.malaria101.oddOneOut;
+            this.alerts = response.pcprepkit.common.alerts;
         });
         this.score = 0;
         this.activityComplete = false;
@@ -76,9 +78,9 @@ export class OddOneOutComponent implements OnInit {
         this._questionLock = true;
         if (this._data.quizlist[this._questionNumber].answer === event.target.id) {
             this.score++;
-            this.toastr.success('Correct!', 'Success!');
+            this._sharedData.customSuccessAlert(this.alerts.activitySuccessMsg, this.alerts.activitySuccessTitle);
         } else {
-            this.toastr.error('Incorrect! ', 'Sorry!');
+            this._sharedData.customErrorAlert(this.alerts.activityFailMsg, this.alerts.activityFailTitle);
         }
         this._obs = Observable.interval(1000)
                     .do(i => this.changeQuestion() );

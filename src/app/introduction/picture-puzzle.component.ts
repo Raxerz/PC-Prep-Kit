@@ -54,6 +54,7 @@ export class PicturePuzzleComponent implements OnInit {
     public filesToUpload: Array<File> = [];
     public language: any;
     public completed = false;
+    public alerts: any;
 
     constructor(private _langService: LanguageService, private _http: Http, private _dashboardService: DashboardService, public toastr: ToastsManager, vcr: ViewContainerRef, private _renderer: Renderer, private _sharedData: SharedDataService) {
         this.toastr.setRootViewContainerRef(vcr);
@@ -90,7 +91,8 @@ export class PicturePuzzleComponent implements OnInit {
     ngOnInit() {
         this._langService.loadLanguage().subscribe(response => {
             this.language = response.pcprepkit.stages.introduction.picturePuzzle;
-            this.changeWebcamState(this.webcamStates.PAGE_LOAD, this.language.messages.takePhoto);            
+            this.alerts = response.pcprepkit.common.alerts;
+            this.changeWebcamState(this.webcamStates.PAGE_LOAD, this.language.messages.takePhoto);
         });
         this._dashboardService.getProgressStatus().subscribe(response => {
             this.completed = this._sharedData.checkProgress(1, 3, response);
@@ -101,14 +103,14 @@ export class PicturePuzzleComponent implements OnInit {
         if (this.webcamState === this.webcamStates.CAPTURED) {
             const camData = {base64: this._canvas.toDataURL('image/jpeg')}
             this._dashboardService.uploadCamPic(camData).subscribe(response => {
-                this._sharedData.customSuccessAlert();
+                this._sharedData.customSuccessAlert(this.alerts.activitySuccessMsg, this.alerts.activitySuccessTitle);
             });
         } else {
             const formData: any = new FormData();
             const files: Array<File> = this.filesToUpload;
             formData.append('uploads[]', files, 'profile_picture');
             this._dashboardService.uploadPic(formData).subscribe(response => {
-                this._sharedData.customSuccessAlert();
+                this._sharedData.customSuccessAlert(this.alerts.activitySuccessMsg, this.alerts.activitySuccessTitle);
             });
         }
     }
@@ -131,7 +133,7 @@ export class PicturePuzzleComponent implements OnInit {
         const reader = new FileReader();
 
         if (!file.type.match(pattern)) {
-            this._sharedData.customErrorAlert();
+            this._sharedData.customErrorAlert(this.alerts.activityFailMsg, this.alerts.activityFailTitle);
             return;
         }
 
@@ -160,7 +162,7 @@ export class PicturePuzzleComponent implements OnInit {
         if (this.webcamState === this.webcamStates.CAPTURED) {
             this._stage.drawImage(this._video, 0, 0, this._width, this._height);
             this.activityComplete = true;
-            this._sharedData.customSuccessAlert();
+            this._sharedData.customSuccessAlert(this.alerts.activitySuccessMsg, this.alerts.activitySuccessTitle);
             this._dashboardService.updateProgressStatus(this._status).subscribe(response => {});
         } else {
             this.initPuzzle();
@@ -353,7 +355,7 @@ export class PicturePuzzleComponent implements OnInit {
 
     gameOver() {
         this._dashboardService.updateProgressStatus(this._status).subscribe(response => {});
-        this._sharedData.customSuccessAlert();
+        this._sharedData.customSuccessAlert(this.alerts.activitySuccessMsg, this.alerts.activitySuccessTitle);
         this._mousedownListener();
         this._mousemoveListener();
         this._mouseupListener();

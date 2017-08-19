@@ -20,6 +20,7 @@ export class HighlightActivityComponent implements OnInit {
     private _stage: number;
     public activityComplete = false;
     public language: any;
+    public alerts: any;
     public completed = false;
 
     constructor(private _langService: LanguageService, private _dashboardService: DashboardService, public toastr: ToastsManager, vcr: ViewContainerRef, private _sharedData: SharedDataService) {
@@ -32,6 +33,7 @@ export class HighlightActivityComponent implements OnInit {
     ngOnInit() {
         this._langService.loadLanguage().subscribe(response => {
             this.language = response.pcprepkit.stages.introduction.highlightActivity;
+            this.alerts = response.pcprepkit.common.alerts;
             this._sharedData.customAlert(this.language.alerts.info, '', 'warning');
         });
         this._dashboardService.getProgressStatus().subscribe(response => {
@@ -60,11 +62,11 @@ export class HighlightActivityComponent implements OnInit {
                 selection.empty();
             }
             if (this.activityComplete) {
-                this._sharedData.customSuccessAlert();
+                this._sharedData.customSuccessAlert(this.alerts.activitySuccessMsg, this.alerts.activitySuccessTitle);
             } else {
                 this._dashboardService.updateProgressStatus(this._status).subscribe(response => {
                 });
-                this._sharedData.customSuccessAlert();
+                this._sharedData.customSuccessAlert(this.alerts.activitySuccessMsg, this.alerts.activitySuccessTitle);
                 this.activityComplete = true;
             }
         }

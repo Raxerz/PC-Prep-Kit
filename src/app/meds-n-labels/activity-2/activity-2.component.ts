@@ -30,6 +30,7 @@ export class MemoryGameComponent implements OnInit {
     public activityComplete = false;
     public completed = false;
     public language: any;
+    public alerts: any;
 
     private _faces = [
                 'area-1.png',
@@ -56,7 +57,7 @@ export class MemoryGameComponent implements OnInit {
                 this.position = value;
             }
         );
-        this.toastr.setRootViewContainerRef(vcr);             
+        this.toastr.setRootViewContainerRef(vcr);
     }
 
     ngOnInit() {
@@ -65,7 +66,8 @@ export class MemoryGameComponent implements OnInit {
         });
         this._langService.loadLanguage().subscribe(response => {
             this.language = response.pcprepkit.stages.medsNLabels.memoryGame;
-        });        
+            this.alerts = response.pcprepkit.common.alerts;
+        });
         this.shuffle(this._faces);
         this.createBoolArr();
     }
@@ -156,7 +158,7 @@ export class MemoryGameComponent implements OnInit {
             }
             this._matches++;
             if (this._matches === 8) {
-                this._sharedData.customSuccessAlert();
+                this._sharedData.customSuccessAlert(this.alerts.activitySuccessMsg, this.alerts.activitySuccessTitle);
                 this._status = {stage: 3, activity: 2};
                 this._dashboardService.updateProgressStatus(this._status).subscribe(response => {});
                 this.activityComplete = true;

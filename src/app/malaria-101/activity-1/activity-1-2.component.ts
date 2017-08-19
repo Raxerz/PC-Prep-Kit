@@ -19,6 +19,7 @@ export class MalariaLifeCycleComponent implements OnInit {
     public activityComplete = false;
     public completed = false;
     public language: any;
+    public alerts: any;
     public solnArr = ['red-blood-cells.png',
                        'character-1.png',
                        'mosquito.png',
@@ -31,14 +32,15 @@ export class MalariaLifeCycleComponent implements OnInit {
         this.toastr.setRootViewContainerRef(vcr);
         this._dashboardService.getProgressStatus().subscribe(response => {
             this.completed = this._sharedData.checkProgress(2, 1, response);
-        });       
+        });
     }
 
     ngOnInit() {
         this._langService.loadLanguage().subscribe(response => {
             this.language = response.pcprepkit.stages.malaria101.lifecycle;
+            this.alerts = response.pcprepkit.common.alerts;
             this.labelsArr = this.language.labels;
-            this._sharedData.customAlert(this.language.alerts.info, '', 'warning');            
+            this._sharedData.customAlert(this.language.alerts.info, '', 'warning');
         });
     }
 
@@ -109,10 +111,10 @@ export class MalariaLifeCycleComponent implements OnInit {
 
         if (!isWrongPos && arrLength === 6) {
             this.activityComplete = true;
-            this.toastr.success('Complete!', 'Success!');
+            this._sharedData.customSuccessAlert(this.alerts.activitySuccessMsg, this.alerts.activitySuccessTitle);
             this._dashboardService.updateProgressStatus(this._status).subscribe(response => {});
         } else if (arrLength === 6) {
-            this.toastr.error('The life cycle is incorrect! ', 'Sorry!');
+            this._sharedData.customErrorAlert(this.alerts.activityFailMsg, this.alerts.activityFailTitle);
         }
     }
 }

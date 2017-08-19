@@ -50,10 +50,10 @@ export class SharedDataService {
         );
     }
 
-    customSuccessAlert() {
-        this.toastr.success('Complete!', 'Success!');
+    customSuccessAlert(msg, title) {
+        this.toastr.success(msg, title);
     }
-    customErrorAlert() {
-        this.toastr.error('Sorry! Try Again!', 'Error!');
+    customErrorAlert(msg, title) {
+        this.toastr.error(msg, title);
     }
 }

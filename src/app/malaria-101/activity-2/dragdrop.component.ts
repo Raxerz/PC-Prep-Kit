@@ -22,6 +22,7 @@ export class DragdropComponent implements OnInit {
      */
     public position= 'col-md-10 col-md-offset-2 introbody';
     public completed = false;
+    public alerts: any;
 
     /**
      * dosAndDonts description with the values,the same order will be displayed
@@ -52,6 +53,7 @@ export class DragdropComponent implements OnInit {
     ngOnInit() {
       this._langService.loadLanguage().subscribe(response => {
           this.language = response.pcprepkit.stages.malaria101.dragdrop;
+          this.alerts = response.pcprepkit.common.alerts;
       });
     }
     /**
@@ -88,7 +90,7 @@ export class DragdropComponent implements OnInit {
      */
     onComplete() {
         this.activityComplete = true;
-        this.toastr.success('Complete ! ', 'Success!');
+        this._sharedData.customSuccessAlert(this.alerts.activitySuccessMsg, this.alerts.activitySuccessTitle);
         this._dashboardService.updateProgressStatus(this._status).subscribe(response => {});
       //  this._infokitService.activateinfokit('do_dont').subscribe(res => {});
     }

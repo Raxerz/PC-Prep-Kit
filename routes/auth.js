@@ -14,7 +14,7 @@ const readHTMLFile = utilityFunctions.readHTMLFile;
  * @param  {Object} user Create authentication token using user data
  */
 function createToken(user) {
-    return jwt.sign(_.omit(user, 'password'), config.secretKey, { expiresIn: 60*60*5 });
+    return jwt.sign(_.omit(user, 'password'), config.secretKey, { expiresIn: 60 * 60 * 5 });
 }
 
 const validateEmail = utilityFunctions.validateEmail;
@@ -126,7 +126,7 @@ module.exports = function(router, passport, async, nodemailer, crypto, models) {
                         if(!data) {
                             return res.status(200).json({info: 'This account does not exist or you cannot change the password for this account'});
                         }
-                        const date = moment(moment.now() + 60*60*1000).format('YYYY-MM-DD HH:mm:ss');
+                        const date = moment(moment.now() + (60 * 60 * 1000)).format('YYYY-MM-DD HH:mm:ss');
                         localUser.update({
                             resetPasswordToken: token,
                             resetPasswordExpires: date

@@ -4,7 +4,6 @@ const router = express.Router();
 const mail = require('./mailService');
 const models = require('../database/models');
 const utilityFunctions = require('./utilityfunctions');
-const config = require('../config/settings');
 const handlebars = require('handlebars');
 
 const localUser = models.user_account;

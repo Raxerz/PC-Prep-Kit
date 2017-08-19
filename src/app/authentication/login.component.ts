@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { LanguageService } from '../services/language.service';
 
 import { AuthService } from '../services/auth.service';
 
@@ -17,11 +17,17 @@ export class LoginComponent {
     loginForm: FormGroup;
     errorMessage: String;
     pcprepkitlogo: String;
+    language: any;
+    header: any;
 
-    constructor(private _authService: AuthService, private _router: Router, fb: FormBuilder) {
+    constructor(private _langService: LanguageService, private _authService: AuthService, private _router: Router, fb: FormBuilder) {
         this.loginForm = fb.group({
             'email' : [null, Validators.compose([Validators.required, Validators.pattern('[^ @]*@[^ @]*')])],
             'password' : [null, Validators.compose([Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')])]
+        });
+        this._langService.loadLanguage().subscribe(response => {
+            this.language = response.pcprepkit.login;
+            this.header = response.pcprepkit.common.header;
         });
         this.pcprepkitlogo = '../../assets/img/prepkitlogo.png';
     }

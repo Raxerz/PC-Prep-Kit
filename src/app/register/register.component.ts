@@ -15,6 +15,7 @@ import { LanguageService } from '../services/language.service';
 export class RegisterComponent implements OnInit {
     regForm: FormGroup;
     language: any;
+    header: any;
 
     constructor(private _regService: RegService, private _router: Router, fb: FormBuilder, private _langService: LanguageService) {
         this.regForm = fb.group({
@@ -30,6 +31,7 @@ export class RegisterComponent implements OnInit {
     ngOnInit() {
         this._langService.loadLanguage().subscribe(response => {
             this.language = response.pcprepkit.registration;
+            this.header = response.pcprepkit.common.header;
         });
      }
 

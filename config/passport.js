@@ -36,7 +36,7 @@ module.exports = function(passport, models) {
             const nameArr = profile.displayName.split(' ');
             if(nameArr.length >= 2){
                 fname = nameArr[0];
-                lname = nameArr[nameArr.length-1];
+                lname = nameArr[nameArr.length - 1];
             } else {
                 fname = profile.displayName;
                 lname = '';
@@ -99,10 +99,10 @@ module.exports = function(passport, models) {
                     if(!data) {
                         return done(null, false, {info: 'Invalid email or password'});
                     }
-                    if(data.provider==='google') {
+                    if(data.provider === 'google') {
                         return done(null, false, {info: 'Please login with Google'});
                     }
-                    if(data.password!==password) {
+                    if(data.password !== password) {
                         return done(null, false, {info: 'Invalid password'});
                     }
                     const response = { email: data.email, name: data.name};

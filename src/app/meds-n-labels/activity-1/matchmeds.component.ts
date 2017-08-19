@@ -4,6 +4,7 @@ import { MatchingInfo } from './matching.info';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { DashboardService } from '../../services/dashboard.service';
 import { SharedDataService } from '../../services/shared.data.service';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
     selector: 'app-matchmeds',
@@ -25,6 +26,7 @@ export class MatchmedsComponent implements OnInit {
     completed = false;
     activityComplete = false;
     private _status: object = {stage: 3, activity: 1};
+    public alerts: any;
 
     // Number of Elements for Matching
     numElements = MatchingInfo.numElements;
@@ -57,7 +59,7 @@ export class MatchmedsComponent implements OnInit {
     correctAns = MatchingInfo.match1ans;
     givenAns = [0, 0, 0];
 
-    constructor(public toastr: ToastsManager, private _dashboardService: DashboardService, private _sharedData: SharedDataService, vcr: ViewContainerRef) {
+    constructor(private _langService: LanguageService, public toastr: ToastsManager, private _dashboardService: DashboardService, private _sharedData: SharedDataService, vcr: ViewContainerRef) {
         this.toastr.setRootViewContainerRef(vcr);
     }
 
@@ -65,6 +67,10 @@ export class MatchmedsComponent implements OnInit {
 
         this._dashboardService.getProgressStatus().subscribe(response => {
             this.completed = this._sharedData.checkProgress(3, 1, response);
+        });
+
+        this._langService.loadLanguage().subscribe(response => {
+            this.alerts = response.pcprepkit.common.alerts;
         });
 
         /**
@@ -265,7 +271,7 @@ export class MatchmedsComponent implements OnInit {
                 this.count++;
                 if (this.count === this.numElements) {
                     if (this.isEqual()) {
-                        this.toastr.success('Complete ! ', 'Success!');
+                        this._sharedData.customSuccessAlert(this.alerts.activitySuccessMsg, this.alerts.activitySuccessTitle);
                         this._dashboardService.updateProgressStatus(this._status).subscribe(response => {});                        
                         this.matchingComplete++;
                         if (this.matchingComplete === 1) {
@@ -275,7 +281,7 @@ export class MatchmedsComponent implements OnInit {
                             this.display = MatchingInfo.medicineDescriptions;
                         }
                     } else {
-                        this.toastr.error('Wrong Match ! ', 'Try Again!');
+                        this._sharedData.customErrorAlert(this.alerts.activityFailMsg, this.alerts.activityFailTitle);
                     }
                 }
             }

@@ -79,14 +79,15 @@ router.get('/username', authenticationHelpers.isAuthOrRedirect, (req, res) => {
     localUser.findAll({
         where: {
             email: email
-        }}).then(data => {
-            const username = `${data[0].fname} ${data[0].lname}`;
-            res.status(200).json({username: username});
-        }).catch(error => {
-            if(error){
-                res.status(500).json({error: 'Something went wrong'});
-            }
-        });
+        }
+    }).then(data => {
+        const username = `${data[0].fname} ${data[0].lname}`;
+        res.status(200).json({username: username});
+    }).catch(error => {
+        if(error){
+            res.status(500).json({error: 'Something went wrong'});
+        }
+    });
 });
 
 /**
