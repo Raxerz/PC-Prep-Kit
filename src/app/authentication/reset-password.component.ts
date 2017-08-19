@@ -22,7 +22,7 @@ export class ResetPasswordComponent implements OnInit {
 
     constructor(private _langService: LanguageService, private _authService: AuthService,  private _router: Router,  private _route: ActivatedRoute, fb: FormBuilder) {
         this._langService.loadLanguage().subscribe(response => {
-            this.language = response.pcprepkit.login;
+            this.language = response.pcprepkit.resetPassword;
             this.header = response.pcprepkit.common.header;
         });
         this.resetPasswordForm = fb.group({
@@ -47,7 +47,7 @@ export class ResetPasswordComponent implements OnInit {
             } else {
                 this.successMessage = res.success;
                 this.errorMessage = '';
-                this._router.navigateByUrl('/login');
+                this._router.navigateByUrl('/login?msg=' + this.successMessage);
             }
         }, err => {
             this.errorMessage = err.error;
