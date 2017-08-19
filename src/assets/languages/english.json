@@ -24,14 +24,21 @@
       "messages": {
         "heading": "Reset",
         "buttonMessage": "Reset"
-      }
+      },
+      "placeHolders": {
+        "email": "Email"
+      }      
     },
 
     "resetPassword": {
       "messages": {
         "heading": "Reset Password",
         "buttonMessage": "Reset Password"
-      }
+      },
+      "placeHolders": {
+        "password": "New password",
+        "confirmPassword": "Confirm password"
+      }      
     },    
 
     "login": {

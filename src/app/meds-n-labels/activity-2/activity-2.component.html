@@ -4,12 +4,12 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-6 col-md-offset-4">
+    <div class="col-lg-6 col-md-offset-3">
         <table class="image-table">
             <tbody>
                 <tr *ngFor="let imgRows of createRange(4); let outerIdx = index">
                     <td *ngFor="let imgs of createRange(4); let innerIdx = index;" (click)="isMatchArr[4*outerIdx+innerIdx] ? choose(4*outerIdx+innerIdx) : null" [id]="4*outerIdx+innerIdx">
-                        <img src="{{backcard}}"/>
+                        <img class="memory-imgs" src="{{backcard}}"/>
                     </td>
                 </tr>  
             </tbody>

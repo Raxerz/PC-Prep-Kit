@@ -173,8 +173,9 @@ module.exports = function(router, passport, async, nodemailer, crypto, models) {
      * @param  {Object} res  Response object
      */
     router.get('/reset/:token', function(req, res) {
+        const errMsg = 'Password reset token is invalid or has expired';
         if(!req.params.token) {
-            return res.status(400).json({error: 'Password reset token is invalid or has expired'});
+            return res.redirect(`http://${req.headers.host}/login?err=${errMsg}`);
         }
         localUser.find({where: {
             resetPasswordToken: req.params.token,
@@ -185,7 +186,7 @@ module.exports = function(router, passport, async, nodemailer, crypto, models) {
         }}, {raw: true})
             .then(data => {
                 if(!data) {
-                    return res.status(200).json({info: 'Password reset token is invalid or has expired'});
+                    return res.redirect(`http://${req.headers.host}/login?err=${errMsg}`);
                 }
                 res.redirect(`/reset/${req.params.token}`);
             }).catch(function(err) {
@@ -209,7 +210,8 @@ module.exports = function(router, passport, async, nodemailer, crypto, models) {
                 }}, {raw: true})
                     .then(data => {
                         if(!data) {
-                            return res.status(200).json({info: 'Password reset token is invalid or has expired'});
+                            const errMsg = 'Password reset token is invalid or has expired';
+                            return res.redirect(`http://${req.headers.host}/login?err=${errMsg}`);
                         }
                         const user = {email: data.email};
                         localUser.update({

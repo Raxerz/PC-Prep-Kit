@@ -1,15 +1,19 @@
 @import "../styles/main";
 
-img {
-    height: 100px;
-    width: 100px;
+.memory-imgs {
+    height: 120px;
+    width: 120px;
     cursor: pointer;
+}
+
+.content {
+    margin-bottom: 100px;
 }
 
 .image-table {
     border: 0;
     text-align: center;
-    width: 80%;
+    width: 100%;
     height: auto;
 }
 
