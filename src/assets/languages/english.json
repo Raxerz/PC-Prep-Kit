@@ -178,7 +178,10 @@
           },
           "messages": {
             "resetButton": "Retry"
-          }          
+          },
+          "alerts": {
+            "title": "Answers"
+          }
         }        
       },
       "medsNLabels": {

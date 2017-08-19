@@ -27,6 +27,7 @@ export class OddOneOutComponent implements OnInit {
     public language: any;
     public completed = false;
     public alerts: any;
+    public solutions = '';
 
     constructor(private _langService: LanguageService, private _dashboardService: DashboardService, private _sharedData: SharedDataService, public toastr: ToastsManager, vcr: ViewContainerRef) {
         this.toastr.setRootViewContainerRef(vcr);
@@ -42,6 +43,7 @@ export class OddOneOutComponent implements OnInit {
             this.alerts = response.pcprepkit.common.alerts;
         });
         this.score = 0;
+        this.solutions = '';
         this.activityComplete = false;
         this._questionNumber = 0;
         this._questionLock = false;
@@ -65,6 +67,8 @@ export class OddOneOutComponent implements OnInit {
         this.opt.push(this._data.quizlist[this._questionNumber].option2);
         this.opt.push(this._data.quizlist[this._questionNumber].option3);
         this.opt.push(this._data.quizlist[this._questionNumber].option4);
+        const ans = this.opt[this._data.quizlist[this._questionNumber].answer - 1];
+        this.solutions += '<strong>Q:</strong> ' + this.questionText + '<br>' + '<strong>Ans:</strong> ' + ans + '<br><br>';
     }
 
     /**
@@ -115,6 +119,7 @@ export class OddOneOutComponent implements OnInit {
         this._questionNumber++;
         if (this._questionNumber === 5) {
             this.activityComplete = true;
+            this._sharedData.customAlert(this.language.alerts.title, this.solutions, 'info');
             this._dashboardService.updateProgressStatus(this._status).subscribe(response => {});
             return;
         }
