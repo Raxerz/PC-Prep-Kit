@@ -5,6 +5,7 @@ const mail = require('./mailService');
 const models = require('../database/models');
 const utilityFunctions = require('./utilityfunctions');
 const config = require('../config/settings');
+const handlebars = require('handlebars');
 
 const localUser = models.user_account;
 const infokit = models.info_kit;
@@ -13,17 +14,28 @@ const validateEmail = utilityFunctions.validateEmail;
 const validateName = utilityFunctions.validateName;
 const validatePassword = utilityFunctions.validatePassword;
 const randomStr = utilityFunctions.randomString;
+const readHTMLFile = utilityFunctions.readHTMLFile;
 
 function verificationMail(req, res, rString) {
-    mail.mailOptions.to = req.body.email;
-    mail.mailOptions.subject = 'PC PrepKit Email Verification';
-    mail.mailOptions.html = `<b>Click on the link to complete the verification</b> <a href='${config.basePath}verification?token=${rString}&user=${req.body.email}'>Verify</a>`;
-    mail.smtpTransport.sendMail(mail.mailOptions, function(error) {
-        if(error) {
-            res.status(500).json({error: 'Something Went Wrong! Try again later.'});
-        }else {
-            res.json('Verification Mail Sent, Please check your mail.');
-        }
+    readHTMLFile('./public/pages/registration-verification.html', function(err, html) {
+        const template = handlebars.compile(html);
+        const replacements = {
+            host: req.headers.host,
+            token: rString,
+            email: req.body.email
+
+        };
+        const htmlToSend = template(replacements);
+        mail.mailOptions.to = req.body.email;
+        mail.mailOptions.subject = 'PC PrepKit Email Verification';
+        mail.mailOptions.html = htmlToSend;
+        mail.smtpTransport.sendMail(mail.mailOptions, function(error) {
+            if(error) {
+                res.status(500).json({error: 'Something Went Wrong! Try again later.'});
+            } else {
+                res.json('Verification Mail Sent, Please check your mail.');
+            }
+        });
     });
 }
 // Receiving HTTP Post

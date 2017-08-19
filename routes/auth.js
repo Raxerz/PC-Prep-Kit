@@ -1,6 +1,5 @@
 // Import dependencies
 const smtpTransport = require('nodemailer-smtp-transport');
-const fs = require('fs');
 const moment = require('moment');
 const handlebars = require('handlebars');
 const config = require('../config/settings');
@@ -8,18 +7,7 @@ const _      = require('lodash');
 const jwt    = require('jsonwebtoken');
 const authenticationHelpers = require('./authenticationHelpers');
 const utilityFunctions = require('./utilityfunctions');
-
-function readHTMLFile(path, callback) {
-    fs.readFile(path, {encoding: 'utf-8'}, function(err, html) {
-        if (err) {
-            throw err;
-            callback(err);
-        }
-        else {
-            callback(null, html);
-        }
-    });
-}
+const readHTMLFile = utilityFunctions.readHTMLFile;
 
 /**
  * create authentication token
