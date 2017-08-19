@@ -56,7 +56,7 @@
       "messages": {
         "login": "Login",
         "googleSignin": "Sign in with Google",
-        "needAccount": "Need an account?",        
+        "needAccount": "Need an account?",
         "forgotPassword": "Forgot password?",
         "signUp": "Signup"
       }
@@ -229,14 +229,14 @@
             },
             "win": {
               "title": "Good job!",
-              "content": "You completed this activity!"              
+              "content": "You completed this activity!"
             }
           },
           "messages": {
             "restartButton": "Restart"
-          }          
+          }
         }
-      }      
+      }
     }
   }
 }

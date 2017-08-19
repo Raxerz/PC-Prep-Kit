@@ -6,7 +6,6 @@ import { UnauthenticatedGuard } from './guards/unauthenticated.guard';
 import { LoginComponent } from './authentication/login.component';
 import { ForgotPasswordComponent } from './authentication/forgot-password.component';
 import { ResetPasswordComponent } from './authentication/reset-password.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { PcpolicyComponent } from './introduction/activity-2/pcpolicy.component';
 import { SplashscreenComponent } from './splashscreen/splashscreen.component';
 import { RegisterComponent } from './register/register.component';
@@ -42,11 +41,6 @@ export const routes: Routes = [
         path: 'register',
         component: RegisterComponent,
         canActivate: [UnauthenticatedGuard]
-    },
-    {
-        path: 'home',
-        component: DashboardComponent,
-        canActivate: [LoggedInGuard]
     },
     {
         path: 'forgot',
