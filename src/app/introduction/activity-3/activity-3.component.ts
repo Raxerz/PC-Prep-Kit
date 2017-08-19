@@ -1,17 +1,17 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild, Renderer, ViewContainerRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
-import { DashboardService } from '../services/dashboard.service';
+import { DashboardService } from '../../services/dashboard.service';
 import 'webrtc-adapter';
 import { webcamEnum } from './webcamEnum';
-import { SharedDataService } from '../services/shared.data.service';
+import { SharedDataService } from '../../services/shared.data.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { LanguageService } from '../services/language.service';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
     selector: 'app-activity3',
-    templateUrl: './picture-puzzle.component.html',
-    styleUrls: ['./introduction.component.scss']
+    templateUrl: './activity-3.component.html',
+    styleUrls: ['../introduction.component.scss']
 })
 export class PicturePuzzleComponent implements OnInit {
 

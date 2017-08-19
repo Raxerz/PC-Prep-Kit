@@ -1,14 +1,14 @@
 import { Component, OnInit, Output, EventEmitter, ViewContainerRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-import { DashboardService } from '../services/dashboard.service';
-import { SharedDataService } from '../services/shared.data.service';
+import { DashboardService } from '../../services/dashboard.service';
+import { SharedDataService } from '../../services/shared.data.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { LanguageService } from '../services/language.service';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
     selector: 'app-highlight',
-    templateUrl: './highlight-activity.component.html',
-    styleUrls: ['./introduction.component.scss']
+    templateUrl: './activity-1.component.html',
+    styleUrls: ['../introduction.component.scss']
 })
 export class HighlightActivityComponent implements OnInit {
 
