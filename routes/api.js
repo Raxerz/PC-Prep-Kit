@@ -262,7 +262,7 @@ router.get('/activateinfokit', authenticationHelpers.isAuthOrRedirect, (req, res
  */
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, './uploads/');
+        cb(null, './src/assets/img/uploads/');
     },
     filename: function(req, file, cb) {
         cb(null, file.originalname);
@@ -288,7 +288,7 @@ router.post('/upload', upload.array('uploads[]', 12), function(req, res) {
  */
 router.post('/uploadCam', function(req, res) {
     const base64Data = req.body.base64.replace(/^data:image\/jpeg;base64,/, '');
-    fs.writeFile('./uploads/out.jpeg', base64Data, 'base64', function(err) {
+    fs.writeFile(`./src/assets/img/uploads/${Buffer.from(req.user).toString('base64')}.jpeg`, base64Data, 'base64', function(err) {
         winston.log(err);
     });
     res.send(req.files);
