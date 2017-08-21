@@ -39,16 +39,18 @@ import { MalariaLifeCycleComponent } from './malaria-101/activity-1/activity-1-2
 import { OddOneOutComponent } from './malaria-101/activity-3/activity-3.component';
 import { UnlockedStageComponent } from './unlocked-stage/unlocked-stage.component';
 import { HowToPlayComponent } from './unlocked-stage/how-to-play/howtoplay.component';
+import { DoctorchatComponent } from './meds-n-labels/activity-3/doctorchat.component';
+import { StageCompleteComponent } from './stage-complete/stage-complete.component';
 
 import { DashboardService } from './services/dashboard.service';
 import { AuthService } from './services/auth.service';
 import { APIService } from './services/api.service';
 import { RegService } from './services/reg.service';
 import { NavbarService } from './services/navbar.service';
-import { InfokitService } from './services/infokit.service';
-import { InfokitPipe } from './infokit/infokit.pipe';
 import { LanguageService } from './services/language.service';
 import { SharedDataService } from './services/shared.data.service';
+import { InfokitService } from './services/infokit.service';
+import { DoctorService } from './services/doctorchat.service';
 
 @NgModule({
     declarations: [
@@ -65,7 +67,6 @@ import { SharedDataService } from './services/shared.data.service';
         MenuComponent,
         ActivityindicatorComponent,
         InfokitComponent,
-        InfokitPipe,
         DragdropComponent,
         MedsNLabelsComponent,
         MemoryGameComponent,
@@ -79,7 +80,9 @@ import { SharedDataService } from './services/shared.data.service';
         OddOneOutComponent,
         ButtonNavComponent,
         UnlockedStageComponent,
-        HowToPlayComponent
+        HowToPlayComponent,
+        DoctorchatComponent,
+        StageCompleteComponent
     ],
     imports: [
         AppRoutingModule,
@@ -94,7 +97,7 @@ import { SharedDataService } from './services/shared.data.service';
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     providers: [DashboardService, AuthService, LoggedInGuard, UnauthenticatedGuard, APIService, RegService, NavbarService,
-      SharedDataService, InfokitService, LanguageService],
+      SharedDataService, InfokitService, LanguageService, DoctorService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

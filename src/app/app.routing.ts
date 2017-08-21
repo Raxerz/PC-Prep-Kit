@@ -25,6 +25,8 @@ import { MalariaLifeCycleComponent } from './malaria-101/activity-1/activity-1-2
 import { OddOneOutComponent } from './malaria-101/activity-3/activity-3.component';
 import { UnlockedStageComponent } from './unlocked-stage/unlocked-stage.component';
 import { HowToPlayComponent } from './unlocked-stage/how-to-play/howtoplay.component';
+import { DoctorchatComponent } from './meds-n-labels/activity-3/doctorchat.component';
+import { StageCompleteComponent } from './stage-complete/stage-complete.component';
 
 export const routes: Routes = [
     {
@@ -57,6 +59,11 @@ export const routes: Routes = [
         component: MenuComponent,
         canActivate: [LoggedInGuard]
     },
+    {
+        path: 'stagecomplete',
+        component: StageCompleteComponent,
+        canActivate: [LoggedInGuard]
+    },    
     {
         path: 'introduction',
         component: IntroductionComponent,
@@ -125,7 +132,11 @@ export const routes: Routes = [
             {
                 path: 'activity-2',
                 component: MemoryGameComponent
-            }
+            },
+            {
+                path: 'activity-3',
+                component: DoctorchatComponent
+            }            
         ]
     },
     {
