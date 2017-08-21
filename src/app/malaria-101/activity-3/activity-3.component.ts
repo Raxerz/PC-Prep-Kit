@@ -4,6 +4,7 @@ import { DashboardService } from '../../services/dashboard.service';
 import { SharedDataService } from '../../services/shared.data.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { LanguageService } from '../../services/language.service';
+import { InfokitService } from '../../services/infokit.service';
 
 @Component({
     selector: 'app-oddoneout',
@@ -29,7 +30,7 @@ export class OddOneOutComponent implements OnInit {
     public alerts: any;
     public solutions = '';
 
-    constructor(private _langService: LanguageService, private _dashboardService: DashboardService, private _sharedData: SharedDataService, public toastr: ToastsManager, vcr: ViewContainerRef) {
+    constructor(private _infokitService: InfokitService, private _langService: LanguageService, private _dashboardService: DashboardService, private _sharedData: SharedDataService, public toastr: ToastsManager, vcr: ViewContainerRef) {
         this.toastr.setRootViewContainerRef(vcr);
     }
 
@@ -119,6 +120,7 @@ export class OddOneOutComponent implements OnInit {
         this._questionNumber++;
         if (this._questionNumber === 5) {
             this.activityComplete = true;
+            this._infokitService.activateinfokit('odd_one_out').subscribe(res => {});
             this._sharedData.customAlert(this.language.alerts.title, this.solutions, 'info');
             this._dashboardService.updateProgressStatus(this._status).subscribe(response => {});
             return;

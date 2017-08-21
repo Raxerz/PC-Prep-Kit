@@ -25,7 +25,7 @@
 }
 
 @media only screen and (min-width: $screen-med) {
-    @include match-elements(35%, 45%, 70%);
+    @include match-elements(25%, 35%, 60%);
     .meds-description{
         padding-right: 10%;
     }

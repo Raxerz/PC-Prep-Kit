@@ -2,6 +2,7 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { DashboardService } from '../../services/dashboard.service';
 import { LanguageService } from '../../services/language.service';
+import { InfokitService } from '../../services/infokit.service';
 
 @Component({
     selector: 'app-pcpolicy',
@@ -16,7 +17,7 @@ export class PcpolicyComponent implements OnInit {
     public completed = true;
 
     constructor(private _dashboardService: DashboardService, private _langService: LanguageService,
-       public toastr: ToastsManager, vcr: ViewContainerRef) {
+       public toastr: ToastsManager, vcr: ViewContainerRef, private _infokitService: InfokitService) {
         this.toastr.setRootViewContainerRef(vcr);
     }
 
@@ -34,6 +35,7 @@ export class PcpolicyComponent implements OnInit {
 
     mail() {
         this._dashboardService.mailpcpolicy().subscribe(response => {
+            this._infokitService.activateinfokit('pc_policy').subscribe(res => {});
             this.toastr.success('Please Check your Mail', 'Success!');
         });
     }

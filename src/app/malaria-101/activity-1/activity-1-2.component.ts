@@ -4,6 +4,7 @@ import { DashboardService } from '../../services/dashboard.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { SharedDataService } from '../../services/shared.data.service';
 import { LanguageService } from '../../services/language.service';
+import { InfokitService } from '../../services/infokit.service';
 
 @Component({
     selector: 'app-life-cycle',
@@ -28,7 +29,7 @@ export class MalariaLifeCycleComponent implements OnInit {
                        'plasmodium.png']
     public labelsArr;
 
-    constructor(private _langService: LanguageService, private _dashboardService: DashboardService, private _sharedData: SharedDataService, public toastr: ToastsManager, vcr: ViewContainerRef) {
+    constructor(private _infokitService: InfokitService, private _langService: LanguageService, private _dashboardService: DashboardService, private _sharedData: SharedDataService, public toastr: ToastsManager, vcr: ViewContainerRef) {
         this.toastr.setRootViewContainerRef(vcr);
         this._dashboardService.getProgressStatus().subscribe(response => {
             this.completed = this._sharedData.checkProgress(2, 1, response);
@@ -111,6 +112,7 @@ export class MalariaLifeCycleComponent implements OnInit {
 
         if (!isWrongPos && arrLength === 6) {
             this.activityComplete = true;
+            this._infokitService.activateinfokit('animation').subscribe(res => {});
             this._sharedData.customSuccessAlert(this.alerts.activitySuccessMsg, this.alerts.activitySuccessTitle);
             this._dashboardService.updateProgressStatus(this._status).subscribe(response => {});
         } else if (arrLength === 6) {

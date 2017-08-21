@@ -92,7 +92,7 @@ export class DragdropComponent implements OnInit {
         this.activityComplete = true;
         this._sharedData.customSuccessAlert(this.alerts.activitySuccessMsg, this.alerts.activitySuccessTitle);
         this._dashboardService.updateProgressStatus(this._status).subscribe(response => {});
-      //  this._infokitService.activateinfokit('do_dont').subscribe(res => {});
+        this._infokitService.activateinfokit('do_dont').subscribe(res => {});
     }
 
     constructor(private _dashboardService: DashboardService, private _sharedData: SharedDataService, private _infokitService: InfokitService, public toastr: ToastsManager, vcr: ViewContainerRef,

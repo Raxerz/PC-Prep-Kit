@@ -4,6 +4,7 @@ import { DashboardService } from '../../services/dashboard.service';
 import { SharedDataService } from '../../services/shared.data.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { LanguageService } from '../../services/language.service';
+import { InfokitService } from '../../services/infokit.service';
 
 @Component({
     selector: 'app-highlight',
@@ -23,7 +24,7 @@ export class HighlightActivityComponent implements OnInit {
     public alerts: any;
     public completed = false;
 
-    constructor(private _langService: LanguageService, private _dashboardService: DashboardService, public toastr: ToastsManager, vcr: ViewContainerRef, private _sharedData: SharedDataService) {
+    constructor(private _langService: LanguageService, private _dashboardService: DashboardService, public toastr: ToastsManager, vcr: ViewContainerRef, private _sharedData: SharedDataService, private _infokitService: InfokitService) {
         this.toastr.setRootViewContainerRef(vcr);
     }
 
@@ -64,6 +65,7 @@ export class HighlightActivityComponent implements OnInit {
             if (this.activityComplete) {
                 this._sharedData.customSuccessAlert(this.alerts.activitySuccessMsg, this.alerts.activitySuccessTitle);
             } else {
+                this._infokitService.activateinfokit('malaria_def').subscribe(res => {});
                 this._dashboardService.updateProgressStatus(this._status).subscribe(response => {
                 });
                 this._sharedData.customSuccessAlert(this.alerts.activitySuccessMsg, this.alerts.activitySuccessTitle);

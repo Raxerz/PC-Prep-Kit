@@ -70,6 +70,7 @@ export class InfokitComponent implements OnInit {
       if (localStorage.getItem(InfokitComponent._localStorageKey)) {
           this._infokitService.infokitactive().subscribe(response => {
               for (let info of this.infokitActive) {
+                  console.log(response);
                   info.value = response.infokitactive[info.key];
               }
 

@@ -5,6 +5,8 @@ const router = express.Router();
 const models = require('../database/models');
 const mail = require('./mailService');
 const authenticationHelpers = require('./authenticationHelpers');
+const doctor = require('./doctor');
+const apiai = require('apiai');
 
 const localUser = models.user_account;
 const progress = models.progress;
@@ -239,9 +241,9 @@ router.get('/activateinfokit', authenticationHelpers.isAuthOrRedirect, (req, res
             if(!data) {
                 return res.status(200).json({info: errorCode.PCE022.message, code: errorCode.PCE022.code});
             }
-            infokit.update( updateobj, {
+            infokit.update(updateobj, {
                 where: {
-                    email: email
+                    user_id: data.id
                 }
             }).then(function(data) {
                 return res.json({message: successCode.PCS004.message, code: successCode.PCS004.code});
@@ -302,6 +304,37 @@ router.post('/uploadCam', function(req, res) {
 router.get('/getJSONData', (req, res) => {
     const uri = `./data/${req.query.file}`;
     res.status(200).json({data: fs.readFileSync(uri, 'utf8')});
+});
+
+router.post('/doctorchat', function(req, res) {
+    const chatbot = apiai(config.apiai.clientToken);
+    let request = chatbot.textRequest(req.body.message, {
+        sessionId: req.sessionID
+    });
+
+    request.on('response', function(chatResponse) {
+
+        let result = chatResponse.result;
+        let reply = result.fulfillment.speech;
+
+        if (!reply) {
+            doctor(chatResponse, function(reply) {
+                res.json({reply: reply});
+            });
+        } else {
+            res.json({reply: reply});
+        }
+    });
+
+    request.on('error', function(error) {
+        if (error.status.code === 400) {
+            res.json({reply: 'I am sorry, I did not understand, try changing the sentence a little.'});
+        } else {
+            res.json({reply: 'There seems to be some problem with the chat.'});
+        }
+    });
+
+    request.end();
 });
 
 module.exports = router;

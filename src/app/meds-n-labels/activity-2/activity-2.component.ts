@@ -5,6 +5,7 @@ import { DIAGNOSIS } from './diagnosis-detail';
 import { SharedDataService } from '../../services/shared.data.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { LanguageService } from '../../services/language.service';
+import { InfokitService } from '../../services/infokit.service';
 
 @Component({
     selector: 'app-activity-2',
@@ -51,7 +52,7 @@ export class MemoryGameComponent implements OnInit {
                 'virus-1.png',
             ];
 
-    constructor(private _langService: LanguageService, private _dashboardService: DashboardService, private _sharedData: SharedDataService, public toastr: ToastsManager, vcr: ViewContainerRef) {
+    constructor(private _infokitService: InfokitService, private _langService: LanguageService, private _dashboardService: DashboardService, private _sharedData: SharedDataService, public toastr: ToastsManager, vcr: ViewContainerRef) {
             this._sharedData.position.subscribe(
             value => {
                 this.position = value;
@@ -161,6 +162,7 @@ export class MemoryGameComponent implements OnInit {
                 this._sharedData.customSuccessAlert(this.alerts.activitySuccessMsg, this.alerts.activitySuccessTitle);
                 this._status = {stage: 3, activity: 2};
                 this._dashboardService.updateProgressStatus(this._status).subscribe(response => {});
+                this._infokitService.activateinfokit('side_effects').subscribe(res => {});
                 this.activityComplete = true;
             }
             return;
