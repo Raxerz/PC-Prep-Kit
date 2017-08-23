@@ -165,8 +165,8 @@ video {
     display: table;
     margin: 8px;
     padding: 8px;
-    background: $orange;
-    color: $black;
+    @include branding('pattern-orange.png');    
+    color: $white;
     width: 100%;
     cursor: pointer;
     text-align: center;

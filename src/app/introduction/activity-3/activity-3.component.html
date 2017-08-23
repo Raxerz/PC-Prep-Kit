@@ -10,11 +10,11 @@
     </div>
     <div class="col-md-3 col-md-offset-3">
         <input type="file" name="file" id="file" class="hidden" accept="image/*" (change)="handleInputChange($event)">
-        <button class="btn btn-block btn-danger btn-lg" *ngIf='webcamState !== webcamStates.OPENED' (click)="openWebcam()">{{webcamButtonText}}</button>
-        <button class="btn btn-block btn-danger btn-lg" *ngIf='webcamState === webcamStates.OPENED' (click)="snapshot()">{{webcamButtonText}}</button>
-        <button class="btn btn-block btn-primary btn-lg" (click)="fireFileButtonClick()">{{language?.messages.browseButton}}</button>
-        <button class="btn btn-block btn-primary btn-lg" [disabled]='!imageLoaded' (click)="shufflePuzzle()">{{puzzleState}}</button>   
-        <button class="btn btn-block btn-success btn-lg" [disabled]='!(webcamState === webcamStates.CAPTURED || imageLoaded)' (click)="upload()">{{language?.messages.setProPicButton}}</button>
+        <button class="btn btn-block btn-lg button-branding-red" *ngIf='webcamState !== webcamStates.OPENED' (click)="openWebcam()">{{webcamButtonText}}</button>
+        <button class="btn btn-block btn-lg button-branding-red" *ngIf='webcamState === webcamStates.OPENED' (click)="snapshot()">{{webcamButtonText}}</button>
+        <button class="btn btn-block btn-lg button-branding-blue" (click)="fireFileButtonClick()">{{language?.messages.browseButton}}</button>
+        <button class="btn btn-block btn-lg button-branding-blue" [disabled]='!imageLoaded' (click)="shufflePuzzle()">{{puzzleState}}</button>   
+        <button class="btn btn-block btn-lg button-branding-green" [disabled]='!(webcamState === webcamStates.CAPTURED || imageLoaded)' (click)="upload()">{{language?.messages.setProPicButton}}</button>
     </div>
 </div>
 <button-nav [complete]="activityComplete" [completed]="completed" nexturl="/stagecomplete?stage=Introduction" prevurl="/introduction/activity-2"></button-nav>

@@ -29,11 +29,11 @@
             <p *ngIf="loginForm.controls['password'].hasError('pattern') && (loginForm.controls['password'].touched)">Password is invalid</p>
         </div>     
         <div class="form-group">
-            <button type="submit" [disabled]="!loginForm.valid" class="btn btn-block btn-primary">{{language?.messages.login}}</button>
+            <button type="submit" [disabled]="!loginForm.valid" class="btn btn-block button-branding-blue">{{language?.messages.login}}</button>
         </div>
     </form>
     <div class="form-group">
-        <a href="/auth/google" class="btn btn-block btn btn-danger"><span class="fa fa-google-plus"></span> {{language?.messages.googleSignin}}</a>
+        <a href="/auth/google" class="btn btn-block btn button-branding-red"><span class="fa fa-google-plus"></span> {{language?.messages.googleSignin}}</a>
     </div>
     <div class="text-center">        
         <p><a href="/forgot">{{language?.messages.forgotPassword}}</a></p>

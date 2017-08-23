@@ -76,7 +76,6 @@ export class MatchmedsComponent implements OnInit {
 
         this._langService.loadLanguage().subscribe(response => {
             this.language = response.pcprepkit.stages.medsNLabels.matchMeds;
-            this.heading = this.language.headingSideeffects;
             this.alerts = response.pcprepkit.common.alerts;
         });
         /**

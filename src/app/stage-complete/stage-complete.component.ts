@@ -5,7 +5,7 @@ import { SharedDataService } from '../services/shared.data.service';
 @Component({
   selector: 'app-stage-complete',
   templateUrl: './stage-complete.component.html',
-  styleUrls: ['./stage-complete.component.css']
+  styleUrls: ['./stage-complete.component.scss']
 })
 export class StageCompleteComponent implements OnInit {
   stageName: string;
