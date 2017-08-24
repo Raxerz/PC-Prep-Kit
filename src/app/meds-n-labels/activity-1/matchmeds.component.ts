@@ -281,7 +281,6 @@ export class MatchmedsComponent implements OnInit {
                         if (this.matchingComplete === 1) {
                             this.count = 0;
                             this.redrawCanvas();
-                            this.heading = this.language.headingDescription;
                             this.correctAns = MatchingInfo.match2ans;
                             this.display = MatchingInfo.medicineDescriptions;
                         }
