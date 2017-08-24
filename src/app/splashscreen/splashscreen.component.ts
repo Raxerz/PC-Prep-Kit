@@ -26,7 +26,7 @@ export class SplashscreenComponent implements OnInit {
       if (this.wid > 100) {
         this.stop();
       }
-    }, 70);
+    }, 100);
   }
 
   stop() {

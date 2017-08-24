@@ -13,7 +13,8 @@ router.get('/', function(req, res) {
     }}, {raw: true})
         .then(data => {
             if(!data) {
-                return res.status(200).json({info: 'Couldn\'t Verify'});
+                const errMsg = 'Couldn\'t Verify';
+                return res.redirect(`http://${req.headers.host}/login?err=${errMsg}`);
             }
             localUser.update({
                 verificationStatus: true
@@ -22,7 +23,8 @@ router.get('/', function(req, res) {
                     email: email
                 }
             }).then(task => {
-                return res.json({info: 'Verified Successfully! You can now login'});
+                const successMsg = 'Verified Successfully! You can now login';
+                return res.redirect(`http://${req.headers.host}/login?msg=${successMsg}`);
             });
         })
         .catch(error => {

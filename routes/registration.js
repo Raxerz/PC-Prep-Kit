@@ -93,6 +93,7 @@ router.post('/', function(req, res) {
             progress.create({
                 user_id: task.dataValues.user_id
             }).then(task => {
+                const successMsg = 'PCS005 : Verification mail sent, please check your mail.';               
                 verificationMail(req, res, rString);
             }).catch(error => {
                 if(error) {

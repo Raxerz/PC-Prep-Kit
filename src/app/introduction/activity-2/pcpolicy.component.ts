@@ -3,6 +3,7 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { DashboardService } from '../../services/dashboard.service';
 import { LanguageService } from '../../services/language.service';
 import { InfokitService } from '../../services/infokit.service';
+import { SharedDataService } from '../../services/shared.data.service';
 
 @Component({
     selector: 'app-pcpolicy',
@@ -14,19 +15,21 @@ export class PcpolicyComponent implements OnInit {
     language: any;
     email: String;
     private _status: object = {stage: 1, activity: 2};
-    public completed = true;
+    public completed = false;
 
-    constructor(private _dashboardService: DashboardService, private _langService: LanguageService,
+    constructor(private _sharedData: SharedDataService, private _dashboardService: DashboardService, private _langService: LanguageService,
        public toastr: ToastsManager, vcr: ViewContainerRef, private _infokitService: InfokitService) {
         this.toastr.setRootViewContainerRef(vcr);
     }
 
     ngOnInit() {
+
+        this._dashboardService.getProgressStatus().subscribe(response => {
+            this.completed = this._sharedData.checkProgress(1, 3, response);
+        });
         this._dashboardService.getUserInfo().subscribe(response => {
             this.email = response.user.email;
         });
-
-        this._dashboardService.updateProgressStatus(this._status).subscribe(response => {});
 
         this._langService.loadLanguage().subscribe(response => {
             this.language = response.pcprepkit.stages.introduction.pcpolicy;
@@ -36,7 +39,9 @@ export class PcpolicyComponent implements OnInit {
     mail() {
         this._dashboardService.mailpcpolicy().subscribe(response => {
             this._infokitService.activateinfokit('pc_policy').subscribe(res => {});
+            this._dashboardService.updateProgressStatus(this._status).subscribe(response => {});
             this.toastr.success('Please Check your Mail', 'Success!');
+            this.completed = true;
         });
     }
 }
