@@ -8,6 +8,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { APIService } from '../../app/services/api.service';
 import { HttpModule } from '@angular/http';
 import { Router } from '@angular/router';
+import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
+import { SharedDataService } from '../../app/services/shared.data.service';
+import { DashboardService } from '../../app/services/dashboard.service';
 
 describe('LoginComponent', () => {
     let component: LoginComponent;
@@ -29,7 +32,11 @@ describe('LoginComponent', () => {
             providers: [
                 { provide: Router, useValue: router },   
                 AuthService,
-                APIService
+                APIService,
+                ToastsManager,
+                ToastOptions,
+                SharedDataService,
+                DashboardService
             ]            
         })
         .compileComponents();

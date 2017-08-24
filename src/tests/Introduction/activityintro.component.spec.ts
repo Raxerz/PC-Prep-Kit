@@ -5,6 +5,9 @@ import { DashboardService } from '../../app/services/dashboard.service';
 import { ActivityintroComponent } from '../../app/introduction/activityintro/activityintro.component';
 import { ResponseOptions, Response, Http, BaseRequestOptions, RequestMethod } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
+import { LanguageService } from '../../app/services/language.service';
+import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
+
 
 const mockHttpProvider = {
     deps: [ MockBackend, BaseRequestOptions ],
@@ -24,7 +27,10 @@ describe('ActivityintroComponent', () => {
                 { provide: Http, useValue: mockHttpProvider },
                 SharedDataService,
                 DashboardService,
-                APIService
+                APIService,
+                LanguageService,
+                ToastsManager,
+                ToastOptions
             ]
         })
         .compileComponents();

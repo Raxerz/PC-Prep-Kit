@@ -8,6 +8,10 @@ import { DashboardService } from '../../../app/services/dashboard.service';
 import { AuthService } from '../../../app/services/auth.service';
 import { APIService } from '../../../app/services/api.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { LanguageService } from '../../../app/services/language.service';
+import { InfokitService } from '../../../app/services/infokit.service';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
 
 describe('MemoryGameComponent', () => {
     let component: MemoryGameComponent;
@@ -19,6 +23,7 @@ describe('MemoryGameComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
             imports: [
                 RouterTestingModule,
                 HttpModule
@@ -28,7 +33,11 @@ describe('MemoryGameComponent', () => {
                 DashboardService,
                 APIService,
                 AuthService,
-                SharedDataService        
+                ToastsManager,
+                ToastOptions,                
+                SharedDataService,
+                LanguageService,
+                InfokitService     
             ]
         }).compileComponents();
     }));

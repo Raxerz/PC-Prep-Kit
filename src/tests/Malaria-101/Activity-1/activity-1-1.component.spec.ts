@@ -5,6 +5,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { DashboardService } from '../../../app/services/dashboard.service';
 import { APIService } from '../../../app/services/api.service';
 import { SharedDataService } from '../../../app/services/shared.data.service';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { LanguageService } from '../../../app/services/language.service';
+
 
 describe('AnimatedVideoComponent', () => {
     let component: AnimatedVideoComponent;
@@ -12,6 +15,7 @@ describe('AnimatedVideoComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
             imports: [
                 RouterTestingModule,
                 HttpModule
@@ -20,7 +24,8 @@ describe('AnimatedVideoComponent', () => {
             providers: [
                 DashboardService,
                 APIService,
-                SharedDataService    
+                SharedDataService,
+                LanguageService
             ]      
         })
         .compileComponents();

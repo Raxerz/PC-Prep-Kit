@@ -12,7 +12,8 @@ import { RegService } from './services/reg.service';
 import { NavbarService } from './services/navbar.service';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
+import { LanguageService } from './services/language.service';
 
 const mockHttpProvider = {
     deps: [ MockBackend, BaseRequestOptions ],
@@ -36,7 +37,9 @@ describe('AppComponent', () => {
                 AuthService,
                 RegService,
                 NavbarService,
-                ToastsManager
+                ToastsManager,
+                ToastOptions,
+                LanguageService
             ],      
             declarations: [
                 AppComponent,

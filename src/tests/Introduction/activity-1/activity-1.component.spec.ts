@@ -7,6 +7,11 @@ import { HighlightActivityComponent } from '../../../app/introduction/activity-1
 import { SharedDataService } from '../../../app/services/shared.data.service';
 import { HttpModule } from '@angular/http';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { LanguageService } from '../../../app/services/language.service';
+import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
+import { InfokitService } from '../../../app/services/infokit.service';
+
 
 describe('HighlightActivityComponent', () => {
     let component: HighlightActivityComponent;
@@ -15,9 +20,11 @@ describe('HighlightActivityComponent', () => {
     let apiService: APIService;
     let sharedService: SharedDataService;
     let selection = window.getSelection();
+    let languageService = LanguageService;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
             declarations: [ HighlightActivityComponent ],
             imports: [
                 RouterTestingModule,
@@ -26,7 +33,11 @@ describe('HighlightActivityComponent', () => {
             providers: [
                 SharedDataService, 
                 DashboardService,
-                APIService
+                APIService,
+                LanguageService,
+                ToastsManager,
+                ToastOptions,
+                InfokitService
             ]            
         })
         .compileComponents();
@@ -38,6 +49,7 @@ describe('HighlightActivityComponent', () => {
         dashboardService = TestBed.get(DashboardService);
         sharedService = TestBed.get(SharedDataService);
         apiService = TestBed.get(APIService);
+        languageService = TestBed.get(LanguageService);        
         fixture.detectChanges();
     });
 

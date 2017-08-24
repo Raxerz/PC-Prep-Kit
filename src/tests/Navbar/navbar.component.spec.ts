@@ -5,6 +5,9 @@ import { NavbarComponent } from '../../app/navbar/navbar.component';
 import { NavbarService } from '../../app/services/navbar.service';
 import { APIService } from '../../app/services/api.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { DashboardService } from '../../app/services/dashboard.service';
+import { LanguageService } from '../../app/services/language.service';
 
 describe('NavbarComponent', () => {
     let component: NavbarComponent;
@@ -12,6 +15,7 @@ describe('NavbarComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
             imports: [
                 HttpModule,
                 BrowserAnimationsModule
@@ -21,8 +25,10 @@ describe('NavbarComponent', () => {
                 HeaderComponent
             ],
             providers: [ 
+                DashboardService,
                 NavbarService,
-                APIService
+                APIService,
+                LanguageService
             ]
         })
         .compileComponents();

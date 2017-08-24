@@ -4,7 +4,8 @@ import { HeaderComponent } from '../../app/header/header.component';
 import { AuthService } from '../../app/services/auth.service';
 import { APIService } from '../../app/services/api.service';
 import { RouterTestingModule } from '@angular/router/testing';
-
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { LanguageService } from '../../app/services/language.service';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 
 const mockHttpProvider = {
@@ -21,6 +22,7 @@ describe('HeaderComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
             imports: [
                 RouterTestingModule
             ],       
@@ -28,7 +30,8 @@ describe('HeaderComponent', () => {
             providers: [ 
                 { provide: Http, useValue: mockHttpProvider },      
                 AuthService,
-                APIService
+                APIService,
+                LanguageService
             ],      
         })
         .compileComponents();

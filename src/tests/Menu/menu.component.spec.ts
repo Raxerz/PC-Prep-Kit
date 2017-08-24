@@ -7,6 +7,7 @@ import { MenuComponent } from '../../app/menu/menu.component';
 import { HttpModule } from '@angular/http';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { LanguageService } from '../../app/services/language.service';
 
 describe('MenuComponent', () => {
     let component: MenuComponent;
@@ -28,7 +29,8 @@ describe('MenuComponent', () => {
             providers: [
                 { provide: Router, useValue: router }, 
                 DashboardService,
-                APIService
+                APIService,
+                LanguageService
             ]            
         })
         .compileComponents();

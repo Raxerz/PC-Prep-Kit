@@ -8,6 +8,10 @@ import { PicturePuzzleComponent } from '../../../app/introduction/activity-3/act
 import { SharedDataService } from '../../../app/services/shared.data.service';
 import { HttpModule } from '@angular/http';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { LanguageService } from '../../../app/services/language.service';
+import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
+
 
 describe('PicturePuzzleComponent', () => {
     let component: PicturePuzzleComponent;
@@ -22,6 +26,7 @@ describe('PicturePuzzleComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
             declarations: [ PicturePuzzleComponent ],
             imports: [
                 RouterTestingModule,
@@ -30,7 +35,10 @@ describe('PicturePuzzleComponent', () => {
             providers: [
                 SharedDataService, 
                 DashboardService,
-                APIService
+                APIService,
+                LanguageService,
+                ToastsManager,
+                ToastOptions
             ]            
         })
         .compileComponents();
@@ -51,15 +59,6 @@ describe('PicturePuzzleComponent', () => {
 
     it('should be created', () => {
         expect(component).toBeTruthy();
-    });
-
-    it('webcam is open', () => {
-        let webcamOpenBtn = fixture.debugElement.nativeElement.querySelector('#webcamOpen'); 
-        webcamOpenBtn.click();
-        expect(puzzle.disabled).toEqual(true);
-        expect(saveProPic.disabled).toEqual(true);
-        expect(component.webcamState).toEqual(component.webcamStates.OPENED); 
-        expect(component.webcamButtonText).toEqual('Capture');              
     });
 
 });

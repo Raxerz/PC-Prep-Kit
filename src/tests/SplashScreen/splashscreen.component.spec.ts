@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SplashscreenComponent } from '../../app/splashscreen/splashscreen.component';
+import { LanguageService } from '../../app/services/language.service';
+import { HttpModule } from '@angular/http';
+import { APIService } from '../../app/services/api.service';
 
 describe('SplashscreenComponent', () => {
     let component: SplashscreenComponent;
@@ -9,9 +12,14 @@ describe('SplashscreenComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
-                RouterTestingModule
+                RouterTestingModule,
+                HttpModule
             ],      
-            declarations: [ SplashscreenComponent ]
+            declarations: [ SplashscreenComponent ],
+            providers: [
+                LanguageService,
+                APIService
+            ]
         })
         .compileComponents();
     }));

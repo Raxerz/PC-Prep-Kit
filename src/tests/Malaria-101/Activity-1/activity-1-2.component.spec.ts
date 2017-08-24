@@ -5,6 +5,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { DashboardService } from '../../../app/services/dashboard.service';
 import { APIService } from '../../../app/services/api.service';
 import { SharedDataService } from '../../../app/services/shared.data.service';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { InfokitService } from '../../../app/services/infokit.service';
+import { LanguageService } from '../../../app/services/language.service';
+import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
 
 describe('MalariaLifeCycleComponent', () => {
     let component: MalariaLifeCycleComponent;
@@ -12,6 +16,7 @@ describe('MalariaLifeCycleComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
             imports: [
                 RouterTestingModule,
                 HttpModule
@@ -20,7 +25,11 @@ describe('MalariaLifeCycleComponent', () => {
             providers: [
                 DashboardService,
                 APIService,
-                SharedDataService    
+                SharedDataService,
+                InfokitService,
+                LanguageService,
+                ToastOptions,
+                ToastsManager   
             ]      
         })
         .compileComponents();

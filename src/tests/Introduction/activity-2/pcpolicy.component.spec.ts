@@ -9,6 +9,11 @@ import { APIService } from '../../../app/services/api.service';
 import { AuthService } from '../../../app/services/auth.service';
 import { DashboardService } from '../../../app/services/dashboard.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { SharedDataService } from '../../../app/services/shared.data.service';
+import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
+import { LanguageService } from '../../../app/services/language.service';
+import { InfokitService } from '../../../app/services/infokit.service';
 
 describe('PcpolicyComponent', () => {
     let component: PcpolicyComponent;
@@ -16,6 +21,7 @@ describe('PcpolicyComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
             imports: [
                 HttpModule,
                 RouterTestingModule,
@@ -30,7 +36,12 @@ describe('PcpolicyComponent', () => {
                 DashboardService,
                 APIService,
                 AuthService,
-                NavbarService
+                NavbarService,
+                SharedDataService,
+                ToastsManager,
+                ToastOptions,
+                LanguageService,
+                InfokitService
             ]      
         })
         .compileComponents();

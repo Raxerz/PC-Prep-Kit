@@ -5,6 +5,7 @@ import { RegisterComponent } from '../../app/register/register.component';
 import { RegService } from '../../app/services/reg.service';
 import { APIService } from '../../app/services/api.service';
 import { HttpModule } from '@angular/http';
+import { LanguageService } from '../../app/services/language.service';
 
 describe('RegisterComponent', () => {
     let component: RegisterComponent;
@@ -20,7 +21,8 @@ describe('RegisterComponent', () => {
             ],
             providers: [
                 RegService,
-                APIService
+                APIService,
+                LanguageService
             ]
         })
         .compileComponents();

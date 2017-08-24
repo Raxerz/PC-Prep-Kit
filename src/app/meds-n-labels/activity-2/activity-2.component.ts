@@ -151,7 +151,7 @@ export class MemoryGameComponent implements OnInit {
             const med = medName.substr(0, medName.lastIndexOf('.'));
             for (let i = 0; i < DIAGNOSIS.length; i++) {
                 if (DIAGNOSIS[i].name === med) {
-                    this._sharedData.customAlert(this.language.alerts.title, DIAGNOSIS[i].desc, 'success');
+                    this._sharedData.customAlert("Congratulations!<br>You matched a pair", DIAGNOSIS[i].desc, 'success');
                     this.isMatchArr[this._secondchoice] = false;
                     this.isMatchArr[this._firstchoice] = false;
                     break;
@@ -159,7 +159,7 @@ export class MemoryGameComponent implements OnInit {
             }
             this._matches++;
             if (this._matches === 8) {
-                this._sharedData.customSuccessAlert(this.alerts.activitySuccessMsg, this.alerts.activitySuccessTitle);
+                this._sharedData.customSuccessAlert("You completed this activity!", "Good job!");
                 this._status = {stage: 3, activity: 2};
                 this._dashboardService.updateProgressStatus(this._status).subscribe(response => {});
                 this._infokitService.activateinfokit('side_effects').subscribe(res => {});
