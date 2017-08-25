@@ -3,6 +3,7 @@ import { ResponseOptions, Response, Http, BaseRequestOptions, RequestMethod } fr
 import { HeaderComponent } from '../../app/header/header.component';
 import { AuthService } from '../../app/services/auth.service';
 import { APIService } from '../../app/services/api.service';
+import { HttpModule } from '@angular/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { LanguageService } from '../../app/services/language.service';
@@ -24,11 +25,11 @@ describe('HeaderComponent', () => {
         TestBed.configureTestingModule({
             schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
             imports: [
+                HttpModule,
                 RouterTestingModule
             ],       
             declarations: [ HeaderComponent ],
-            providers: [ 
-                { provide: Http, useValue: mockHttpProvider },      
+            providers: [       
                 AuthService,
                 APIService,
                 LanguageService

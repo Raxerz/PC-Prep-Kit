@@ -7,7 +7,7 @@ import { ResponseOptions, Response, Http, BaseRequestOptions, RequestMethod } fr
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { LanguageService } from '../../app/services/language.service';
 import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
-
+import { HttpModule } from '@angular/http';
 
 const mockHttpProvider = {
     deps: [ MockBackend, BaseRequestOptions ],
@@ -23,8 +23,10 @@ describe('ActivityintroComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [ ActivityintroComponent ],
+            imports: [
+                HttpModule
+            ],            
             providers: [
-                { provide: Http, useValue: mockHttpProvider },
                 SharedDataService,
                 DashboardService,
                 APIService,
