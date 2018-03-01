@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { SharedDataService } from './services/shared.data.service'
+import { SharedDataService } from './services/shared.data.service';
 
 @Component({
     selector: 'app-root',
@@ -12,15 +12,22 @@ export class AppComponent {
     title = 'PC Prep Kit';
     public position = 'col-md-10 col-md-offset-2';
     public loggedIn = false;
+    public isMenuPage = false;
 
     constructor(private _router: Router, private _sharedData: SharedDataService) {
+        /**
+         * Check if route changed
+         * @param {Event} e Route change event
+         */
         this._router.events.pairwise().subscribe((e) => {
             this.loggedIn = (e && localStorage.getItem(AppComponent._localStorageKey)) ? true : false;
+            // Hide activity indicator if on menu page
+            this.isMenuPage = window.location.pathname === '/menu';
         });
     }
 
     /**
-     * Call toggle function in shared data service
+     * Call toggle function
      */
     toggle() {
         this._sharedData.toggle();

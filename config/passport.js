@@ -1,4 +1,5 @@
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const bcrypt = require('bcrypt');
 const LocalStrategy = require('passport-local').Strategy;
 const configAuth = require('./settings');
 
@@ -34,9 +35,9 @@ module.exports = function(passport, models) {
     function(req, accessToken, refreshToken, profile, done) {
         process.nextTick(function() {
             const nameArr = profile.displayName.split(' ');
-            if(nameArr.length >= 2){
+            if (nameArr.length >= 2) {
                 fname = nameArr[0];
-                lname = nameArr[nameArr.length-1];
+                lname = nameArr[nameArr.length - 1];
             } else {
                 fname = profile.displayName;
                 lname = '';
@@ -53,7 +54,7 @@ module.exports = function(passport, models) {
                     lname: lname
                 }})
                 .spread((user, created) => {
-                    if(!created && !user) {
+                    if (!created && !user) {
                         return done(null, false, {info: 'User with that email already exists'});
                     }
                     progress.findOrCreate({where: {
@@ -69,14 +70,13 @@ module.exports = function(passport, models) {
                         })
                         .catch(function(err) {
                             return done(err);
-                        })
+                        });
                 })
                 .catch(function(err) {
                     return done(err);
                 });
         });
-    }
-    ));
+    }));
 
     passport.use('local-login', new LocalStrategy({
         usernameField: 'email',
@@ -96,22 +96,24 @@ module.exports = function(passport, models) {
                 email: email
             }}, {raw: true})
                 .then(data => {
-                    if(!data) {
+                    if (!data) {
                         return done(null, false, {info: 'Invalid email or password'});
                     }
-                    if(data.provider==='google') {
+                    if (data.provider === 'google') {
                         return done(null, false, {info: 'Please login with Google'});
                     }
-                    if(data.password!==password) {
-                        return done(null, false, {info: 'Invalid password'});
-                    }
-                    const response = { email: data.email, name: data.name};
-                    return done(null, response);
+                    bcrypt.compare(password, data.password, function(err, response) {
+                        if (response) {
+                            const response = { email: data.email, name: data.name};
+                            return done(null, response);
+                        } else {
+                            return done(null, false, {info: 'Invalid password'});
+                        }
+                    });
                 })
                 .catch(function(err) {
                     return done(err);
                 });
         });
-    }
-    ));
+    }));
 }

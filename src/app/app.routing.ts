@@ -6,23 +6,31 @@ import { UnauthenticatedGuard } from './guards/unauthenticated.guard';
 import { LoginComponent } from './authentication/login.component';
 import { ForgotPasswordComponent } from './authentication/forgot-password.component';
 import { ResetPasswordComponent } from './authentication/reset-password.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { PcpolicyComponent } from './pcpolicy/pcpolicy.component';
+import { PcpolicyComponent } from './introduction/activity-2/activity-2.component';
 import { SplashscreenComponent } from './splashscreen/splashscreen.component';
 import { RegisterComponent } from './register/register.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { ActivityintroComponent } from './activityintro/activityintro.component';
+import { ActivityintroComponent } from './introduction/activityintro/activityintro.component';
 import { MenuComponent } from './menu/menu.component';
-import { DragdropComponent} from './dragdrop/dragdrop.component';
+import { DragdropComponent} from './malaria-101/activity-2/activity-2.component';
 import { MedsNLabelsComponent } from './meds-n-labels/meds-n-labels.component';
 import { MemoryGameComponent } from './meds-n-labels/activity-2/activity-2.component';
 import { IntroductionComponent } from './introduction/introduction.component';
-import { HighlightActivityComponent } from './introduction/highlight-activity.component';
-import { PicturePuzzleComponent } from './introduction/picture-puzzle.component';
+import { HighlightActivityComponent } from './introduction/activity-1/activity-1.component';
+import { PicturePuzzleComponent } from './introduction/activity-3/activity-3.component';
+import { MatchmedsComponent } from './meds-n-labels/activity-1/activity-1.component';
+import { Malaria101Component } from './malaria-101/malaria-101.component';
+import { AnimatedVideoComponent } from './malaria-101/activity-1/activity-1-1.component';
+import { MalariaLifeCycleComponent } from './malaria-101/activity-1/activity-1-2.component';
+import { OddOneOutComponent } from './malaria-101/activity-3/activity-3.component';
+import { StageCompleteComponent } from './stage-complete/stage-complete.component';
+import { DoctorchatComponent } from './meds-n-labels/activity-3/activity-3.component';
+import { UnlockedStageComponent } from './unlocked-stage/unlocked-stage.component';
+import { HowToPlayComponent } from './unlocked-stage/how-to-play/howtoplay.component';
 
 export const routes: Routes = [
     {
-        path: 'splash',
+        path: '',
         component: SplashscreenComponent,
         canActivate: [UnauthenticatedGuard]
     },
@@ -37,29 +45,9 @@ export const routes: Routes = [
         canActivate: [UnauthenticatedGuard]
     },
     {
-        path: 'home',
-        component: DashboardComponent,
-        canActivate: [LoggedInGuard]
-    },
-    {
         path: 'forgot',
         component: ForgotPasswordComponent,
         canActivate: [UnauthenticatedGuard]
-    },
-    {
-        path: 'pcpolicy',
-        component: PcpolicyComponent,
-        canActivate: [LoggedInGuard]
-    },
-    {
-        path: 'intro',
-        component: ActivityintroComponent,
-        canActivate: [LoggedInGuard]
-    },
-    {
-        path: 'dragdrop',
-        component: DragdropComponent,
-        canActivate: [LoggedInGuard]
     },
     {
         path: 'reset/:token',
@@ -72,22 +60,58 @@ export const routes: Routes = [
         canActivate: [LoggedInGuard]
     },
     {
+        path: 'stagecomplete',
+        component: StageCompleteComponent,
+        canActivate: [LoggedInGuard]
+    },
+    {
         path: 'introduction',
         component: IntroductionComponent,
         canActivate: [LoggedInGuard],
         children: [
             {
                 path: '',
-                redirectTo: 'activity-1',
-                pathMatch: 'full'
+                component: ActivityintroComponent
             },
             {
                 path: 'activity-1',
                 component: HighlightActivityComponent
             },
             {
+                path: 'activity-2',
+                component: PcpolicyComponent
+            },
+            {
                 path: 'activity-3',
                 component: PicturePuzzleComponent
+            }
+        ]
+    },
+    {
+        path: 'malaria-101',
+        component: Malaria101Component,
+        canActivate: [LoggedInGuard],
+        children: [
+            {
+                path: '',
+                redirectTo: 'activity-1-1',
+                pathMatch: 'full'
+            },
+            {
+                path: 'activity-1-1',
+                component: AnimatedVideoComponent
+            },
+            {
+                path: 'activity-1-2',
+                component: MalariaLifeCycleComponent
+            },
+            {
+                path: 'activity-2',
+                component: DragdropComponent
+            },
+            {
+                path: 'activity-3',
+                component: OddOneOutComponent
             }
         ]
     },
@@ -97,13 +121,35 @@ export const routes: Routes = [
         canActivate: [LoggedInGuard],
         children: [
             {
+                path: '',
+                redirectTo: 'activity-1',
+                pathMatch: 'full'
+            },
+            {
+                path: 'activity-1',
+                component: MatchmedsComponent
+            },
+            {
                 path: 'activity-2',
                 component: MemoryGameComponent
+            },
+            {
+                path: 'activity-3',
+                component: DoctorchatComponent
             }
         ]
+    },
+    {
+        path: 'unlocked-stage',
+        component: HowToPlayComponent,
+        canActivate: [LoggedInGuard]
+    },
+    {
+        path: 'unlocked-stage/game',
+        component: UnlockedStageComponent,
+        canActivate: [LoggedInGuard]
     }
 ];
-
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
