@@ -337,4 +337,3 @@ router.post('/doctorchat', function(req, res) {
 });
 
 module.exports = router;
-

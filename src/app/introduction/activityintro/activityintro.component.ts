@@ -25,4 +25,3 @@ export class ActivityintroComponent implements OnInit {
       });
     }
 }
-
